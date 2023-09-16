@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://b10n4wls0nhir"]
+
+[sub_resource type="Gradient" id="Gradient_i880j"]
+offsets = PackedFloat32Array(0, 0.00529101, 0.497355, 0.994709, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 0.0156863, 0.0313726, 0.101961, 1, 1, 1, 0.709804, 1, 0.0156863, 0.0313726, 0.101961, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sijk5"]
+gradient = SubResource("Gradient_i880j")
+
+[node name="HurtScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1100.0
+offset_bottom = 640.0
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_sijk5")
+expand_mode = 2

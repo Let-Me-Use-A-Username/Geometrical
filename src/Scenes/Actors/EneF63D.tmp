@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://kkhebrycasvm"]
+
+[ext_resource type="Script" path="res://src/Scenes/Actors/Enemy_Triangle.gd" id="1_dx38i"]
+[ext_resource type="Texture2D" uid="uid://bahdk05tgu7oq" path="res://assets/characters/Triangle-0003.png" id="2_nno7p"]
+[ext_resource type="PackedScene" uid="uid://bujggml3qa87v" path="res://src/Scenes/Objects/state_machine.tscn" id="3_pf1g5"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/States/Shoot.gd" id="4_dvgud"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/States/ShortWalk.gd" id="5_1ptb2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d7g04"]
+radius = 12.7803
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p23ao"]
+radius = 17.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bk63"]
+size = Vector2(450, 324)
+
+[node name="Enemy_Triangle" type="CharacterBody2D" groups=["Enemies"]]
+position = Vector2(193, 160)
+collision_layer = 2
+collision_mask = 11
+script = ExtResource("1_dx38i")
+
+[node name="enemy_triangle" type="Sprite2D" parent="."]
+position = Vector2(0, -9.50001)
+scale = Vector2(0.25, 0.296875)
+texture = ExtResource("2_nno7p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(0.942205, 0.941682)
+shape = SubResource("CircleShape2D_d7g04")
+one_way_collision_margin = 10.0
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_p23ao")
+
+[node name="ShootRange" type="Area2D" parent="."]
+
+[node name="Range" type="CollisionShape2D" parent="ShootRange"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_1bk63")
+
+[node name="ShootCooldown" type="Timer" parent="."]
+
+[node name="StateMachine" parent="." instance=ExtResource("3_pf1g5")]
+
+[node name="Shoot" type="Node" parent="StateMachine"]
+script = ExtResource("4_dvgud")
+
+[node name="ShortWalk" type="Node" parent="StateMachine"]
+script = ExtResource("5_1ptb2")
+
+[connection signal="shoot" from="." to="StateMachine/Shoot" method="_on_shoot"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_entered" from="ShootRange" to="." method="_on_shoot_range_area_entered"]
+
+[editable path="StateMachine"]

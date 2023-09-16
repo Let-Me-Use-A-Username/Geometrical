@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=3 uid="uid://dg0pyopln4yjk"]
+
+[ext_resource type="Script" path="res://src/Scenes/Actors/Player.gd" id="1_rqiwo"]
+[ext_resource type="Texture2D" uid="uid://c0jqbhx8bmfp4" path="res://assets/characters/Circle-0003.png" id="2_olfa5"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/PlayerStates/PlayerStateMachine.gd" id="3_25qm0"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/PlayerStates/Idle.gd" id="4_72jyw"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/PlayerStates/Move.gd" id="5_4eq1r"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/PlayerStates/Dash.gd" id="6_iof5q"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/PlayerAbilities/upgrade_factory.gd" id="7_356et"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rqwmu"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_las5g"]
+radius = 10.0499
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5k7s5"]
+radius = 28.0
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(193, 160)
+collision_mask = 10
+floor_constant_speed = true
+script = ExtResource("1_rqiwo")
+
+[node name="player" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(0.233848, 0.227606)
+texture = ExtResource("2_olfa5")
+
+[node name="Invurnerable" type="Timer" parent="."]
+
+[node name="DashTimer" type="Timer" parent="."]
+
+[node name="DashImmuneTimer" type="Timer" parent="."]
+
+[node name="PlayerBounds" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_rqwmu")
+
+[node name="CollitionArea" type="Area2D" parent="."]
+collision_mask = 6
+
+[node name="CollisionShape" type="CollisionShape2D" parent="CollitionArea"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_las5g")
+
+[node name="DashArea" type="Area2D" parent="."]
+collision_mask = 2
+linear_damp = 1000.0
+
+[node name="DashShape" type="CollisionShape2D" parent="DashArea"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_5k7s5")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_25qm0")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_72jyw")
+
+[node name="Move" type="Node" parent="StateMachine"]
+script = ExtResource("5_4eq1r")
+
+[node name="Dash" type="Node" parent="StateMachine"]
+script = ExtResource("6_iof5q")
+
+[node name="DashTimer" type="Timer" parent="StateMachine"]
+
+[node name="KnockbackTimer" type="Timer" parent="StateMachine"]
+
+[node name="Upgrade_Factory" type="Node" parent="."]
+script = ExtResource("7_356et")
+
+[connection signal="area_entered" from="CollitionArea" to="." method="_on_collition_area_area_entered"]

@@ -1,0 +1,54 @@
+|) Implement level up and ability choosing
+	|) Consider the fact of changing the way a player picks an ability. 
+	If a player is allowed to pick any type of upgrade then the only thing to 
+	take into mind is how much he can upgrade something.
+|) Implement basic sound effects and background music
+|) Implement virtual controller for mobile
+
+Ideas:
+	|) Control player with mouse
+	
+	|) Make player sprite the health bar (?)
+	
+	|) Decide if enemies should collide with each other 
+		|) if not just distable the mask on the enemies
+	
+	|) Enemies that aren't instakilled could display an on hit effect 
+		like a sprite change
+	
+	|) higher difficulties with increasingly smarter or bigger enemies
+		-The more edges in a shape the more clever it is
+
+
+Sources:
+	Sound effects: https://mixkit.co/free-sound-effects/game/
+
+
+Notes for later:
+	|)Triangle movement could be more sofisticated
+	|)Create sound effects and music
+
+
+Note for much later:
+	|)Timer and Spawned enemies could be better perhaps, will have to check it out later 
+	|)Refine collition detection
+	|)Refine spawn factory settings (spawn timer, spawn enemies, conditions etc.)
+	|)Players UI should have icons instead of text
+
+
+Done:
+	Implement health bar
+		Implement different colour for different health level
+	SOS) Change the damage and collision implementation
+	|) Implement correct detection for the dash attack
+	|) Dashing could disable collision detection 
+	|) Implement dash cooldown which can be enhanced with abilities
+	|) Implement in game ui to see cooldown and abilities
+	|) Implement health bar
+	|) Fix how the bullet damages the enemy 
+	|) Fix bullet movement
+	|) Fix triangles movement to maintain set distance from player
+	|) Kill bullets after 10 seconds
+	|) Implement square
+	|) Fix UI to not bug when player dies (player ui)
+	

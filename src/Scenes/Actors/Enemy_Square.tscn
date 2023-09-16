@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://f4m5xg4ksylp"]
+
+[ext_resource type="Script" path="res://src/Scenes/Actors/Enemy_Square.gd" id="1_7gjcl"]
+[ext_resource type="Texture2D" uid="uid://ccmqpw2m3dmf8" path="res://assets/characters/Square-0001.png" id="1_u5e6v"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/StateMachine.gd" id="3_ij1ed"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/States/Idle.gd" id="4_ugpl2"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/States/Move.gd" id="5_fmpoq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3tgsk"]
+size = Vector2(64, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_88nwu"]
+radius = 28.0179
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hym1p"]
+radius = 104.005
+
+[node name="Enemy_Square" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 11
+script = ExtResource("1_7gjcl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.587383, 0.58208)
+texture = ExtResource("1_u5e6v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.58248, 0.575969)
+shape = SubResource("RectangleShape2D_3tgsk")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_88nwu")
+
+[node name="ExplotionRange" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplotionRange"]
+shape = SubResource("CircleShape2D_hym1p")
+
+[node name="ExplotionTimer" type="Timer" parent="."]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_ij1ed")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_ugpl2")
+
+[node name="Move" type="Node" parent="StateMachine"]
+script = ExtResource("5_fmpoq")
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="ExplotionRange" to="." method="_on_explotion_range_body_entered"]
+[connection signal="body_exited" from="ExplotionRange" to="." method="_on_explotion_range_body_exited"]

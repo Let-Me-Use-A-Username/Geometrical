@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdgb0xfmjs1xj"]
+
+[ext_resource type="Script" path="res://src/Scenes/Objects/Triangle_projectile.gd" id="1_uaowx"]
+[ext_resource type="Texture2D" uid="uid://byw4cso2f81l5" path="res://assets/Objects/Triangle-Bullet-0001.png" id="2_id73r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2do4m"]
+size = Vector2(12, 12)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a6w26"]
+radius = 0.0
+
+[node name="Triangle_Projectile" type="CharacterBody2D"]
+script = ExtResource("1_uaowx")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_2do4m")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.357307, 0.35805)
+texture = ExtResource("2_id73r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
+shape = SubResource("CircleShape2D_a6w26")
+
+[node name="FreeTimer" type="Timer" parent="."]
+
+[node name="DeathTimer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

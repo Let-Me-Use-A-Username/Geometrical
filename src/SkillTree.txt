@@ -1,0 +1,68 @@
+Skill System
+
+Laws:
+|) You have a pool of skills in the form of trees. (Primary skill that opens up a tree)
+|) You pick one skill and subquentially pick a mini tree.
+|) You have the ability to choose from the skills in the mini tree, or begin a new one.
+
+|) Player will be able to choose between 1-3 Abilities 
+|) Player will be able to pick inifinity number of utilities and main skill abilities
+|) Player has the ability to choose a single skill from either a utility tree
+an ability tree or a main skill ability
+
+
+Skill Tree Types:
+	|)Utility
+		|)Game Utility 
+			Enemies. Affects what type of enemy spawns
+			Enemy abilities. Affects what abilities enemies have
+			Spawn frequencies. Affects how often enemies spawn
+			Enemy numbers. Affects how many enemies spawn
+			Enemy stats. Affects enemy damage, health pool, etc.
+		|)Player Utility 
+			Size. Affects player hitbox AND dash hitbox
+			Speed. Affects player speed AND dash speed
+			Health. Affects player health
+			Health Regen. Affects player health regen
+			Hitboxes. Affects players hitbox, dash hitbox (Maybe enemy hitbox too)
+			Exp multipliers. Affects how quickly a player levels up
+	
+	|)Ability
+		|)Active
+			Slow time (Freezes / changes the time flow)
+			Supercharge (Removes the dash cooldown and allows the user to continuesly use it for a time)
+			Kamekameha (Self explanatory)
+			Shockwave (Create an electrical shockwave in a field that kills projectiles)
+		|)Passive
+			Rings (Circular Objects orbiting player)
+			Dodge Teleport
+			Black hole (Spawns a black hole randomly close to you, absorbes everything close)
+			Doppelganger 
+		
+		
+	|)Main skill upgrades
+		Circle: 
+			Dash Range, 
+			dash damage,
+			dash cooldown, 
+			dash range, 
+			dash hitbox, 
+			dash count (f.e. 2 dashs with refresh timer)
+			Alternatively, you could change how dash works (f.e. dash to a direction and then come back)
+			Or play with effects like dashing and leaving  a trail of fire
+
+	
+
+|) Implement different shapes with different powers 
+	|) Circle can dash 
+		Circle enemies crash into the player
+	|) Triangle can shoot
+		Triangle enemies maintain a set distance from the player
+			Triangles could also deflect bullets
+	|) Square can explode 
+	|) Hexagon can spin
+	
+	|) Implement bosses for each shape
+		|) Circle will be able to dash 
+		|) Triangle will actively dodge attacks and maintain a proper distance 
+		|) Square will explode and not die 

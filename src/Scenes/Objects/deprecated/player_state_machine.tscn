@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxdq2878fh4b8"]
+
+[ext_resource type="Script" path="res://src/Scenes/Objects/deprecated/PlayerStateMachine.gd" id="1_uxip0"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/Triangle_States/Idle.gd" id="2_ocun0"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/Triangle_States/Move.gd" id="3_xt4tx"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/States/Dash.gd" id="4_t0j34"]
+
+[node name="StateMachine" type="Node"]
+script = ExtResource("1_uxip0")
+
+[node name="Idle" type="Node" parent="."]
+script = ExtResource("2_ocun0")
+
+[node name="Move" type="Node" parent="."]
+script = ExtResource("3_xt4tx")
+
+[node name="Dash" type="Node" parent="."]
+script = ExtResource("4_t0j34")
+
+[node name="DashTimer" type="Timer" parent="."]
+
+[node name="KnockbackTimer" type="Timer" parent="."]

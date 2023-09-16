@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://bn77akk20dp33"]
+
+[ext_resource type="Script" path="res://src/Scenes/UI/level_up_menu.gd" id="1_vq2ey"]
+
+[node name="Level_Up_Menu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vq2ey")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.278431, 0.278431, 0.278431, 0.780392)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="#1" type="Button" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 2
+theme_override_constants/outline_size = 2
+text = "Increase size"
+
+[node name="#2" type="Button" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 2
+theme_override_constants/outline_size = 2
+text = "Increase Dash
+"
+
+[node name="#3" type="Button" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 2
+theme_override_constants/outline_size = 2
+text = "Increase Health
+"
+
+[node name="#4" type="Button" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 2
+theme_override_constants/outline_size = 2
+text = "Descrease Enemies
+"

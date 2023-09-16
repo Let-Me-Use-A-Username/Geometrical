@@ -1,0 +1,15 @@
+
+#Utility 
+
+Healthy, U, hp *= 20/100, Increase Health by 20%
+Speedy, U, speed *= 20/100, Increase Speed by 20%
+Giant, U, size *= 20/100, Increase size by 20%
+Fruitious, U, regen *= 20/100, Increase health regen by 20%
+
+
+#Mainskill
+
+Sprinter, M, dash_impulse *= 20/100, Increase dash impulse by 20%
+Dasher, M, dash_cooldown -= 20/100 * dash_cooldown, Decrease dash cooldown by 20%
+Areator, M, dash_hitbox_size *= 20/100, Increase area of effect by +20%
+Countor, M, dash_count += 1, Increase dash count by 1

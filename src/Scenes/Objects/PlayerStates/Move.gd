@@ -1,0 +1,50 @@
+extends PlayerState
+
+
+var stop_movement: bool = false
+var can_dash: bool = false
+@onready var knockback_timer: Timer = get_parent().get_node('KnockbackTimer')
+var knockback_force = 180
+
+func _ready() -> void:
+	super()
+	knockback_timer.set_one_shot(true)
+	knockback_timer.connect('timeout', on_undo_knockback)
+
+func update(delta: float) -> void:
+	pass
+
+func physics_process(delta: float) -> void:
+	var direction: = Input.get_vector("left", "right", "up", "down").normalized()
+	if !stop_movement: 
+		target_obj.set_velocity(target_obj.speed * direction)
+	
+	if target_obj.get_velocity() == Vector2.ZERO:
+		state_machine._transition_to_state(self, state_machine.states.get('Idle'), {})
+	
+	if !stop_movement and can_dash:
+		can_dash = false
+		state_machine._transition_to_state(self, state_machine.states.get('Dash'), {'target_obj.speed_modifier': 5})
+
+func _handle_input(_event: InputEvent) -> void:
+	pass
+
+func enter_state(_msg: = {}) -> void:
+	if _msg.size() != 0 and _msg.has('target_speed'):
+		target_obj.speed = _msg.target_speed
+
+func exit_state(_msg: = {}) -> void:
+	pass
+
+func on_dash() -> void:
+	can_dash = true
+
+func on_knockdown(origin:Node, disabled_time: float) -> void:
+	target_obj.set_velocity((target_obj.global_position - origin.global_position).normalized() * knockback_force)
+	stop_movement = true
+	knockback_timer.set_wait_time(disabled_time)
+	knockback_timer.start()
+	
+func on_undo_knockback() -> void:
+	stop_movement = false
+	target_obj.set_velocity(Vector2.ZERO)

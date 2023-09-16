@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://ese35j3u4gdr"]
+
+[ext_resource type="Script" path="res://src/Scenes/Actors/Enemy_Circle.gd" id="1_131ut"]
+[ext_resource type="Texture2D" uid="uid://gyhgyqndf1kg" path="res://assets/characters/Circle-0003-black.png" id="2_8jqrj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d7g04"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p23ao"]
+radius = 12.0
+
+[node name="Enemy_Circle" type="CharacterBody2D" groups=["Enemies"]]
+position = Vector2(193, 160)
+collision_layer = 2
+collision_mask = 11
+script = ExtResource("1_131ut")
+
+[node name="enemy_circle" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(0.233848, 0.227606)
+texture = ExtResource("2_8jqrj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(0.942205, 0.941682)
+shape = SubResource("CircleShape2D_d7g04")
+one_way_collision_margin = 10.0
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_p23ao")
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
