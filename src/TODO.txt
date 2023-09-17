@@ -11,7 +11,7 @@ Ideas:
 	|) Make player sprite the health bar (?)
 	
 	|) Decide if enemies should collide with each other 
-		|) if not just distable the mask on the enemies
+		|) if not just disable the mask on the enemies
 	
 	|) Enemies that aren't instakilled could display an on hit effect 
 		like a sprite change

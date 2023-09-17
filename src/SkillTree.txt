@@ -7,8 +7,11 @@ Laws:
 
 |) Player will be able to choose between 1-3 Abilities 
 |) Player will be able to pick inifinity number of utilities and main skill abilities
-|) Player has the ability to choose a single skill from either a utility tree
-an ability tree or a main skill ability
+
+	|) Player has the ability to choose a single skill from either a utility tree
+	an ability tree or a main skill ability
+	|) OR the player has the ability to pick one skill from a set of trees(Utility, etc.)
+	So 3 trees, 3 choices per tree. 4 if he can pick an ability of upgrade one
 
 
 Skill Tree Types:
@@ -37,7 +40,7 @@ Skill Tree Types:
 			Rings (Circular Objects orbiting player)
 			Dodge Teleport
 			Black hole (Spawns a black hole randomly close to you, absorbes everything close)
-			Doppelganger 
+			Doppelganger (Repeats what you do with a delay)
 		
 		
 	|)Main skill upgrades

@@ -33,28 +33,25 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="#1" type="Button" parent="CenterContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 150)
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 theme_override_constants/outline_size = 2
-text = "Increase size"
+text = "Player Utility"
 
 [node name="#2" type="Button" parent="CenterContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 150)
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 theme_override_constants/outline_size = 2
-text = "Increase Dash
-"
+text = "Game Utility"
 
 [node name="#3" type="Button" parent="CenterContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 150)
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 theme_override_constants/outline_size = 2
-text = "Increase Health
-"
+text = "Main Skill"
 
 [node name="#4" type="Button" parent="CenterContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 150)
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 theme_override_constants/outline_size = 2
-text = "Descrease Enemies
-"
+text = "Ability"

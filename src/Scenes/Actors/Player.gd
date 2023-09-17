@@ -2,7 +2,7 @@ extends Actor
 
 signal died
 signal dash
-signal level_up
+signal level_up(coins: int)
 signal remove_health(origin: Node, damage: float)
 signal knockdown(origin: Node, disabled_time: float)
 
@@ -22,7 +22,7 @@ var dash_immune_timer: Timer
 var knockback_force = 30
 
 var exp_counter = 0
-var level_up_threshold = 10
+var level_up_threshold = [50, 30, 10]
 
 func _ready() -> void:
 	self.add_to_group("Player")
@@ -56,6 +56,9 @@ func _process(delta: float) -> void:
 	_state = state_machine.active_state.name
 	if health != 100:
 		health += health_regen
+	if level_up_threshold.has(exp_counter):
+		emit_signal("level_up", exp_counter)
+		level_up_threshold.remove_at(-1)
 
 
 func _physics_process(delta: float) -> void:
@@ -85,9 +88,11 @@ func _on_invurnerable_signal() -> void:
 
 
 func _on_collition_area_area_entered(area: Area2D) -> void:
-	if !invurnerable and dash_immune_timer.time_left == 0:
-		var enemy = area.owner
-		if enemy.is_in_group("Enemies"):
+	var enemy = area.owner
+	if enemy.is_in_group("Coins"):
+		exp_counter += 1
+	else:
+		if enemy.is_in_group("Enemies") and !invurnerable and dash_immune_timer.time_left == 0:
 			emit_signal("remove_health", enemy, enemy.get("damage"))
 			emit_signal("knockdown", enemy, 0.5)
 			invurnerability_timer.start()
