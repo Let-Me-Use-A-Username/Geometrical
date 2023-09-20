@@ -28,7 +28,7 @@ func _physics_process(delta: float) -> void:
 func on_explotion_timeout() -> void:
 	if explotion_radius.has_overlapping_bodies():
 		for entity in explotion_radius.get_overlapping_bodies():
-			if entity.is_in_group("Enemies") | entity.is_in_group("Player"):
+			if entity.is_in_group("Enemies") or entity.is_in_group("Player"):
 				entity._on_remove_health(self, explotion_damage)
 			_on_remove_health(self, 100)
 

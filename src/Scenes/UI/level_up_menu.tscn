@@ -21,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.278431, 0.278431, 0.278431, 0.780392)
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="Menu" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,29 +29,59 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu"]
 layout_mode = 2
 
-[node name="#1" type="Button" parent="CenterContainer/HBoxContainer"]
+[node name="P_Utility" type="Button" parent="Menu/HBoxContainer"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 theme_override_constants/outline_size = 2
 text = "Player Utility"
 
-[node name="#2" type="Button" parent="CenterContainer/HBoxContainer"]
+[node name="G_Utility" type="Button" parent="Menu/HBoxContainer"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 theme_override_constants/outline_size = 2
 text = "Game Utility"
 
-[node name="#3" type="Button" parent="CenterContainer/HBoxContainer"]
+[node name="MainSkill" type="Button" parent="Menu/HBoxContainer"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 theme_override_constants/outline_size = 2
 text = "Main Skill"
 
-[node name="#4" type="Button" parent="CenterContainer/HBoxContainer"]
+[node name="Ability" type="Button" parent="Menu/HBoxContainer"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 theme_override_constants/outline_size = 2
 text = "Ability"
+
+[node name="Abilities" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Abilities"]
+layout_mode = 2
+
+[node name="#1" type="Button" parent="Abilities/HBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+theme_override_constants/outline_size = 2
+text = "Player Utility"
+
+[node name="#2" type="Button" parent="Abilities/HBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+theme_override_constants/outline_size = 2
+text = "Game Utility"
+
+[node name="#3" type="Button" parent="Abilities/HBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+theme_override_constants/outline_size = 2
+text = "Main Skill"

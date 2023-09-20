@@ -1,0 +1,5 @@
+res://src/Scenes/UI/level_up_menu.tscn
+res://src/Scenes/UI/healthbar.tres
+res://src/Scenes/UI/level_up_menu.gd
+res://src/Scenes/Levels/level.tscn
+res://src/Scenes/Actors/Player.gd

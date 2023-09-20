@@ -4,6 +4,9 @@ class_name Upgrade_factory extends Node
 var upgrades: Dictionary
 var upgrade_trees: Dictionary
 var available_trees: Dictionary
+var applied_upgrades: Array
+
+@onready var player = owner as Player
 
 var total_coins = 0
 
@@ -90,5 +93,42 @@ func _remove_used_upgrades() -> void:
 	#_print_upgradeTrees()
 	for type in available_trees:
 		for upgrade in available_trees[type]:
-			if available_trees[type][upgrade].upgrade_active == false:
+			if available_trees[type][upgrade].upgrade_active == true:
 				available_trees[type].erase(upgrade)
+
+
+func _get_random_upgrades(ab_name: String) -> Array:
+	randomize()
+	var returnee = []
+	var value = available_trees[ab_name].values()
+	for repeat in range(0, 3):
+		var upgrade = value.pick_random()
+		returnee.append(upgrade)
+		value.erase(upgrade)
+	return returnee
+
+
+
+func apply_effect(ability: Upgrade) -> void:
+	var upgrade_effect = ability.upgrade_effect
+	var target_attribute 
+	
+	if "+" in upgrade_effect:
+		target_attribute = upgrade_effect.split("+")
+		var stats = player._get(target_attribute[0])
+		if stats != null:
+			var increment = stats[1] + stats[1] * (float(target_attribute[1])/100)
+			var suc = player._set(stats[0], increment)
+			if suc:
+				applied_upgrades.append(ability)
+				print_debug("Successfully upgraded: ", stats[0], " to: ", increment)
+			else:
+				print_debug("Failed to upgrade: ", stats[0])
+
+
+func remove_effect(ability: Upgrade) -> void:
+	pass
+
+
+func _get_applied_upgrades() -> Array:
+	return applied_upgrades

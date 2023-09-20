@@ -14,9 +14,18 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	player = get_node_or_null('../Player')
+	player = get_node_or_null('../Player') as Player
 	if player != null:
-		label.set_text(' Dash cooldown: ' + str(inv_timer.time_left).erase(4, 10) 
-		+ '\n Invurnerable: ' + str(player.get("invurnerable")) 
-		+ '\n Dash Inv: ' + str(dash_timer.time_left).erase(4, 10))
+		label.set_text(
+		'Max Health: ' + str(player.get("max_health"))
+		+ '\nHealth: ' + str(player.get("health")).erase(4, 10)
+		+ '\nHealth Regen: ' + str(player.get("health_regen"))
+		+ '\nSpeed: ' + str(player.get("speed"))
+		+ '\nSize: ' + str(player.get("size"))
+		+ '\nDamage: ' + str(player.get("damage"))
+		+ '\nCoins: ' + str(player.get("exp_counter"))
+		+ '\nDash cooldown: ' + str(inv_timer.time_left).erase(4, 10)
+		+ '\nInvurnerable: ' + str(player.get("invurnerable"))
+		+ '\nDash Inv: ' + str(dash_timer.time_left).erase(4, 10))
+		healthbar.max_value = player.get("max_health")
 		healthbar.value = player.get("health")

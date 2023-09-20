@@ -4,6 +4,7 @@
 	take into mind is how much he can upgrade something.
 |) Implement basic sound effects and background music
 |) Implement virtual controller for mobile
+|) Fix threshold detection for level up
 
 Ideas:
 	|) Control player with mouse

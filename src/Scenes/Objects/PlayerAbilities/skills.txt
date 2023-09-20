@@ -1,16 +1,16 @@
 
 #Utility level 1
 
-Healthy, U, hp+20, Increase Health by 20%
+Healthy, U, max_health+20, Increase Max Health by 20%
 Speedy, U, speed+20, Increase Speed by 20%
-Giant, U, size+20, Increase size by 20%
-Fruitious, U, regen+20, Increase health regen by 20%
+Giant, U, size+40, Increase size by 40%
+Fruitious, U, health_regen+30, Increase health regen by 30%
 
 
 #Mainskill level 1
 
-Sprinter, M, dash_impulse+20, Increase dash impulse by 20%
-Dasher, M, dash_cooldown-20, Decrease dash cooldown by 20%
+Sprinter, M, dash_speed+20, Increase dash impulse by 20%
+Dasher, M, dash_timer_offset-20, Decrease dash cooldown by 20%
 Areator, M, dash_hitbox_size+20, Increase area of effect by +20%
 Countor, M, dash_count+1, Increase dash count by 1
 
