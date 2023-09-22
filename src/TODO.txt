@@ -1,7 +1,11 @@
-|) Implement level up and ability choosing
-	|) Consider the fact of changing the way a player picks an ability. 
-	If a player is allowed to pick any type of upgrade then the only thing to 
-	take into mind is how much he can upgrade something.
+Done) Implement basic level up and ability choosing
+	|) Differentiate between Utility upgrades for the player and for the game
+		changes have to be made in upgrade_factory
+	Note) Consider the fact of changing the way a player picks an ability. 
+		If a player is allowed to pick any type of upgrade then the only thing to 
+		take into mind is how much he can upgrade something.
+	Done)Back Button should keep the previous upgrades instead of changing them
+	
 |) Implement basic sound effects and background music
 |) Implement virtual controller for mobile
 |) Fix threshold detection for level up

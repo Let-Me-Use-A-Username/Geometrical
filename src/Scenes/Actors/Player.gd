@@ -25,7 +25,7 @@ var dash_immune_timer_offset: float = 0.2
 var knockback_force = 30
 
 var exp_counter = 0
-var level_up_threshold = [10, 5, 3, 1]
+var level_up_threshold = [100, 50, 30, 10, 5, 3, 1]
 
 var _player_property_list = {}
 
@@ -131,7 +131,28 @@ func _get(name: StringName) -> Variant:
 
 func _set(property: StringName, value: Variant) -> bool:
 	if property in _player_property_list:
+		#Special clauses for unique effects, like size affecting the sprite
+		if property == "size":
+			_adjust_size_parameters(value)
+		
 		_player_property_list[property] = value
 		_update_property_list()
 		return true
 	return false
+
+
+func _adjust_size_parameters(value: Variant) -> void:
+	#var sprite = get_node("player") as Sprite2D
+	#var bounds = get_node("PlayerBounds") as CollisionShape2D
+	#var collition_area = get_node("CollitionArea/CollisionShape") as CollisionShape2D
+	#var dash_area = get_node("DashArea/DashShape") as CollisionShape2D
+	
+	#sprite.scale =  Vector2(value.x - 0.85, value.y - 0.85)
+	#bounds.shape.set_radius(value.x * 10)
+	#collition_area.shape.set_radius(value.x * 10)
+	#dash_area.shape.set_radius(value.x * 10)
+	
+	#Appears to scale everything relatively, at the moment it doesn't bug anything out
+	#but for future reference DO NOT SCALE THE AREAS, USE THE EXTENDS OR RADIUS AS SHOWN ABOVE
+	self.scale = value
+	

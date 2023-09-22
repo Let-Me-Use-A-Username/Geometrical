@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bn77akk20dp33"]
+[gd_scene load_steps=3 format=3 uid="uid://bn77akk20dp33"]
 
 [ext_resource type="Script" path="res://src/Scenes/UI/level_up_menu.gd" id="1_vq2ey"]
+[ext_resource type="Texture2D" uid="uid://dbx3c3grbkpjk" path="res://assets/UI/Sprite-UI-backbutton-0001.png" id="2_mq0yb"]
 
 [node name="Level_Up_Menu" type="Control"]
 process_mode = 3
@@ -68,6 +69,10 @@ grow_vertical = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="Abilities"]
 layout_mode = 2
 
+[node name="Back" type="Button" parent="Abilities/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("2_mq0yb")
+
 [node name="#1" type="Button" parent="Abilities/HBoxContainer"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
@@ -85,3 +90,5 @@ custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 theme_override_constants/outline_size = 2
 text = "Main Skill"
+
+[connection signal="pressed" from="Abilities/HBoxContainer/Back" to="." method="_on_fall_back"]

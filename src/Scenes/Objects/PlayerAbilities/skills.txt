@@ -3,7 +3,7 @@
 
 Healthy, U, max_health+20, Increase Max Health by 20%
 Speedy, U, speed+20, Increase Speed by 20%
-Giant, U, size+40, Increase size by 40%
+Giant, U, size+10, Increase size by 40%
 Fruitious, U, health_regen+30, Increase health regen by 30%
 
 

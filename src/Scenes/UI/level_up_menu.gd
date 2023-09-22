@@ -17,8 +17,11 @@ signal upgraded(ability: Upgrade)
 
 @onready var menu = get_node("Menu")
 @onready var inner_menu = get_node("Abilities")
+@onready var back_button = get_node("Abilities/HBoxContainer/Back")
 
 var available_upgrades: Dictionary = {}
+var chosen_upgrades: Dictionary = {}
+
 
 func _ready() -> void:
 	skill_tree_1.connect("pressed", _on__pressed.bind("Utility"))
@@ -46,6 +49,11 @@ func _get_paused() -> bool:
 
 func on_level_up(coins: int) -> void:
 	_set_paused(true)
+	
+	chosen_upgrades["Utility"] = []
+	chosen_upgrades["MainSkill"] = []
+	chosen_upgrades["Ability"] = []
+	
 	#Get available upgrades
 	if coins >= 50:
 		skill_tree_4.visible = true
@@ -56,15 +64,25 @@ func _on__pressed(ab_name: String) -> void:
 	menu.visible = false
 	inner_menu.visible = true
 	
-	var choices: Array = upgrade_factory._get_random_upgrades(ab_name)
-	
-	option_1.text = choices[0].upgrade_name + "\n" + choices[0].upgrade_description 
-	option_2.text = choices[1].upgrade_name + "\n" + choices[1].upgrade_description 
-	option_3.text = choices[2].upgrade_name + "\n" + choices[2].upgrade_description 
-	
-	option_1.connect("pressed", _on_ability_choice.bind(choices[0]))
-	option_2.connect("pressed", _on_ability_choice.bind(choices[1]))
-	option_3.connect("pressed", _on_ability_choice.bind(choices[2]))
+	if chosen_upgrades[ab_name].size() == 0:
+		var choices: Array = upgrade_factory._get_random_upgrades(ab_name)
+		chosen_upgrades[ab_name] = choices
+		
+		option_1.text = choices[0].upgrade_name + "\n" + choices[0].upgrade_description 
+		option_2.text = choices[1].upgrade_name + "\n" + choices[1].upgrade_description 
+		option_3.text = choices[2].upgrade_name + "\n" + choices[2].upgrade_description 
+		
+		option_1.connect("pressed", _on_ability_choice.bind(choices[0]))
+		option_2.connect("pressed", _on_ability_choice.bind(choices[1]))
+		option_3.connect("pressed", _on_ability_choice.bind(choices[2]))
+	else:
+		option_1.text = chosen_upgrades[ab_name][0].upgrade_name + "\n" + chosen_upgrades[ab_name][0].upgrade_description 
+		option_2.text = chosen_upgrades[ab_name][1].upgrade_name + "\n" + chosen_upgrades[ab_name][1].upgrade_description 
+		option_3.text = chosen_upgrades[ab_name][2].upgrade_name + "\n" + chosen_upgrades[ab_name][2].upgrade_description 
+		
+		option_1.connect("pressed", _on_ability_choice.bind(chosen_upgrades[ab_name][0]))
+		option_2.connect("pressed", _on_ability_choice.bind(chosen_upgrades[ab_name][1]))
+		option_3.connect("pressed", _on_ability_choice.bind(chosen_upgrades[ab_name][2]))
 
 
 func _on_ability_choice(ability: Upgrade) -> void:
@@ -77,4 +95,10 @@ func _on_ability_choice(ability: Upgrade) -> void:
 	_set_paused(false)
 
 
-
+#Signal is connected via editor, dont ask me!
+func _on_fall_back() -> void:
+	option_1.disconnect("pressed", _on_ability_choice)
+	option_2.disconnect("pressed", _on_ability_choice)
+	option_3.disconnect("pressed", _on_ability_choice)
+	menu.visible = true
+	inner_menu.visible = false
