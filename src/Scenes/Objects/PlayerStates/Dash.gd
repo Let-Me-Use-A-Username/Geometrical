@@ -3,6 +3,8 @@ extends PlayerState
 
 @onready var dash_timer: Timer = get_parent().get_node('DashTimer')
 var dash_time: float = 0.15
+var dash_count: int 
+var current_dash_count: int
 
 func _ready() -> void:
 	super()
@@ -32,10 +34,11 @@ func enter_state(_msg: = {}) -> void:
 	#disable colliding hitbox
 	target_obj_collider.disabled = true
 	
-	if _msg.size() != 0 and _msg.has(target_speed_modifier):
-		target_speed_modifier = _msg.target_speed_modifier
-	else:
-		target_speed_modifier = 1
+	if _msg.size() != 0:
+		if _msg.has(target_speed_modifier):
+			target_speed_modifier = _msg.target_speed_modifier
+		else:
+			target_speed_modifier = 1
 
 func exit_state(_msg: = {}) -> void:
 	#disable dash bounds

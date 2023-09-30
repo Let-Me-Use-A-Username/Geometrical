@@ -111,19 +111,41 @@ func _get_random_upgrades(ab_name: String) -> Array:
 
 func apply_effect(ability: Upgrade) -> void:
 	var upgrade_effect = ability.upgrade_effect
+	var upgrade_type = ability.upgrade_type
 	var target_attribute 
+	var charge
 	
-	if "+" in upgrade_effect:
-		target_attribute = upgrade_effect.split("+")
+	if upgrade_type == "U" or upgrade_type == "M":
+		if "+" in upgrade_effect:
+			target_attribute = upgrade_effect.split("+")
+			charge = true
+		else:
+			target_attribute = upgrade_effect.split("-")
+			charge = false
+			
 		var stats = player._get(target_attribute[0])
 		if stats != null:
-			var increment = stats[1] + stats[1] * (float(target_attribute[1])/100)
+			var increment
+			#When abilities are not percentage based they will handled differently
+			match stats[0]:
+				"dash_count":
+					increment = stats[1] + int(target_attribute[1])
+				_:
+					if charge:
+						increment = stats[1] + stats[1] * (float(target_attribute[1])/100)
+					else:
+						increment = stats[1] - stats[1] * (float(target_attribute[1])/100)
+			
+			
 			var suc = player._set(stats[0], increment)
 			if suc:
 				applied_upgrades.append(ability)
 				print_debug("Successfully upgraded: ", stats[0], " to: ", increment)
 			else:
 				print_debug("Failed to upgrade: ", stats[0])
+				
+	elif upgrade_type == "A":
+		pass
 
 
 func remove_effect(ability: Upgrade) -> void:

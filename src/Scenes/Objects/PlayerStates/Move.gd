@@ -1,10 +1,12 @@
 extends PlayerState
 
 
-var stop_movement: bool = false
-var can_dash: bool = false
+@onready var player: Player = get_parent().owner as Player
 @onready var knockback_timer: Timer = get_parent().get_node('KnockbackTimer')
 var knockback_force = 180
+
+var can_dash: bool = false
+var stop_movement: bool = false
 
 func _ready() -> void:
 	super()
