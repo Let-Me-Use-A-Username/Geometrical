@@ -17,5 +17,5 @@ Countor, M, dash_count+1, Increase dash count by 1
 
 #Ability level 1
 TimesFreezer, A, slowtime+3, Freeze time for 3 seconds 
-Supercharge, A, dash_cooldown=0|5, Removes the cooldown for dashing for a certain period
+Supercharge, A, dash_cooldown=0|5, Removes the cooldown for dashing for a certain period and accelerates the player
 Shockwave, A, damage=100, Damages everything on the screen

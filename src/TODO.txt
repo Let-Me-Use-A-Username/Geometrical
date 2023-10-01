@@ -8,7 +8,7 @@
 		take into mind is how much he can upgrade something.
 	Done)Back Button should keep the previous upgrades instead of changing them
 
-|) Fix quit menu that doesnt react to died signal
+
 |) Implement basic sound effects and background music
 |) Implement virtual controller for mobile
 |) Fix threshold detection for level up
@@ -59,4 +59,4 @@ Done:
 	|) Kill bullets after 10 seconds
 	|) Implement square
 	|) Fix UI to not bug when player dies (player ui)
-	
+	Done) Fix quit menu that doesnt react to died signal

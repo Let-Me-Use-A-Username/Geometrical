@@ -32,6 +32,8 @@ var level_up_threshold = [100, 50, 30, 10, 5, 3, 1]
 var _player_property_list = {}
 var _player_mainskill_property_list = {}
 
+var _player_abilities = []
+
 func _ready() -> void:
 	self.add_to_group("Player")
 	get_node('DashArea/DashShape').disabled = true
@@ -40,6 +42,8 @@ func _ready() -> void:
 	knockdown.connect(state_machine.states['Move'].on_knockdown)
 	dash.connect(state_machine.states['Move'].on_dash)
 	level_up.connect(get_parent().get_node("LevelUpMenu").on_level_up)
+	if !died.is_connected(get_parent().get_node("QuitMenu")._on_player_died):
+		died.connect(get_parent().get_node("QuitMenu")._on_player_died)
 	
 	_append_property_list()
 	_update_property_list()
@@ -83,12 +87,40 @@ func _unhandled_input(event: InputEvent) -> void:
 		dash_immune_timer.start()
 		invurnerable = true
 		current_dash_count += 1
+	
+	if event.is_action_pressed("primary_ability"):
+		_activate_ability(_player_abilities[0])
+	if event.is_action_pressed("secondary_ability"):
+		_activate_ability(_player_abilities[1])
+	if event.is_action_pressed("third_ability"):
+		_activate_ability(_player_abilities[2])
+
+
+func _activate_ability(ability: Upgrade) -> void:
+	match ability.upgrade_name:
+			"TimesFreezer":
+				#Maybe make the game freeze the enemies..? Makes sense
+				#Freeze them based on a timer
+				var enemies = get_tree().get_nodes_in_group("Enemies")
+				for enemy in enemies:
+					enemy.set_physics_process(false)
+			"Supercharge":
+				pass
+			"Shockwave":
+				pass
+			_:
+				print_debug("404: Upgrade not found: ", ability.upgrade_name)
 
 
 func _on_remove_health(origin: Node, damage: float) -> void:
 	self.set_modulate( Color8(180, 0, 0, 255) ) 
 	_player_property_list["health"] = health - damage
 	super(origin, damage)
+
+
+func _despose_actor() -> void:
+	emit_signal("died")
+	self.queue_free()
 
 
 func on_dash_timer_timeout() -> void:
@@ -176,16 +208,6 @@ func _set(property: StringName, value: Variant) -> bool:
 
 
 func _adjust_size_parameters(value: Variant) -> void:
-	#var sprite = get_node("player") as Sprite2D
-	#var bounds = get_node("PlayerBounds") as CollisionShape2D
-	#var collition_area = get_node("CollitionArea/CollisionShape") as CollisionShape2D
-	#var dash_area = get_node("DashArea/DashShape") as CollisionShape2D
-	
-	#sprite.scale =  Vector2(value.x - 0.85, value.y - 0.85)
-	#bounds.shape.set_radius(value.x * 10)
-	#collition_area.shape.set_radius(value.x * 10)
-	#dash_area.shape.set_radius(value.x * 10)
-	
 	#Appears to scale everything relatively, at the moment it doesn't bug anything out
 	#but for future reference DO NOT SCALE THE AREAS, USE THE EXTENDS OR RADIUS AS SHOWN ABOVE
 	self.scale = value

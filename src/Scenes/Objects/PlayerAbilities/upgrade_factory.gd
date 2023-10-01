@@ -145,7 +145,8 @@ func apply_effect(ability: Upgrade) -> void:
 				print_debug("Failed to upgrade: ", stats[0])
 				
 	elif upgrade_type == "A":
-		pass
+		player._player_abilities.push_front(ability)
+		print_debug("Successfully added ability: ", ability.upgrade_name)
 
 
 func remove_effect(ability: Upgrade) -> void:

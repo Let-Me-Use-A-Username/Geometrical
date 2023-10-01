@@ -65,7 +65,7 @@ script = ExtResource("5_4eq1r")
 [node name="Dash" type="Node" parent="StateMachine"]
 script = ExtResource("6_iof5q")
 
-[node name="DashTimer" type="Timer" parent="StateMachine"]
+[node name="DashTransitionTimer" type="Timer" parent="StateMachine"]
 
 [node name="KnockbackTimer" type="Timer" parent="StateMachine"]
 

@@ -1,7 +1,7 @@
 extends PlayerState
 
 
-@onready var dash_timer: Timer = get_parent().get_node('DashTimer')
+@onready var dash_timer: Timer = get_parent().get_node('DashTransitionTimer')
 var dash_time: float = 0.15
 var dash_count: int 
 var current_dash_count: int
