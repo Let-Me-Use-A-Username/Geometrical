@@ -3,10 +3,9 @@ extends Control
 
 signal upgraded(ability: Upgrade)
 
-@onready var skill_tree_1 = get_node("Menu/HBoxContainer/P_Utility")
-@onready var skill_tree_2 = get_node("Menu/HBoxContainer/G_Utility")
-@onready var skill_tree_3 = get_node("Menu/HBoxContainer/MainSkill")
-@onready var skill_tree_4 = get_node("Menu/HBoxContainer/Ability")
+@onready var skill_tree_1 = get_node("Menu/HBoxContainer/Utility")
+@onready var skill_tree_2 = get_node("Menu/HBoxContainer/MainSkill")
+@onready var skill_tree_3 = get_node("Menu/HBoxContainer/Ability")
 
 @onready var option_1 = get_node("Abilities/HBoxContainer/#1")
 @onready var option_2 = get_node("Abilities/HBoxContainer/#2")
@@ -25,11 +24,8 @@ var chosen_upgrades: Dictionary = {}
 
 func _ready() -> void:
 	skill_tree_1.connect("pressed", _on__pressed.bind("Utility"))
-	skill_tree_2.connect("pressed", _on__pressed.bind("Utility"))
-	skill_tree_3.connect("pressed", _on__pressed.bind("MainSkill"))
-	skill_tree_4.connect("pressed", _on__pressed.bind("Ability"))
-	
-	skill_tree_4.visible = false
+	skill_tree_2.connect("pressed", _on__pressed.bind("MainSkill"))
+	skill_tree_3.connect("pressed", _on__pressed.bind("Ability"))
 
 
 var is_paused: bool = false : 
@@ -54,9 +50,6 @@ func on_level_up(coins: int) -> void:
 	chosen_upgrades["MainSkill"] = []
 	chosen_upgrades["Ability"] = []
 	
-	#Get available upgrades
-	if coins >= 50:
-		skill_tree_4.visible = true
 	available_upgrades = upgrade_factory._export_tree(coins)
 
 

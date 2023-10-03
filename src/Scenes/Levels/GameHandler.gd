@@ -11,6 +11,8 @@ var timer: int
 @export var total_enemy_counter: int
 var spawn: bool
 
+@onready var freeze_timer: Timer
+
 #Window variables
 const window_size = Vector2(1100, 640)
 var location = Vector2()
@@ -27,7 +29,9 @@ func _ready() -> void:
 	enemy_spawn_timer = get_node('SpawnTimer')
 	enemy_spawn_timer.set_wait_time(timer)
 	enemy_spawn_timer.connect('timeout', _on_Timer_timeout)
-
+	
+	freeze_timer = get_node("FreezeTimer")
+	freeze_timer.set_one_shot(true)
 
 func _on_Timer_timeout() -> void:
 	total_enemy_counter += 10
@@ -41,7 +45,30 @@ func _on_Timer_timeout() -> void:
 	enemy_wave_counter += 1
 	
 	enemy_spawn_timer.set_wait_time(timer)
-	
+
+
+func _freeze_objects(code: String, duration: float) -> void:
+	freeze_timer.set_wait_time(duration)
+	match code:
+		"Enemies":
+			freeze_timer.connect("timeout", _on_Freeze_Timeout.bind("Enemies"))
+			for enemy in get_tree().get_nodes_in_group("Enemies"):
+				enemy.set_physics_process(false)
+				enemy.target_entity = null
+				freeze_timer.start()
+		_:
+			pass
+
+
+func _on_Freeze_Timeout(actors: String) -> void:
+	for entity in get_tree().get_nodes_in_group(actors):
+		entity.set_physics_process(true)
+
+
+func _shockwave(origin: Node, damage: float) -> void:
+	for enemy in get_tree().get_nodes_in_group("Enemies"):
+		enemy._on_remove_health(origin, damage)
+
 
 func _process(delta: float) -> void:
 	if spawn:

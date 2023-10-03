@@ -34,6 +34,8 @@ texture = ExtResource("2_olfa5")
 
 [node name="DashImmuneTimer" type="Timer" parent="."]
 
+[node name="AbilityTimer" type="Timer" parent="."]
+
 [node name="PlayerBounds" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_rqwmu")

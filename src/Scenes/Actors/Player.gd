@@ -3,8 +3,12 @@ class_name Player extends Actor
 signal died
 signal dash
 signal level_up(coins: int)
+
 signal remove_health(origin: Node, damage: float)
 signal knockdown(origin: Node, disabled_time: float)
+
+signal freeze_enemy(actors: String, duration: float)
+signal shockwave(origin: Node, damage: float)
 
 enum States {IDLE, MOVE, DASH}
 var _state = States.IDLE
@@ -33,17 +37,24 @@ var _player_property_list = {}
 var _player_mainskill_property_list = {}
 
 var _player_abilities = []
+var ability_timer: Timer
+
+var _freeze_duration = 3.0
 
 func _ready() -> void:
 	self.add_to_group("Player")
 	get_node('DashArea/DashShape').disabled = true
-	
 	self.connect('remove_health', _on_remove_health)
+	
 	knockdown.connect(state_machine.states['Move'].on_knockdown)
 	dash.connect(state_machine.states['Move'].on_dash)
+	
 	level_up.connect(get_parent().get_node("LevelUpMenu").on_level_up)
 	if !died.is_connected(get_parent().get_node("QuitMenu")._on_player_died):
 		died.connect(get_parent().get_node("QuitMenu")._on_player_died)
+	
+	freeze_enemy.connect(get_parent()._freeze_objects)
+	shockwave.connect(get_parent()._shockwave)
 	
 	_append_property_list()
 	_update_property_list()
@@ -65,6 +76,10 @@ func _ready() -> void:
 	invurnerability_timer.set_wait_time(invurnerability_time)
 	invurnerability_timer.set_one_shot(true)
 	invurnerability_timer.connect('timeout', _on_invurnerable_signal)
+	
+	ability_timer = get_node("AbilityTimer")
+	ability_timer.set_one_shot(true)
+	
 
 
 func _process(delta: float) -> void:
@@ -99,17 +114,22 @@ func _unhandled_input(event: InputEvent) -> void:
 func _activate_ability(ability: Upgrade) -> void:
 	match ability.upgrade_name:
 			"TimesFreezer":
-				#Maybe make the game freeze the enemies..? Makes sense
-				#Freeze them based on a timer
-				var enemies = get_tree().get_nodes_in_group("Enemies")
-				for enemy in enemies:
-					enemy.set_physics_process(false)
+				emit_signal("freeze_enemy", "Enemies", _freeze_duration)
 			"Supercharge":
-				pass
+				ability_timer.set_wait_time(5)
+				var temp = dash_count
+				ability_timer.connect("timeout", _on_ability_timer_timeout.bind(temp))
+				dash_count = 100000000
+				ability_timer.start()
 			"Shockwave":
-				pass
+				emit_signal("shockwave", self, 200)
 			_:
 				print_debug("404: Upgrade not found: ", ability.upgrade_name)
+
+
+func _on_ability_timer_timeout(dash_c: float) -> void:
+	dash_count = dash_c
+	ability_timer.disconnect("timeout", _on_ability_timer_timeout)
 
 
 func _on_remove_health(origin: Node, damage: float) -> void:

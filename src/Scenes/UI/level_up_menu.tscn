@@ -33,17 +33,11 @@ grow_vertical = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="Menu"]
 layout_mode = 2
 
-[node name="P_Utility" type="Button" parent="Menu/HBoxContainer"]
+[node name="Utility" type="Button" parent="Menu/HBoxContainer"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 theme_override_constants/outline_size = 2
 text = "Player Utility"
-
-[node name="G_Utility" type="Button" parent="Menu/HBoxContainer"]
-custom_minimum_size = Vector2(200, 100)
-layout_mode = 2
-theme_override_constants/outline_size = 2
-text = "Game Utility"
 
 [node name="MainSkill" type="Button" parent="Menu/HBoxContainer"]
 custom_minimum_size = Vector2(200, 100)

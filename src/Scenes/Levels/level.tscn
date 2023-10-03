@@ -142,8 +142,12 @@ layer_0/tile_data = PackedInt32Array(0, 65536, 0, 65536, 65536, 0, 131072, 65536
 [node name="Player" parent="." instance=ExtResource("2_awi4q")]
 position = Vector2(576, 312)
 
+[node name="Enemy_Factory" parent="." instance=ExtResource("8_na3k6")]
+
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 3.0
+
+[node name="FreezeTimer" type="Timer" parent="."]
 
 [node name="User_Interface" parent="." instance=ExtResource("7_44dmr")]
 anchors_preset = 2
@@ -151,6 +155,13 @@ anchor_top = 1.0
 anchor_right = 0.0
 grow_horizontal = 1
 grow_vertical = 0
+
+[node name="LevelUpMenu" parent="." instance=ExtResource("9_1my66")]
+visible = false
+offset_left = 576.0
+offset_top = 312.0
+offset_right = 576.0
+offset_bottom = 312.0
 
 [node name="PauseMenu" parent="." instance=ExtResource("5_dw5en")]
 visible = false
@@ -170,14 +181,5 @@ offset_left = 569.0
 offset_top = 297.0
 offset_right = 569.0
 offset_bottom = 297.0
-
-[node name="Enemy_Factory" parent="." instance=ExtResource("8_na3k6")]
-
-[node name="LevelUpMenu" parent="." instance=ExtResource("9_1my66")]
-visible = false
-offset_left = 576.0
-offset_top = 312.0
-offset_right = 576.0
-offset_bottom = 312.0
 
 [connection signal="died" from="Player" to="QuitMenu" method="_on_player_died"]
