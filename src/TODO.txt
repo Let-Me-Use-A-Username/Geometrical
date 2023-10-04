@@ -1,19 +1,12 @@
-|) Fix "Freeze time" mechanic for enemies
-|)
 
-|) Implement basic level up and ability choosing
-	|) Differentiate between Utility upgrades for the player and for the game
-		changes have to be made in upgrade_factory
-		|) Perhaps the player will be able to choose a game upgrade instead 
-			of an ability upgrade more rarely. So as to change the game as he pleases
-	Note) Consider the fact of changing the way a player picks an ability. 
-		If a player is allowed to pick any type of upgrade then the only thing to 
-		take into mind is how much he can upgrade something.
-	Done)Back Button should keep the previous upgrades instead of changing them
-
+IDEA) Make collider visible during dashing
 
 |) Implement basic sound effects and background music
 |) Implement virtual controller for mobile
+|) Implement game menu and loading
+|) Add more abilities 
+|) Add bosses
+|) Add FX
 |) Fix threshold detection for level up
 |) Roll Alpha Version
 
@@ -64,3 +57,13 @@ Done:
 	|) Implement square
 	|) Fix UI to not bug when player dies (player ui)
 	Done) Fix quit menu that doesnt react to died signal
+	Done) Fix "Freeze time" mechanic for enemies
+	|) Implement basic level up and ability choosing
+	|) Differentiate between Utility upgrades for the player and for the game
+		changes have to be made in upgrade_factory
+		|) Perhaps the player will be able to choose a game upgrade instead 
+			of an ability upgrade more rarely. So as to change the game as he pleases
+	Note) Consider the fact of changing the way a player picks an ability. 
+		If a player is allowed to pick any type of upgrade then the only thing to 
+		take into mind is how much he can upgrade something.
+	Done)Back Button should keep the previous upgrades instead of changing them

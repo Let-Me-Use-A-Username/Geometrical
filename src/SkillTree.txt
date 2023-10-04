@@ -39,8 +39,9 @@ Skill Tree Types:
 		|)Passive
 			Rings (Circular Objects orbiting player)
 			Dodge Teleport
-			Black hole (Spawns a black hole randomly close to you, absorbes everything close)
+			BlackHole (Spawns a black hole randomly close to you, absorbes everything close)
 			Doppelganger (Repeats what you do with a delay)
+			Deflect
 		
 		
 	|)Main skill upgrades

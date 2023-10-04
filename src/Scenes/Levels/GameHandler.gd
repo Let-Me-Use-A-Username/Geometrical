@@ -51,10 +51,14 @@ func _freeze_objects(code: String, duration: float) -> void:
 	freeze_timer.set_wait_time(duration)
 	match code:
 		"Enemies":
-			freeze_timer.connect("timeout", _on_Freeze_Timeout.bind("Enemies"))
+			if !freeze_timer.is_connected("timeout", _on_Freeze_Timeout):
+				freeze_timer.connect("timeout", _on_Freeze_Timeout.bind("Enemies"))
+			for object in get_tree().get_nodes_in_group("Projectiles"):
+				object.set_physics_process(false)
 			for enemy in get_tree().get_nodes_in_group("Enemies"):
 				enemy.set_physics_process(false)
-				enemy.target_entity = null
+				if enemy != null and enemy.has_node("StateMachine"):
+					enemy.get_node("StateMachine").set_physics_process(false)
 				freeze_timer.start()
 		_:
 			pass
@@ -63,6 +67,11 @@ func _freeze_objects(code: String, duration: float) -> void:
 func _on_Freeze_Timeout(actors: String) -> void:
 	for entity in get_tree().get_nodes_in_group(actors):
 		entity.set_physics_process(true)
+		if entity.has_node("StateMachine"):
+			entity.get_node("StateMachine").set_physics_process(true)
+		if actors == "Enemies":
+			for object in get_tree().get_nodes_in_group("Projectiles"):
+				object.set_physics_process(true)
 
 
 func _shockwave(origin: Node, damage: float) -> void:

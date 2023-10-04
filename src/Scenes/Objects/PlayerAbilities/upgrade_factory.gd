@@ -1,9 +1,13 @@
 class_name Upgrade_factory extends Node
 
 
+#Upgrades read from the txt
 var upgrades: Dictionary
+#ALL UPGRADES
 var upgrade_trees: Dictionary
+#Available upgrades for the player
 var available_trees: Dictionary
+#Upgrades the player has chosen
 var applied_upgrades: Array
 
 @onready var player = owner as Player
@@ -101,11 +105,26 @@ func _get_random_upgrades(ab_name: String) -> Array:
 	randomize()
 	var returnee = []
 	var value = available_trees[ab_name].values()
-	for repeat in range(0, 3):
-		var upgrade = value.pick_random()
-		returnee.append(upgrade)
-		value.erase(upgrade)
-	return returnee
+	#Removing abilities that the player has chose
+	match ab_name:
+		"Ability":
+			var repeat = 0
+			while repeat != 3:
+				var upgrade = value.pick_random()
+				if upgrade in applied_upgrades:
+					value.erase(upgrade)
+					continue
+				returnee.append(upgrade)
+				value.erase(upgrade)
+				repeat += 1
+			return returnee
+	#Different case for all the other upgrades that can be picked again
+		_:
+			for repeat in range(0, 3):
+				var upgrade = value.pick_random()
+				returnee.append(upgrade)
+				value.erase(upgrade)
+			return returnee
 
 
 
@@ -139,14 +158,34 @@ func apply_effect(ability: Upgrade) -> void:
 			
 			var suc = player._set(stats[0], increment)
 			if suc:
+				ability.upgrade_active = true
 				applied_upgrades.append(ability)
 				print_debug("Successfully upgraded: ", stats[0], " to: ", increment)
 			else:
 				print_debug("Failed to upgrade: ", stats[0])
 				
 	elif upgrade_type == "A":
-		player._player_abilities.push_front(ability)
-		print_debug("Successfully added ability: ", ability.upgrade_name)
+		if player._player_abilities.size() < 4:
+			
+			var applied_ability = Ability.new()
+			applied_ability.ability_name = ability.upgrade_name
+			applied_ability.ability_description = ability.upgrade_description
+			var effects =  ability.upgrade_effect.split("|")
+			applied_ability.ability_cooldown = effects[1]
+			
+			if effects[0].split("=")[0] == "duration":
+				applied_ability.ability_duration = effects[0].split("=")[1]
+				applied_ability.ability_damage = 0
+			else:
+				applied_ability.ability_damage = effects[0].split("=")[1]
+				applied_ability.ability_duration = 0
+				
+			applied_ability.ability_active = true
+			#Player receives a different object of the ability
+			player._player_abilities.push_back(applied_ability)
+			#The factory keeps it the same
+			applied_upgrades.append(ability)
+			print_debug("Successfully added ability: ", applied_ability.ability_name)
 
 
 func remove_effect(ability: Upgrade) -> void:

@@ -18,6 +18,7 @@ func _ready() -> void:
 	shoot_timer.set_one_shot(true)
 	shoot_timer.connect('timeout', _on_shoot_timeout)
 
+
 func _despose_actor() -> void:
 	super()
 

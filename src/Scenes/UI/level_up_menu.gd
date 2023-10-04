@@ -51,6 +51,10 @@ func on_level_up(coins: int) -> void:
 	chosen_upgrades["Ability"] = []
 	
 	available_upgrades = upgrade_factory._export_tree(coins)
+	
+	#After player chooses 3 abilities stop the selection
+	if player._player_abilities.size() == 3:
+		skill_tree_3.visible = false
 
 
 func _on__pressed(ab_name: String) -> void:

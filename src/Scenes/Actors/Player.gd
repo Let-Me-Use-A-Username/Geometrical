@@ -39,8 +39,6 @@ var _player_mainskill_property_list = {}
 var _player_abilities = []
 var ability_timer: Timer
 
-var _freeze_duration = 3.0
-
 func _ready() -> void:
 	self.add_to_group("Player")
 	get_node('DashArea/DashShape').disabled = true
@@ -111,18 +109,23 @@ func _unhandled_input(event: InputEvent) -> void:
 		_activate_ability(_player_abilities[2])
 
 
-func _activate_ability(ability: Upgrade) -> void:
-	match ability.upgrade_name:
+func _activate_ability(ability: Ability) -> void:
+	match ability.ability_name:
 			"TimesFreezer":
-				emit_signal("freeze_enemy", "Enemies", _freeze_duration)
+				emit_signal("freeze_enemy", "Enemies", ability.ability_duration)
 			"Supercharge":
-				ability_timer.set_wait_time(5)
-				var temp = dash_count
-				ability_timer.connect("timeout", _on_ability_timer_timeout.bind(temp))
+				ability_timer.set_wait_time(ability.ability_cooldown)
+				ability_timer.connect("timeout", _on_ability_timer_timeout.bind(dash_count))
 				dash_count = 100000000
 				ability_timer.start()
 			"Shockwave":
-				emit_signal("shockwave", self, 200)
+				emit_signal("shockwave", self, ability.ability_damage)
+			"Doppelganger":
+				pass
+			"BlackHole":
+				pass
+			"Rings":
+				pass
 			_:
 				print_debug("404: Upgrade not found: ", ability.upgrade_name)
 

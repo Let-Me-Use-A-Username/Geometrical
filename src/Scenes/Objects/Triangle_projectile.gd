@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 @onready var timer: Timer = get_node("FreeTimer")
-@onready var dtimer: Timer = get_node("DeathTimer")
+@onready var deathtimer: Timer = get_node("DeathTimer")
 
 var target
 var damage
@@ -19,10 +19,10 @@ func _ready() -> void:
 	timer.set_one_shot(true)
 	timer.connect('timeout', on_timer_timeout)
 	
-	dtimer.set_wait_time(10)
+	deathtimer.set_wait_time(20)
 	timer.set_one_shot(true)
-	dtimer.connect('timeout', on_timer_timeout)
-	dtimer.start()
+	deathtimer.connect('timeout', on_timer_timeout)
+	deathtimer.start()
 	
 
 func _physics_process(delta: float) -> void:
