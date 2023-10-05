@@ -9,6 +9,9 @@ signal knockdown(origin: Node, disabled_time: float)
 
 signal freeze_enemy(actors: String, duration: float)
 signal shockwave(origin: Node, damage: float)
+signal doppelganger(duration: float)
+signal blackhole
+signal summon_rings(ring_damage: float)
 
 enum States {IDLE, MOVE, DASH}
 var _state = States.IDLE
@@ -38,28 +41,30 @@ var _player_mainskill_property_list = {}
 
 var _player_abilities = []
 var ability_timer: Timer
+var ring_damage: float = 50
 
 func _ready() -> void:
 	self.add_to_group("Player")
 	get_node('DashArea/DashShape').disabled = true
 	self.connect('remove_health', _on_remove_health)
-	
+	#State Signals
 	knockdown.connect(state_machine.states['Move'].on_knockdown)
 	dash.connect(state_machine.states['Move'].on_dash)
-	
+	#More State Signals
 	level_up.connect(get_parent().get_node("LevelUpMenu").on_level_up)
 	if !died.is_connected(get_parent().get_node("QuitMenu")._on_player_died):
 		died.connect(get_parent().get_node("QuitMenu")._on_player_died)
-	
+	#Ability Signals
 	freeze_enemy.connect(get_parent()._freeze_objects)
 	shockwave.connect(get_parent()._shockwave)
-	
+	doppelganger.connect(get_node("Doppelganger")._initiate_doppelganger)
+	#Properties
 	_append_property_list()
 	_update_property_list()
 	
 	_append_mainabilities_property_list()
 	_update_mainabilities_property_list()
-	
+	#Timers
 	dash_timer = get_node('DashTimer')
 	dash_timer.set_wait_time(dash_timer_offset)
 	dash_timer.set_one_shot(true)
@@ -112,20 +117,29 @@ func _unhandled_input(event: InputEvent) -> void:
 func _activate_ability(ability: Ability) -> void:
 	match ability.ability_name:
 			"TimesFreezer":
+				ability_timer.set_wait_time(ability.ability_cooldown)
 				emit_signal("freeze_enemy", "Enemies", ability.ability_duration)
+				ability_timer.start()
 			"Supercharge":
 				ability_timer.set_wait_time(ability.ability_cooldown)
 				ability_timer.connect("timeout", _on_ability_timer_timeout.bind(dash_count))
 				dash_count = 100000000
 				ability_timer.start()
 			"Shockwave":
+				ability_timer.set_wait_time(ability.ability_cooldown)
 				emit_signal("shockwave", self, ability.ability_damage)
+				ability_timer.start()
 			"Doppelganger":
-				pass
+				ability_timer.set_wait_time(ability.ability_cooldown)
+				emit_signal("doppelganger", ability.ability_duration)
+				ability_timer.start()
+				#when the ability starts, a stack captures the players movement and then repeats
+				#it later
 			"BlackHole":
-				pass
+				#Summon a black hole somewhere randomly 
+				emit_signal("blackhole")
 			"Rings":
-				pass
+				emit_signal("summon_rings", ring_damage)
 			_:
 				print_debug("404: Upgrade not found: ", ability.upgrade_name)
 

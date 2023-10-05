@@ -5,6 +5,7 @@ extends PlayerState
 @onready var knockback_timer: Timer = get_parent().get_node('KnockbackTimer')
 var knockback_force = 180
 
+var direction
 var can_dash: bool = false
 var stop_movement: bool = false
 
@@ -16,8 +17,11 @@ func _ready() -> void:
 func update(delta: float) -> void:
 	pass
 
+func get_direction() -> Vector2:
+	return direction
+
 func physics_process(delta: float) -> void:
-	var direction: = Input.get_vector("left", "right", "up", "down").normalized()
+	direction = Input.get_vector("left", "right", "up", "down").normalized()
 	if !stop_movement: 
 		target_obj.set_velocity(target_obj.speed * direction)
 	

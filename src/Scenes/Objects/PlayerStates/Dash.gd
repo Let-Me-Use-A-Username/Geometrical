@@ -6,6 +6,9 @@ var dash_time: float = 0.15
 var dash_count: int 
 var current_dash_count: int
 
+var direction
+var impulse
+
 func _ready() -> void:
 	super()
 	dash_timer.set_wait_time(dash_time)
@@ -14,9 +17,18 @@ func _ready() -> void:
 func update(delta: float) -> void:
 	pass
 
+func get_direction() -> Vector2:
+	return direction
+
+func get_impulse() -> float:
+	if impulse != null:
+		return impulse
+	return lerp(target_obj.speed * direction, target_obj.dash_speed * direction * target_speed_modifier, 0.8)
+
+
 func physics_process(delta: float) -> void:
-	var direction: = Input.get_vector("left", "right", "up", "down").normalized()
-	var impulse = lerp(target_obj.speed * direction, target_obj.dash_speed * direction * target_speed_modifier, 0.8)
+	direction = Input.get_vector("left", "right", "up", "down").normalized()
+	impulse = lerp(target_obj.speed * direction, target_obj.dash_speed * direction * target_speed_modifier, 0.8)
 	target_obj.set_velocity(impulse)
 	
 	if dash_timer.time_left == 0:

@@ -73,7 +73,7 @@ func _print_upgradeTrees() -> void:
 #exports the tree (trees) to player
 func _export_tree(coins) -> Dictionary:
 	total_coins = coins
-	_remove_used_upgrades()
+	#_remove_used_upgrades()
 	_append_next_level_upgrades()
 	_get_available_tree()
 	return available_trees

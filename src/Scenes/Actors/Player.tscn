@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dg0pyopln4yjk"]
+[gd_scene load_steps=12 format=3 uid="uid://dg0pyopln4yjk"]
 
 [ext_resource type="Script" path="res://src/Scenes/Actors/Player.gd" id="1_rqiwo"]
 [ext_resource type="Texture2D" uid="uid://c0jqbhx8bmfp4" path="res://assets/characters/Circle-0003.png" id="2_olfa5"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://src/Scenes/Objects/PlayerStates/Move.gd" id="5_4eq1r"]
 [ext_resource type="Script" path="res://src/Scenes/Objects/PlayerStates/Dash.gd" id="6_iof5q"]
 [ext_resource type="Script" path="res://src/Scenes/Objects/PlayerAbilities/upgrade_factory.gd" id="7_356et"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/PlayerAbilities/Doppelganger.gd" id="8_ingxs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqwmu"]
 radius = 7.0
@@ -35,10 +36,6 @@ texture = ExtResource("2_olfa5")
 [node name="DashImmuneTimer" type="Timer" parent="."]
 
 [node name="AbilityTimer" type="Timer" parent="."]
-
-[node name="SecondaryAbilityTimer" type="Timer" parent="."]
-
-[node name="ThirdAbilityTimer" type="Timer" parent="."]
 
 [node name="PlayerBounds" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
@@ -77,5 +74,8 @@ script = ExtResource("6_iof5q")
 
 [node name="Upgrade_Factory" type="Node" parent="."]
 script = ExtResource("7_356et")
+
+[node name="Doppelganger" type="Node" parent="."]
+script = ExtResource("8_ingxs")
 
 [connection signal="area_entered" from="CollitionArea" to="." method="_on_collition_area_area_entered"]
