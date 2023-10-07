@@ -1,3 +1,5 @@
+res://src/Scenes/Objects
+res://src/Scenes/External/joystick
 res://src/Scenes/Actors
 F:/Godot_Projects/Exported_Projects/Android
 C:/Users/Daddy/.android
@@ -5,7 +7,6 @@ D:/Android/Sdk
 D:/Android/Sdk/build-tools
 F:/Godot_Projects/Mono/Geometrical/src/Scenes/Objects/PlayerAbilities
 F:/Godot_Projects/Mono/Geometrical/src/Scenes
-res://src/Scenes/Objects
 res://src/Scenes/Levels
 res://assets/characters
 res://src

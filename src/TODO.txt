@@ -1,14 +1,15 @@
 |)Begin testing on android
-	|) Fix controls and screen
-	|) Joystick: https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
-		|)https://docs.godotengine.org/en/stable/classes/class_inputeventscreentouch.html
-		|)https://docs.godotengine.org/en/stable/classes/class_touchscreenbutton.html
-	|) Movement will have a virtual joystick.
+	|)Fix controls and screen
+	Done) Movement will have a virtual joystick
+		Done) Joystick: https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
 		|) Abilities are either pressed, or pressed and activated with touch 
 		|) Dash is a swipe
 		
 |)Fix ability choosing in android (changed buttons dont appear)
+	|) Make (ability choosing) buttons touchable
 
+Notes)Touch Event: https://docs.godotengine.org/en/stable/classes/class_inputeventscreentouch.html
+Notes)Touch button: https://docs.godotengine.org/en/stable/classes/class_touchscreenbutton.html
 NOTES) Changes Input device -> mouse now emulates touch 
 NOTES) Changes scretch mode to viewport in window
 

@@ -57,7 +57,6 @@ func _ready() -> void:
 	#Ability Signals
 	freeze_enemy.connect(get_parent()._freeze_objects)
 	shockwave.connect(get_parent()._shockwave)
-	doppelganger.connect(get_node("Doppelganger")._initiate_doppelganger)
 	#Properties
 	_append_property_list()
 	_update_property_list()

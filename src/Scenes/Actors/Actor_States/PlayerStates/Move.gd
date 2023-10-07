@@ -32,6 +32,7 @@ func physics_process(delta: float) -> void:
 		can_dash = false
 		state_machine._transition_to_state(self, state_machine.states.get('Dash'), {'target_obj.speed_modifier': 5})
 
+
 func _handle_input(_event: InputEvent) -> void:
 	pass
 
