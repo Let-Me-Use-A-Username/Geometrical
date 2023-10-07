@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://src/Scenes/Actors/Enemy_Triangle.gd" id="1_dx38i"]
 [ext_resource type="Texture2D" uid="uid://bahdk05tgu7oq" path="res://assets/characters/Triangle-0003.png" id="2_nno7p"]
-[ext_resource type="Script" path="res://src/Scenes/Objects/StateMachine.gd" id="3_7qtms"]
-[ext_resource type="Script" path="res://src/Scenes/Objects/Triangle_States/Idle.gd" id="4_7utpb"]
-[ext_resource type="Script" path="res://src/Scenes/Objects/Triangle_States/Move.gd" id="5_k57xb"]
-[ext_resource type="Script" path="res://src/Scenes/Objects/Triangle_States/Shoot.gd" id="6_hoc5t"]
-[ext_resource type="Script" path="res://src/Scenes/Objects/Triangle_States/ShortWalk.gd" id="7_mjtja"]
+[ext_resource type="Script" path="res://src/Scenes/States_and_Machines/StateMachine.gd" id="3_pbsjm"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/Triangle_States/Idle.gd" id="4_ado1w"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/Triangle_States/Move.gd" id="5_328n8"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/Triangle_States/Shoot.gd" id="6_64o15"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/Triangle_States/ShortWalk.gd" id="7_0om4c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d7g04"]
 radius = 12.7803
@@ -51,19 +51,19 @@ shape = SubResource("RectangleShape2D_1bk63")
 [node name="ShootCooldown" type="Timer" parent="."]
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource("3_7qtms")
+script = ExtResource("3_pbsjm")
 
 [node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource("4_7utpb")
+script = ExtResource("4_ado1w")
 
 [node name="Move" type="Node" parent="StateMachine"]
-script = ExtResource("5_k57xb")
+script = ExtResource("5_328n8")
 
 [node name="Shoot" type="Node" parent="StateMachine"]
-script = ExtResource("6_hoc5t")
+script = ExtResource("6_64o15")
 
 [node name="ShortWalk" type="Node" parent="StateMachine"]
-script = ExtResource("7_mjtja")
+script = ExtResource("7_0om4c")
 
 [node name="ShortWalkTimer" type="Timer" parent="StateMachine"]
 

@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://src/Scenes/Actors/Player.gd" id="1_rqiwo"]
 [ext_resource type="Texture2D" uid="uid://c0jqbhx8bmfp4" path="res://assets/characters/Circle-0003.png" id="2_olfa5"]
-[ext_resource type="Script" path="res://src/Scenes/Objects/PlayerStates/PlayerStateMachine.gd" id="3_25qm0"]
-[ext_resource type="Script" path="res://src/Scenes/Objects/PlayerStates/Idle.gd" id="4_72jyw"]
-[ext_resource type="Script" path="res://src/Scenes/Objects/PlayerStates/Move.gd" id="5_4eq1r"]
-[ext_resource type="Script" path="res://src/Scenes/Objects/PlayerStates/Dash.gd" id="6_iof5q"]
-[ext_resource type="Script" path="res://src/Scenes/Objects/PlayerAbilities/upgrade_factory.gd" id="7_356et"]
-[ext_resource type="Script" path="res://src/Scenes/Objects/PlayerAbilities/Doppelganger.gd" id="8_ingxs"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/PlayerStates/PlayerStateMachine.gd" id="3_n8u1j"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/PlayerStates/Idle.gd" id="4_y6fdd"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/PlayerStates/Move.gd" id="5_pwcfs"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/PlayerStates/Dash.gd" id="6_dhbsk"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/upgrade_factory.gd" id="7_b61lc"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Doppelganger.gd" id="8_ryado"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqwmu"]
 radius = 7.0
@@ -57,25 +57,25 @@ position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_5k7s5")
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource("3_25qm0")
+script = ExtResource("3_n8u1j")
 
 [node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource("4_72jyw")
+script = ExtResource("4_y6fdd")
 
 [node name="Move" type="Node" parent="StateMachine"]
-script = ExtResource("5_4eq1r")
+script = ExtResource("5_pwcfs")
 
 [node name="Dash" type="Node" parent="StateMachine"]
-script = ExtResource("6_iof5q")
+script = ExtResource("6_dhbsk")
 
 [node name="DashTransitionTimer" type="Timer" parent="StateMachine"]
 
 [node name="KnockbackTimer" type="Timer" parent="StateMachine"]
 
 [node name="Upgrade_Factory" type="Node" parent="."]
-script = ExtResource("7_356et")
+script = ExtResource("7_b61lc")
 
 [node name="Doppelganger" type="Node" parent="."]
-script = ExtResource("8_ingxs")
+script = ExtResource("8_ryado")
 
 [connection signal="area_entered" from="CollitionArea" to="." method="_on_collition_area_area_entered"]

@@ -1,7 +1,7 @@
 class_name Enemy extends CharacterBody2D
 
 
-@onready var coin = preload("res://src/Scenes/Levels/coin.tscn")
+@onready var coin = preload("res://src/Scenes/Objects/coin.tscn")
 
 var health: float
 var health_regen: float

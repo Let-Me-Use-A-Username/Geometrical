@@ -1,8 +1,3 @@
 res://src/Scenes/Actors/Player.tscn
 res://src/Scenes/UI/healthbar.tres
-res://src/Scenes/Actors/Player.gd
-res://src/Scenes/Objects/PlayerStates/Move.gd
-res://src/Scenes/Objects/PlayerStates/Dash.gd
-res://src/Scenes/Objects/PlayerAbilities/Doppelganger.gd
-res://src/Scenes/Levels/level.tscn
-res://src/Scenes/Objects/PlayerAbilities/upgrade_factory.gd
+res://src/TODO.txt

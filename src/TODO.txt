@@ -1,5 +1,21 @@
+|)Begin testing on android
+	|) Fix controls and screen
+	|) Joystick: https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
+		|)https://docs.godotengine.org/en/stable/classes/class_inputeventscreentouch.html
+		|)https://docs.godotengine.org/en/stable/classes/class_touchscreenbutton.html
+	|) Movement will have a virtual joystick.
+		|) Abilities are either pressed, or pressed and activated with touch 
+		|) Dash is a swipe
+		
+|)Fix ability choosing in android (changed buttons dont appear)
 
+NOTES) Changes Input device -> mouse now emulates touch 
+NOTES) Changes scretch mode to viewport in window
+
+|)Implement event system for abilities 
 IDEA) Make collider visible during dashing
+
+
 
 |) Implement basic sound effects and background music
 |) Implement virtual controller for mobile
@@ -11,12 +27,9 @@ IDEA) Make collider visible during dashing
 |) Roll Alpha Version
 
 Ideas:
-	|) Control player with mouse
+	|) Control player with mouse for pc
 	
-	|) Make player sprite the health bar (?)
-	
-	|) Decide if enemies should collide with each other 
-		|) if not just disable the mask on the enemies
+	|) Implement a better health bar
 	
 	|) Enemies that aren't instakilled could display an on hit effect 
 		like a sprite change
@@ -27,6 +40,7 @@ Ideas:
 
 Sources:
 	Sound effects: https://mixkit.co/free-sound-effects/game/
+	android help: https://www.youtube.com/watch?v=0NxYJgATevg
 
 
 Notes for later:
@@ -67,3 +81,4 @@ Done:
 		If a player is allowed to pick any type of upgrade then the only thing to 
 		take into mind is how much he can upgrade something.
 	Done)Back Button should keep the previous upgrades instead of changing them
+	Done)Export to android: https://www.youtube.com/watch?v=0NxYJgATevg

@@ -49,6 +49,5 @@ func _on_explotion_range_body_exited(body: Node2D) -> void:
 
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	var obj = area.owner
-	if obj.name == 'Player':
-		_on_remove_health(obj, 100)
+	if area.owner.name == 'Player':
+		_on_remove_health(self, 100)

@@ -39,7 +39,7 @@ func get_spawn_queue(total_enemies: int, wave_counter: int) -> Array:
 		
 	if time_passed < 30:
 		for num in range(wave_counter):
-			spawn_queue.push_back(enemy_circle)
+			spawn_queue.push_back(enemy_square)
 		return spawn_queue
 	
 	return spawn_queue

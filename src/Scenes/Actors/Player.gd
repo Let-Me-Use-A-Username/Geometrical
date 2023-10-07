@@ -82,7 +82,7 @@ func _ready() -> void:
 	
 	ability_timer = get_node("AbilityTimer")
 	ability_timer.set_one_shot(true)
-	
+
 
 
 func _process(delta: float) -> void:
