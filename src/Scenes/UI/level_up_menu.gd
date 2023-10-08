@@ -11,8 +11,8 @@ signal upgraded(ability: Upgrade)
 @onready var option_2 = get_node("Abilities/HBoxContainer/#2")
 @onready var option_3 = get_node("Abilities/HBoxContainer/#3")
 
-@onready var player = get_node("../Player")
-@onready var upgrade_factory = get_node("../Player/Upgrade_Factory")
+@onready var player = get_node("../../Player")
+@onready var upgrade_factory = get_node("../../Player/Upgrade_Factory")
 
 @onready var menu = get_node("Menu")
 @onready var inner_menu = get_node("Abilities")

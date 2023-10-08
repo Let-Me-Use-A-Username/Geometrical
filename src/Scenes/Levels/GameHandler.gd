@@ -14,11 +14,10 @@ var spawn: bool
 @onready var freeze_timer: Timer
 
 #Window variables
-const window_size = Vector2(1100, 640)
+@onready var window_size = get_window().size
 var location = Vector2()
 
 func _ready() -> void:
-
 	spawn = true
 	player = $Player
 	enemy_factory = get_node("Enemy_Factory")
@@ -95,13 +94,13 @@ func spawn_enemies(enemy_array : Array) -> void:
 
 		match(spawn_direction):
 			1:
-				location.x = -150
+				location.x = -200
 			2:
-				location.y = -150
+				location.y = -200
 			3:
-				location.y = 750
+				location.y = 800
 			4:
-				location.x = 1210
+				location.x = 1300
 
 		var _instance = enemy_array.pop_back().instantiate()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dj0qponguied8"]
+[gd_scene load_steps=12 format=3 uid="uid://dj0qponguied8"]
 
 [ext_resource type="Texture2D" uid="uid://gd318d321cj4" path="res://assets/start-assets/tileset.png" id="1_bmvma"]
 [ext_resource type="Texture2D" uid="uid://b012unt77tolv" path="res://assets/characters/Tileset-0001.png" id="1_fsqam"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://dg0pyopln4yjk" path="res://src/Scenes/Actors/Player.tscn" id="2_awi4q"]
 [ext_resource type="PackedScene" uid="uid://cwnxje036q6te" path="res://src/Scenes/UI/pause_menu.tscn" id="5_dw5en"]
 [ext_resource type="PackedScene" uid="uid://bvv4ac78ehbgv" path="res://src/Scenes/UI/quit_menu.tscn" id="6_oubrl"]
-[ext_resource type="PackedScene" uid="uid://5aidmw11ao81" path="res://src/Scenes/UI/user_interface.tscn" id="7_44dmr"]
 [ext_resource type="PackedScene" uid="uid://oyga3m0gt1e8" path="res://src/Scenes/Objects/Enemy_factory.tscn" id="8_na3k6"]
 [ext_resource type="PackedScene" uid="uid://bn77akk20dp33" path="res://src/Scenes/UI/level_up_menu.tscn" id="9_1my66"]
 
@@ -149,23 +148,24 @@ wait_time = 3.0
 
 [node name="FreezeTimer" type="Timer" parent="."]
 
-[node name="User_Interface" parent="." instance=ExtResource("7_44dmr")]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_right = 0.0
-grow_horizontal = 1
-grow_vertical = 0
+[node name="Quit" type="CanvasLayer" parent="."]
+layer = 10
 
-[node name="LevelUpMenu" parent="." instance=ExtResource("9_1my66")]
+[node name="QuitMenu" parent="Quit" instance=ExtResource("6_oubrl")]
 visible = false
-offset_left = 576.0
-offset_top = 312.0
-offset_right = 576.0
-offset_bottom = 312.0
+offset_left = 569.0
+offset_top = 297.0
+offset_right = 569.0
+offset_bottom = 297.0
 
-[node name="PauseMenu" parent="." instance=ExtResource("5_dw5en")]
+[node name="Pause" type="CanvasLayer" parent="."]
+layer = 8
+
+[node name="PauseMenu" parent="Pause" instance=ExtResource("5_dw5en")]
 visible = false
 anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 569.0
@@ -175,11 +175,14 @@ offset_bottom = 297.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="QuitMenu" parent="." instance=ExtResource("6_oubrl")]
-visible = false
-offset_left = 569.0
-offset_top = 297.0
-offset_right = 569.0
-offset_bottom = 297.0
+[node name="LevelUp" type="CanvasLayer" parent="."]
+layer = 9
 
-[connection signal="died" from="Player" to="QuitMenu" method="_on_player_died"]
+[node name="LevelUpMenu" parent="LevelUp" instance=ExtResource("9_1my66")]
+visible = false
+offset_left = 576.0
+offset_top = 312.0
+offset_right = 576.0
+offset_bottom = 312.0
+
+[connection signal="died" from="Player" to="Quit/QuitMenu" method="_on_player_died"]

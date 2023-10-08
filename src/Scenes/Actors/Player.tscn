@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dg0pyopln4yjk"]
+[gd_scene load_steps=17 format=3 uid="uid://dg0pyopln4yjk"]
 
 [ext_resource type="Script" path="res://src/Scenes/Actors/Player.gd" id="1_rqiwo"]
 [ext_resource type="Texture2D" uid="uid://c0jqbhx8bmfp4" path="res://assets/characters/Circle-0003.png" id="2_olfa5"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://src/Scenes/External/joystick/virtual_joystick.gd" id="9_xhkwm"]
 [ext_resource type="Texture2D" uid="uid://bm30au8mjfc2f" path="res://src/Scenes/External/joystick/textures/joystick_base_outline.png" id="10_u7rug"]
 [ext_resource type="Texture2D" uid="uid://dt13r06u87fib" path="res://src/Scenes/External/joystick/textures/joystick_tip_arrows.png" id="11_y5c6k"]
+[ext_resource type="Script" path="res://src/Scenes/UI/user_interface.gd" id="12_i6x3g"]
+[ext_resource type="Theme" uid="uid://1l6eb7778jxy" path="res://src/Scenes/UI/healthbar.tres" id="13_7nlje"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqwmu"]
 radius = 7.0
@@ -82,15 +84,23 @@ script = ExtResource("7_b61lc")
 process_mode = 3
 script = ExtResource("9_on76a")
 
-[node name="Virtual Joystick" type="Control" parent="UI"]
+[node name="Background" type="Control" parent="UI"]
 layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Virtual Joystick" type="Control" parent="UI/Background"]
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = -387.0
-offset_right = 303.0
-offset_bottom = -87.0
+offset_left = 16.0
+offset_top = -315.0
+offset_right = 316.0
+offset_bottom = -15.0
 grow_vertical = 0
 script = ExtResource("9_xhkwm")
 visibility_mode = 1
@@ -99,7 +109,7 @@ action_right = "right"
 action_up = "up"
 action_down = "down"
 
-[node name="Base" type="TextureRect" parent="UI/Virtual Joystick"]
+[node name="Base" type="TextureRect" parent="UI/Background/Virtual Joystick"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -117,7 +127,7 @@ mouse_force_pass_scroll_events = false
 texture = ExtResource("10_u7rug")
 stretch_mode = 5
 
-[node name="Tip" type="TextureRect" parent="UI/Virtual Joystick/Base"]
+[node name="Tip" type="TextureRect" parent="UI/Background/Virtual Joystick/Base"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -133,5 +143,27 @@ grow_vertical = 2
 pivot_offset = Vector2(50, 50)
 texture = ExtResource("11_y5c6k")
 stretch_mode = 5
+
+[node name="UI_Debug" type="CanvasLayer" parent="."]
+
+[node name="User_Interface" type="Control" parent="UI_Debug"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("12_i6x3g")
+
+[node name="HealthBar" type="ProgressBar" parent="UI_Debug/User_Interface"]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 33.0
+theme = ExtResource("13_7nlje")
+value = 10.4
+
+[node name="Info" type="Label" parent="UI_Debug/User_Interface"]
+layout_mode = 2
+offset_top = 32.0
+offset_right = 500.0
+offset_bottom = 58.0
+text = "DashTimer
+"
 
 [connection signal="area_entered" from="CollitionArea" to="." method="_on_collition_area_area_entered"]

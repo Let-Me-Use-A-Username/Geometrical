@@ -1,21 +1,15 @@
 extends Control
 
-var player: Node
-var inv_timer: Timer
-var dash_timer: Timer
+@onready var player = get_parent().owner as Player
+@onready var inv_timer = player.get_node("Invurnerable")
+@onready var dash_timer = player.get_node("DashTimer")
 
-
-@onready var label = $DashTimer
+@onready var label = $Info
 @onready var healthbar = $HealthBar
-
-func _ready() -> void:
-	inv_timer = get_node('../Player/DashTimer')
-	dash_timer = get_node('../Player/DashImmuneTimer')
 
 
 func _process(delta: float) -> void:
-	player = get_node_or_null('../Player') as Player
-	if player != null:
+	if OS.is_debug_build() and player != null and inv_timer != null and dash_timer != null:
 		label.set_text(
 			'-----------PLAYER STATS-----------'
 		+ '\nMax Health: ' + str(player.get("max_health"))

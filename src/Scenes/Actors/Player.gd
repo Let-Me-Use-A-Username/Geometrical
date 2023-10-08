@@ -1,8 +1,8 @@
 class_name Player extends Actor
 
 signal died
-signal dash
 signal level_up(coins: int)
+signal dash
 
 signal remove_health(origin: Node, damage: float)
 signal knockdown(origin: Node, disabled_time: float)
@@ -16,6 +16,8 @@ signal summon_rings(ring_damage: float)
 enum States {IDLE, MOVE, DASH}
 var _state = States.IDLE
 @onready var state_machine = get_node('StateMachine')
+@onready var input_handler = get_node('UI')
+enum OS_Type {KEYBOARD, TOUCH}
 
 var invurnerable = false
 var invurnerability_timer: Timer
@@ -51,9 +53,9 @@ func _ready() -> void:
 	knockdown.connect(state_machine.states['Move'].on_knockdown)
 	dash.connect(state_machine.states['Move'].on_dash)
 	#More State Signals
-	level_up.connect(get_parent().get_node("LevelUpMenu").on_level_up)
-	if !died.is_connected(get_parent().get_node("QuitMenu")._on_player_died):
-		died.connect(get_parent().get_node("QuitMenu")._on_player_died)
+	level_up.connect(get_parent().get_node("LevelUp/LevelUpMenu").on_level_up)
+	if !died.is_connected(get_parent().get_node("Quit/QuitMenu")._on_player_died):
+		died.connect(get_parent().get_node("Quit/QuitMenu")._on_player_died)
 	#Ability Signals
 	freeze_enemy.connect(get_parent()._freeze_objects)
 	shockwave.connect(get_parent()._shockwave)
@@ -93,13 +95,9 @@ func _process(delta: float) -> void:
 		level_up_threshold.pop_back()
 
 
-func _physics_process(delta: float) -> void:
-	super(delta)
-
-
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("dash") and current_dash_count < dash_count:
-		emit_signal("dash")
+	if event.is_action_pressed('dash') and current_dash_count < dash_count:
+		emit_signal('dash')
 		dash_timer.start()
 		dash_immune_timer.start()
 		invurnerable = true

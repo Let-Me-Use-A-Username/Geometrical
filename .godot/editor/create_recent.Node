@@ -1,6 +1,7 @@
+CanvasLayer
+TextureRect
 Control
 Container
-CanvasLayer
 Node
 TouchScreenButton
 Timer
@@ -26,6 +27,5 @@ VBoxContainer
 BoxContainer
 AspectRatioContainer
 ColorRect
-TextureRect
 TileMap
 Node2D

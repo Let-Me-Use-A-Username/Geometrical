@@ -2,6 +2,7 @@
 	|)Fix controls and screen
 	Done) Movement will have a virtual joystick
 		Done) Joystick: https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
+			|) Make joystick spawn where the player pressed
 		|) Abilities are either pressed, or pressed and activated with touch 
 		|) Dash is a swipe
 		

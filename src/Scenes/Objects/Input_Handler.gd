@@ -1,23 +1,26 @@
 extends Node
 
-var _input_type: String
-@onready var joystick = get_node("Virtual Joystick") as VirtualJoystick
+enum OS_Type {KEYBOARD, TOUCH}
 
-func _init() -> void:
+var _input_type
+@onready var joystick = get_node("Background/Virtual Joystick") as VirtualJoystick
+@onready var player = owner as Player
+
+func _ready() -> void:
 	match OS.get_name():
 		"Android":
 			print_debug("Mobile Phone detected...\n")
-			_input_type = "Touch"
+			_input_type = OS_Type.TOUCH
 			
 		"Windows", "UWP", "Linux", "Web":
 			print_debug("Computer detected...\n")
-			_input_type = "Keyboard"
+			_input_type = OS_Type.KEYBOARD
 			_disable_virtual_joystick()
 			
 		_:
 			print_debug("Wasn't able to classify system...\n")
 			print_debug("Proceeding with keyboard inputs\n")
-			_input_type = "Keyboard"
+			_input_type = OS_Type.KEYBOARD
 
 
 func _disable_virtual_joystick() -> void:
@@ -25,7 +28,7 @@ func _disable_virtual_joystick() -> void:
 	self.process_mode = Node.PROCESS_MODE_DISABLED
 
 
-func _get_Input_Type() -> String:
+func _get_Input_Type() -> Variant:
 	if _input_type.length() > 1:
 		return _input_type
-	return "Keyboard"
+	return OS_Type.KEYBOARD

@@ -1,10 +1,14 @@
 extends PlayerState
 
 
+signal touch_dashing(trajectory: Vector2)
+
+@onready var player: Player = get_parent().owner as Player
 @onready var dash_timer: Timer = get_parent().get_node('DashTransitionTimer')
 var dash_time: float = 0.15
-var dash_count: int 
-var current_dash_count: int
+
+var touch_dash: bool = false
+var dash_trajectory
 
 var direction
 var impulse
@@ -27,15 +31,17 @@ func get_impulse() -> float:
 
 
 func physics_process(delta: float) -> void:
-	direction = Input.get_vector("left", "right", "up", "down").normalized()
+	if !touch_dash:
+		direction = Input.get_vector("left", "right", "up", "down").normalized()
+	else:
+		direction = dash_trajectory
+		
 	impulse = lerp(target_obj.speed * direction, target_obj.dash_speed * direction * target_speed_modifier, 0.8)
 	target_obj.set_velocity(impulse)
 	
 	if dash_timer.time_left == 0:
 		state_machine._transition_to_state(self, state_machine.states.get('Idle'), {})
 
-func _handle_input(_event: InputEvent) -> void:
-	pass
 
 func enter_state(_msg: = {}) -> void:
 	dash_timer.start()
@@ -47,10 +53,13 @@ func enter_state(_msg: = {}) -> void:
 	target_obj_collider.disabled = true
 	
 	if _msg.size() != 0:
-		if _msg.has(target_speed_modifier):
+		if _msg.has("target_speed_modifier"):
 			target_speed_modifier = _msg.target_speed_modifier
 		else:
 			target_speed_modifier = 1
+		
+		if _msg.has("dash_trajectory"):
+			dash_trajectory = _msg.dash_trajectory
 
 func exit_state(_msg: = {}) -> void:
 	#disable dash bounds
