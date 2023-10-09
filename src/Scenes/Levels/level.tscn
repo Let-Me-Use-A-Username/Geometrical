@@ -159,24 +159,17 @@ offset_right = 569.0
 offset_bottom = 297.0
 
 [node name="Pause" type="CanvasLayer" parent="."]
-layer = 8
+layer = 9
 
 [node name="PauseMenu" parent="Pause" instance=ExtResource("5_dw5en")]
 visible = false
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 offset_left = 569.0
 offset_top = 297.0
 offset_right = 569.0
 offset_bottom = 297.0
-grow_horizontal = 1
-grow_vertical = 1
 
 [node name="LevelUp" type="CanvasLayer" parent="."]
-layer = 9
+layer = 8
 
 [node name="LevelUpMenu" parent="LevelUp" instance=ExtResource("9_1my66")]
 visible = false

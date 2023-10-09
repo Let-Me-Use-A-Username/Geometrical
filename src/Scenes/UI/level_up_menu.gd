@@ -84,12 +84,33 @@ func _on__pressed(ab_name: String) -> void:
 
 func _on_ability_choice(ability: Upgrade) -> void:
 	upgrade_factory.apply_effect(ability)
+	if ability.upgrade_type == "A":
+		create_ability_buttons(ability)
 	menu.visible = true
 	inner_menu.visible = false
 	option_1.disconnect("pressed", _on_ability_choice)
 	option_2.disconnect("pressed", _on_ability_choice)
 	option_3.disconnect("pressed", _on_ability_choice)
 	_set_paused(false)
+
+
+func create_ability_buttons(ability: Upgrade) -> void:
+	var UI = player.get_node("Input_Handler/Background")
+	var dash_button = UI.get_node("DashButton")
+	
+	var ability_button = Button.new()
+	ability_button.text = ability.upgrade_name
+	ability_button.position.x = dash_button.position.x
+	
+	match player._player_abilities.size():
+		1:
+			ability_button.position.y = dash_button.position.y - 100
+		2:
+			ability_button.position.y = dash_button.position.y - 200
+		3:
+			ability_button.position.y = dash_button.position.y - 300
+	
+	UI.add_child(ability_button)
 
 
 #Signal is connected via editor, dont ask me!

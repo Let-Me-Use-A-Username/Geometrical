@@ -31,10 +31,7 @@ func get_impulse() -> float:
 
 
 func physics_process(delta: float) -> void:
-	if !touch_dash:
-		direction = Input.get_vector("left", "right", "up", "down").normalized()
-	else:
-		direction = dash_trajectory
+	direction = Input.get_vector("left", "right", "up", "down").normalized()
 		
 	impulse = lerp(target_obj.speed * direction, target_obj.dash_speed * direction * target_speed_modifier, 0.8)
 	target_obj.set_velocity(impulse)
@@ -57,9 +54,6 @@ func enter_state(_msg: = {}) -> void:
 			target_speed_modifier = _msg.target_speed_modifier
 		else:
 			target_speed_modifier = 1
-		
-		if _msg.has("dash_trajectory"):
-			dash_trajectory = _msg.dash_trajectory
 
 func exit_state(_msg: = {}) -> void:
 	#disable dash bounds

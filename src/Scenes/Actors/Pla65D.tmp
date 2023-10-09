@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dg0pyopln4yjk"]
+[gd_scene load_steps=19 format=3 uid="uid://dg0pyopln4yjk"]
 
 [ext_resource type="Script" path="res://src/Scenes/Actors/Player.gd" id="1_rqiwo"]
 [ext_resource type="Texture2D" uid="uid://c0jqbhx8bmfp4" path="res://assets/characters/Circle-0003.png" id="2_olfa5"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/PlayerStates/Move.gd" id="5_pwcfs"]
 [ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/PlayerStates/Dash.gd" id="6_dhbsk"]
 [ext_resource type="Script" path="res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/upgrade_factory.gd" id="7_b61lc"]
-[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Upgrade_Handler.gd" id="8_i7pv3"]
 [ext_resource type="Script" path="res://src/Scenes/Objects/Input_Handler.gd" id="9_on76a"]
 [ext_resource type="Script" path="res://src/Scenes/External/joystick/virtual_joystick.gd" id="9_xhkwm"]
 [ext_resource type="Texture2D" uid="uid://bm30au8mjfc2f" path="res://src/Scenes/External/joystick/textures/joystick_base_outline.png" id="10_u7rug"]
@@ -83,15 +82,11 @@ script = ExtResource("6_dhbsk")
 [node name="Upgrade_Factory" type="Node" parent="."]
 script = ExtResource("7_b61lc")
 
-[node name="Upgrade_Handler" type="Node" parent="."]
-script = ExtResource("8_i7pv3")
-
-[node name="Input_Handler" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 process_mode = 3
-layer = 2
 script = ExtResource("9_on76a")
 
-[node name="Background" type="Control" parent="Input_Handler"]
+[node name="Background" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,7 +94,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Virtual Joystick" type="Control" parent="Input_Handler/Background"]
+[node name="Virtual Joystick" type="Control" parent="UI/Background"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -116,7 +111,7 @@ action_right = "right"
 action_up = "up"
 action_down = "down"
 
-[node name="Base" type="TextureRect" parent="Input_Handler/Background/Virtual Joystick"]
+[node name="Base" type="TextureRect" parent="UI/Background/Virtual Joystick"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -134,7 +129,7 @@ mouse_force_pass_scroll_events = false
 texture = ExtResource("10_u7rug")
 stretch_mode = 5
 
-[node name="Tip" type="TextureRect" parent="Input_Handler/Background/Virtual Joystick/Base"]
+[node name="Tip" type="TextureRect" parent="UI/Background/Virtual Joystick/Base"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -151,7 +146,7 @@ pivot_offset = Vector2(50, 50)
 texture = ExtResource("11_y5c6k")
 stretch_mode = 5
 
-[node name="DashButton" type="TouchScreenButton" parent="Input_Handler/Background"]
+[node name="DashButton" type="TouchScreenButton" parent="UI/Background"]
 position = Vector2(1067, 506)
 scale = Vector2(1.76239, 1.69765)
 texture_normal = ExtResource("12_23f5p")

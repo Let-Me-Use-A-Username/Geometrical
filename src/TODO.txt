@@ -1,13 +1,15 @@
 |)Begin testing on android
-	|)Fix controls and screen
-	Done) Movement will have a virtual joystick
-		Done) Joystick: https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
-			|) Make joystick spawn where the player pressed
-		|) Abilities are either pressed, or pressed and activated with touch 
-		|) Dash is a swipe
+	|) Implement virtual controller for mobile
+		|)Fix controls and screen
+		Done) Movement will have a virtual joystick
+			Done) Joystick: https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
+				|) Make joystick spawn where the player pressed
+			Done) Abilities are either pressed, or pressed and activated with touch 
+			FAILED) Dash is a swipe
+			|) Fix ability UI to be more appealing 
+			
 		
-|)Fix ability choosing in android (changed buttons dont appear)
-	|) Make (ability choosing) buttons touchable
+
 
 Notes)Touch Event: https://docs.godotengine.org/en/stable/classes/class_inputeventscreentouch.html
 Notes)Touch button: https://docs.godotengine.org/en/stable/classes/class_touchscreenbutton.html
@@ -16,11 +18,7 @@ NOTES) Changes scretch mode to viewport in window
 
 |)Implement event system for abilities 
 IDEA) Make collider visible during dashing
-
-
-
 |) Implement basic sound effects and background music
-|) Implement virtual controller for mobile
 |) Implement game menu and loading
 |) Add more abilities 
 |) Add bosses
@@ -84,3 +82,5 @@ Done:
 		take into mind is how much he can upgrade something.
 	Done)Back Button should keep the previous upgrades instead of changing them
 	Done)Export to android: https://www.youtube.com/watch?v=0NxYJgATevg
+	Done)Fix ability choosing in android (changed buttons dont appear)
+		Fone) Make (ability choosing) buttons touchable

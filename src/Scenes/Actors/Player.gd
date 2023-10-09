@@ -16,7 +16,7 @@ signal summon_rings(ring_damage: float)
 enum States {IDLE, MOVE, DASH}
 var _state = States.IDLE
 @onready var state_machine = get_node('StateMachine')
-@onready var input_handler = get_node('UI')
+@onready var input_handler = get_node('Input_Handler')
 enum OS_Type {KEYBOARD, TOUCH}
 
 var invurnerable = false
@@ -147,7 +147,7 @@ func _on_ability_timer_timeout(dash_c: float) -> void:
 
 
 func _on_remove_health(origin: Node, damage: float) -> void:
-	self.set_modulate( Color8(180, 0, 0, 255) ) 
+	get_node("player").set_modulate( Color8(180, 0, 0, 255) ) 
 	_player_property_list["health"] = health - damage
 	super(origin, damage)
 

@@ -10,9 +10,6 @@ var direction
 var can_dash: bool = false
 var stop_movement: bool = false
 
-var touch_dash: bool = false
-var trajection
-
 func _ready() -> void:
 	super()
 	knockback_timer.set_one_shot(true)
@@ -34,24 +31,7 @@ func physics_process(delta: float) -> void:
 	
 	if !stop_movement and can_dash:
 		can_dash = false
-		if !touch_dash:
-			state_machine._transition_to_state(self, state_machine.states.get('Dash'), 
-			{'target_obj.speed_modifier': 5})
-		else:
-			touch_dash = false
-			state_machine._transition_to_state(self, state_machine.states.get('Dash'), 
-			{'target_obj.speed_modifier': 5, "dash_trajectory": trajection})
-
-func _handle_input(_event: InputEvent) -> void:
-	if _event is InputEventScreenDrag:
-		var trajectory = (_event.position - _event.relative)
-		var current_dash_c = player.current_dash_count
-		var dash_count = player.dash_count
-		
-		if current_dash_c < dash_count:
-			touch_dash = true
-			can_dash = true
-			trajection = trajectory
+		state_machine._transition_to_state(self, state_machine.states.get('Dash'), {'target_obj.speed_modifier': 5})
 
 func enter_state(_msg: = {}) -> void:
 	if _msg.size() != 0 and _msg.has('target_speed'):

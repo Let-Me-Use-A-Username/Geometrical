@@ -1,9 +1,9 @@
+Node
+TouchScreenButton
 CanvasLayer
 TextureRect
 Control
 Container
-Node
-TouchScreenButton
 Timer
 CollisionShape2D
 Area2D
