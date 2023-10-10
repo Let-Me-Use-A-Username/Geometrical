@@ -153,29 +153,35 @@ layer = 10
 
 [node name="QuitMenu" parent="Quit" instance=ExtResource("6_oubrl")]
 visible = false
-offset_left = 569.0
-offset_top = 297.0
-offset_right = 569.0
-offset_bottom = 297.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Pause" type="CanvasLayer" parent="."]
 layer = 9
 
 [node name="PauseMenu" parent="Pause" instance=ExtResource("5_dw5en")]
 visible = false
-offset_left = 569.0
-offset_top = 297.0
-offset_right = 569.0
-offset_bottom = 297.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="LevelUp" type="CanvasLayer" parent="."]
 layer = 8
 
 [node name="LevelUpMenu" parent="LevelUp" instance=ExtResource("9_1my66")]
 visible = false
-offset_left = 576.0
-offset_top = 312.0
-offset_right = 576.0
-offset_bottom = 312.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
 
 [connection signal="died" from="Player" to="Quit/QuitMenu" method="_on_player_died"]

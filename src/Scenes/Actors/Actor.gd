@@ -5,7 +5,6 @@ var max_health: float
 var health: float
 var health_regen: float
 var damage: float
-var abilities: = []
 var speed: = Vector2()
 var size: = Vector2()
 

@@ -42,7 +42,6 @@ var _player_property_list = {}
 var _player_mainskill_property_list = {}
 
 var _player_abilities = []
-var ability_timer: Timer
 var ring_damage: float = 50
 
 func _ready() -> void:
@@ -80,10 +79,6 @@ func _ready() -> void:
 	invurnerability_timer.set_wait_time(invurnerability_time)
 	invurnerability_timer.set_one_shot(true)
 	invurnerability_timer.connect('timeout', _on_invurnerable_signal)
-	
-	ability_timer = get_node("AbilityTimer")
-	ability_timer.set_one_shot(true)
-
 
 
 func _process(delta: float) -> void:
@@ -104,46 +99,56 @@ func _unhandled_input(event: InputEvent) -> void:
 		current_dash_count += 1
 	
 	if event.is_action_pressed("primary_ability"):
-		_activate_ability(_player_abilities[0])
+		_activate_ability(_player_abilities.front())
 	if event.is_action_pressed("secondary_ability"):
 		_activate_ability(_player_abilities[1])
 	if event.is_action_pressed("third_ability"):
-		_activate_ability(_player_abilities[2])
+		_activate_ability(_player_abilities.back())
 
 
 func _activate_ability(ability: Ability) -> void:
+	var temp_timer = Timer.new()
+	add_child(temp_timer)
+	temp_timer.set_one_shot(false)
+	temp_timer.set_wait_time(ability.ability_cooldown)
+	print("creating timer")
 	match ability.ability_name:
-			"TimesFreezer":
-				ability_timer.set_wait_time(ability.ability_cooldown)
-				emit_signal("freeze_enemy", "Enemies", ability.ability_duration)
-				ability_timer.start()
-			"Supercharge":
-				ability_timer.set_wait_time(ability.ability_cooldown)
-				ability_timer.connect("timeout", _on_ability_timer_timeout.bind(dash_count))
-				dash_count = 100000000
-				ability_timer.start()
-			"Shockwave":
-				ability_timer.set_wait_time(ability.ability_cooldown)
-				emit_signal("shockwave", self, ability.ability_damage)
-				ability_timer.start()
-			"Doppelganger":
-				ability_timer.set_wait_time(ability.ability_cooldown)
-				emit_signal("doppelganger", ability.ability_duration)
-				ability_timer.start()
-				#when the ability starts, a stack captures the players movement and then repeats
-				#it later
-			"BlackHole":
-				#Summon a black hole somewhere randomly 
-				emit_signal("blackhole")
-			"Rings":
-				emit_signal("summon_rings", ring_damage)
-			_:
-				print_debug("404: Upgrade not found: ", ability.upgrade_name)
+		"Timefreeze":
+			emit_signal("freeze_enemy", "Enemies", ability.ability_duration)
+		"Supercharge":
+			temp_timer.connect("timeout", _on_ability_timer_timeout.bind( "Supercharge", dash_count))
+			dash_count = 100000000
+			temp_timer.start()
+		"Shockwave":
+			emit_signal("shockwave", self, ability.ability_damage)
+		"Doppelganger":
+			emit_signal("doppelganger", ability.ability_duration)
+			temp_timer.start()
+			#when the ability starts, a stack captures the players movement and then repeats
+			#it later
+		"BlackHole":
+			#Summon a black hole somewhere randomly 
+			emit_signal("blackhole")
+		"Rings":
+			emit_signal("summon_rings", ring_damage)
+		_:
+			print_debug("404: Upgrade not found: ", ability.upgrade_name)
 
 
-func _on_ability_timer_timeout(dash_c: float) -> void:
-	dash_count = dash_c
-	ability_timer.disconnect("timeout", _on_ability_timer_timeout)
+func _on_ability_timer_timeout(ability_name: String, parameters: Variant) -> void:\
+	match ability_name:
+		"Timefreeze":
+			pass
+		"Supercharge":
+			dash_count = parameters
+		"Shockwave":
+			pass
+		"Doppelganger":
+			pass
+		"BlackHole":
+			pass
+		"Rings":
+			pass
 
 
 func _on_remove_health(origin: Node, damage: float) -> void:

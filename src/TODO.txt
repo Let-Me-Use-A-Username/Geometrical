@@ -1,23 +1,7 @@
-|)Begin testing on android
-	|) Implement virtual controller for mobile
-		|)Fix controls and screen
-		Done) Movement will have a virtual joystick
-			Done) Joystick: https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
-				|) Make joystick spawn where the player pressed
-			Done) Abilities are either pressed, or pressed and activated with touch 
-			FAILED) Dash is a swipe
-			|) Fix ability UI to be more appealing 
-			
-		
 
-
-Notes)Touch Event: https://docs.godotengine.org/en/stable/classes/class_inputeventscreentouch.html
-Notes)Touch button: https://docs.godotengine.org/en/stable/classes/class_touchscreenbutton.html
-NOTES) Changes Input device -> mouse now emulates touch 
-NOTES) Changes scretch mode to viewport in window
-
-|)Implement event system for abilities 
+|) Implement abilities and at least first 3 levels of upgrades
 IDEA) Make collider visible during dashing
+
 |) Implement basic sound effects and background music
 |) Implement game menu and loading
 |) Add more abilities 
@@ -41,6 +25,10 @@ Ideas:
 Sources:
 	Sound effects: https://mixkit.co/free-sound-effects/game/
 	android help: https://www.youtube.com/watch?v=0NxYJgATevg
+	Notes)Touch Event: https://docs.godotengine.org/en/stable/classes/class_inputeventscreentouch.html
+	Notes)Touch button: https://docs.godotengine.org/en/stable/classes/class_touchscreenbutton.html
+	NOTES) Changes Input device -> mouse now emulates touch 
+	NOTES) Changes scretch mode to viewport in window
 
 
 Notes for later:
@@ -84,3 +72,12 @@ Done:
 	Done)Export to android: https://www.youtube.com/watch?v=0NxYJgATevg
 	Done)Fix ability choosing in android (changed buttons dont appear)
 		Fone) Make (ability choosing) buttons touchable
+	|)Begin testing on android
+	|) Implement virtual controller for mobile
+		|)Fix controls and screen
+		Done) Movement will have a virtual joystick
+			Done) Joystick: https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
+				|) Make joystick spawn where the player pressed
+			Done) Abilities are either pressed, or pressed and activated with touch 
+			FAILED) Dash is a swipe
+			Done) Fix ability UI to be more appealing 

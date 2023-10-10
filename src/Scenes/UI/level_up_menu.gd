@@ -99,8 +99,10 @@ func create_ability_buttons(ability: Upgrade) -> void:
 	var dash_button = UI.get_node("DashButton")
 	
 	var ability_button = Button.new()
-	ability_button.text = ability.upgrade_name
-	ability_button.position.x = dash_button.position.x
+	var icon_path = "res://assets/UI/Abilities/{str}.png"
+	
+	ability_button.icon = load(icon_path.format({"str": ability.upgrade_name}))
+	ability_button.position.x = dash_button.position.x + 20
 	
 	match player._player_abilities.size():
 		1:

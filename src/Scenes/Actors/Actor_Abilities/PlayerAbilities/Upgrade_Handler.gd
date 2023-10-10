@@ -6,7 +6,6 @@ class_name Upgrade_Handler extends Node
 var player_abilities 
 
 var children_count 
-var offset = 0
 
 func _ready() -> void:
 	children_count = ui.get_child_count()
@@ -16,6 +15,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if ui.get_child_count() > children_count:
 		children_count = ui.get_child_count()
+		var offset = 0
 		for child in ui.get_children():
 			if child is Button:
 				if !child.is_connected("pressed", _on_button_press):

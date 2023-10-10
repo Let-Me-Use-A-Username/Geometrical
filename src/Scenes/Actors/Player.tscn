@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dg0pyopln4yjk"]
+[gd_scene load_steps=21 format=3 uid="uid://dg0pyopln4yjk"]
 
 [ext_resource type="Script" path="res://src/Scenes/Actors/Player.gd" id="1_rqiwo"]
 [ext_resource type="Texture2D" uid="uid://c0jqbhx8bmfp4" path="res://assets/characters/Circle-0003.png" id="2_olfa5"]
@@ -12,10 +12,11 @@
 [ext_resource type="Script" path="res://src/Scenes/External/joystick/virtual_joystick.gd" id="9_xhkwm"]
 [ext_resource type="Texture2D" uid="uid://bm30au8mjfc2f" path="res://src/Scenes/External/joystick/textures/joystick_base_outline.png" id="10_u7rug"]
 [ext_resource type="Texture2D" uid="uid://dt13r06u87fib" path="res://src/Scenes/External/joystick/textures/joystick_tip_arrows.png" id="11_y5c6k"]
-[ext_resource type="Texture2D" uid="uid://c34jtthu0n7w" path="res://assets/Objects/coin-0001.png" id="12_23f5p"]
 [ext_resource type="Script" path="res://src/Scenes/UI/user_interface.gd" id="12_i6x3g"]
 [ext_resource type="Script" path="res://src/Scenes/External/DashButton.gd" id="13_4xh28"]
 [ext_resource type="Theme" uid="uid://1l6eb7778jxy" path="res://src/Scenes/UI/healthbar.tres" id="13_7nlje"]
+[ext_resource type="Texture2D" uid="uid://b4ajussjqr02o" path="res://assets/UI/Abilities/Dash.png" id="13_epilf"]
+[ext_resource type="Texture2D" uid="uid://d2tfs3usodkp5" path="res://assets/UI/Abilities/Dash-Pressed.png" id="14_dt6td"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqwmu"]
 radius = 7.0
@@ -43,8 +44,6 @@ texture = ExtResource("2_olfa5")
 
 [node name="DashImmuneTimer" type="Timer" parent="."]
 
-[node name="AbilityTimer" type="Timer" parent="."]
-
 [node name="PlayerBounds" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_rqwmu")
@@ -63,6 +62,7 @@ linear_damp = 1000.0
 [node name="DashShape" type="CollisionShape2D" parent="DashArea"]
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_5k7s5")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("3_n8u1j")
@@ -154,14 +154,19 @@ stretch_mode = 5
 [node name="DashButton" type="TouchScreenButton" parent="Input_Handler/Background"]
 position = Vector2(1067, 506)
 scale = Vector2(1.76239, 1.69765)
-texture_normal = ExtResource("12_23f5p")
+texture_normal = ExtResource("13_epilf")
+texture_pressed = ExtResource("14_dt6td")
 script = ExtResource("13_4xh28")
 
 [node name="UI_Debug" type="CanvasLayer" parent="."]
 
 [node name="User_Interface" type="Control" parent="UI_Debug"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("12_i6x3g")
 
 [node name="HealthBar" type="ProgressBar" parent="UI_Debug/User_Interface"]

@@ -36,6 +36,6 @@ func _disable_virtual_joystick() -> void:
 
 
 func _get_Input_Type() -> Variant:
-	if _input_type.length() > 1:
+	if _input_type != null:
 		return _input_type
 	return OS_Type.KEYBOARD

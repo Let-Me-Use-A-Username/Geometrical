@@ -1,7 +1,10 @@
+Camera2D
+ColorRect
+TextureButton
+TextureRect
 Node
 TouchScreenButton
 CanvasLayer
-TextureRect
 Control
 Container
 Timer
@@ -26,6 +29,5 @@ RayCast2D
 VBoxContainer
 BoxContainer
 AspectRatioContainer
-ColorRect
 TileMap
 Node2D
