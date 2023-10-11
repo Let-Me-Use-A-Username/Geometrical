@@ -18,6 +18,7 @@ func _ready() -> void:
 			print_debug("Computer detected...\n")
 			_input_type = OS_Type.KEYBOARD
 			_disable_virtual_joystick()
+			_disable_debug_menu()
 			
 		_:
 			print_debug("Wasn't able to classify system...\n")

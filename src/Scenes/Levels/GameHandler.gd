@@ -58,6 +58,7 @@ func _freeze_objects(code: String, duration: float) -> void:
 				enemy.set_physics_process(false)
 				if enemy != null and enemy.has_node("StateMachine"):
 					enemy.get_node("StateMachine").set_physics_process(false)
+				player.invurnerable = true
 				freeze_timer.start()
 		_:
 			pass
@@ -71,6 +72,7 @@ func _on_Freeze_Timeout(actors: String) -> void:
 		if actors == "Enemies":
 			for object in get_tree().get_nodes_in_group("Projectiles"):
 				object.set_physics_process(true)
+	player.invurnerable = false
 
 
 func _shockwave(origin: Node, damage: float) -> void:

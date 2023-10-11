@@ -179,7 +179,11 @@ func apply_effect(ability: Upgrade) -> void:
 			else:
 				applied_ability.ability_damage = effects[0].split("=")[1]
 				applied_ability.ability_duration = 0
-				
+			
+			applied_ability.ability_timer = Timer.new()
+			applied_ability.ability_timer.set_wait_time(applied_ability.ability_cooldown)
+			applied_ability.ability_timer.set_one_shot(true)
+			
 			applied_ability.ability_active = true
 			#Player receives a different object of the ability
 			player._player_abilities.push_back(applied_ability)

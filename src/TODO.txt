@@ -1,3 +1,14 @@
+IDEA) Copy the players body, and dash collider. 
+	In every frame you copy the position and velocity. If the player dashed and the abilities 
+	You trigger every movement with the order they happened 
+	No need for cooldowns since the player handles them
+	Order of importance is: Ability, dash, movement
+	
+IDEA) Make shockwave a part of a different ability , Space shift
+IDEA) on dash or ability cooldown display cooldown on sprite
+IDEA) Check skilltree.txt for abilities to implement
+
+
 
 |) Implement abilities and at least first 3 levels of upgrades
 IDEA) Make collider visible during dashing
@@ -81,3 +92,4 @@ Done:
 			Done) Abilities are either pressed, or pressed and activated with touch 
 			FAILED) Dash is a swipe
 			Done) Fix ability UI to be more appealing 
+	DONE) Make player invurnerable during time freeze

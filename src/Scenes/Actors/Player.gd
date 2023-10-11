@@ -107,23 +107,30 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _activate_ability(ability: Ability) -> void:
-	var temp_timer = Timer.new()
-	add_child(temp_timer)
-	temp_timer.set_one_shot(false)
-	temp_timer.set_wait_time(ability.ability_cooldown)
-	print("creating timer")
+	var _timer = ability.ability_timer
+	if _timer not in self.get_children():
+		add_child(_timer)
+	
+	if _timer.is_connected("timeout", _on_ability_timer_timeout):
+		_timer.disconnect("timeout", _on_ability_timer_timeout)
+		
 	match ability.ability_name:
 		"Timefreeze":
-			emit_signal("freeze_enemy", "Enemies", ability.ability_duration)
+			if _timer.time_left == 0:
+				emit_signal("freeze_enemy", "Enemies", ability.ability_duration)
+				_timer.start()
 		"Supercharge":
-			temp_timer.connect("timeout", _on_ability_timer_timeout.bind( "Supercharge", dash_count))
-			dash_count = 100000000
-			temp_timer.start()
+			if _timer.time_left == 0:
+				_timer.connect("timeout", _on_ability_timer_timeout.bind(ability, dash_count))
+				dash_count = 100000000
+				_timer.start()
 		"Shockwave":
-			emit_signal("shockwave", self, ability.ability_damage)
+			if _timer.time_left == 0:
+				emit_signal("shockwave", self, ability.ability_damage)
+				_timer.start()
 		"Doppelganger":
 			emit_signal("doppelganger", ability.ability_duration)
-			temp_timer.start()
+			_timer.start()
 			#when the ability starts, a stack captures the players movement and then repeats
 			#it later
 		"BlackHole":
@@ -135,8 +142,8 @@ func _activate_ability(ability: Ability) -> void:
 			print_debug("404: Upgrade not found: ", ability.upgrade_name)
 
 
-func _on_ability_timer_timeout(ability_name: String, parameters: Variant) -> void:\
-	match ability_name:
+func _on_ability_timer_timeout(ability: Ability, parameters: Variant) -> void:
+	match ability.ability_name:
 		"Timefreeze":
 			pass
 		"Supercharge":

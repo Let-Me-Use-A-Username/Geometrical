@@ -32,16 +32,19 @@ Skill Tree Types:
 	
 	|)Ability
 		|)Active
-			Slow time (Freezes / changes the time flow)
-			Supercharge (Removes the dash cooldown and allows the user to continuesly use it for a time)
+			✔️Timefreeze (Freezes / changes the time flow)
+			✔️Supercharge (Removes the dash cooldown and allows the user to continuesly use it for a time)
 			Kamekameha (Self explanatory)
-			Shockwave (Create an electrical shockwave in a field that kills projectiles)
+			✔️Shockwave (Create an electrical shockwave in a field that kills projectiles)
+			Space shift (Dash with so much force that the area "shifts")
+			Absord (For a period of time contact with enemies doesn;t damage you, and you gain the abilities of the node you consumed)
+			
 		|)Passive
 			Rings (Circular Objects orbiting player)
-			Dodge Teleport
 			BlackHole (Spawns a black hole randomly close to you, absorbes everything close)
 			Doppelganger (Repeats what you do with a delay)
-			Deflect
+			Shield (Reduces projectile and melee damage)
+			Gunslinger(Shoot at nearby enemies, cooldown between shots, medium damage)
 		
 		
 	|)Main skill upgrades
