@@ -1,8 +1,6 @@
-IDEA) Copy the players body, and dash collider. 
-	In every frame you copy the position and velocity. If the player dashed and the abilities 
-	You trigger every movement with the order they happened 
-	No need for cooldowns since the player handles them
-	Order of importance is: Ability, dash, movement
+|) Fix Doppelganger 
+	|) Fix Knockback
+	|) Fix abilities
 	
 IDEA) Make shockwave a part of a different ability , Space shift
 IDEA) on dash or ability cooldown display cooldown on sprite

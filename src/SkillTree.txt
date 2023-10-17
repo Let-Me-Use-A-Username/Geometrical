@@ -38,6 +38,7 @@ Skill Tree Types:
 			✔️Shockwave (Create an electrical shockwave in a field that kills projectiles)
 			Space shift (Dash with so much force that the area "shifts")
 			Absord (For a period of time contact with enemies doesn;t damage you, and you gain the abilities of the node you consumed)
+			Refresher(Instantly refreshed your abilities)
 			
 		|)Passive
 			Rings (Circular Objects orbiting player)

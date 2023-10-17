@@ -1,8 +1,8 @@
+Node
 Camera2D
 ColorRect
 TextureButton
 TextureRect
-Node
 TouchScreenButton
 CanvasLayer
 Control
@@ -30,4 +30,3 @@ VBoxContainer
 BoxContainer
 AspectRatioContainer
 TileMap
-Node2D

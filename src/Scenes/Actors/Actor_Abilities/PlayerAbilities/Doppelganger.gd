@@ -2,68 +2,115 @@ extends Node
 
 
 @onready var player = get_parent() as Player
-@onready var state_machine = get_parent().get_node("StateMachine") as State_Machine
+var state_machine
 @onready var player_abilities: Array = player._player_abilities
 
-#Table that records the movement
-var movement_table = {"direction": Vector2.ZERO, "dash": 0, "speed": 0}
-#Table that records ability usage
-var action_table = {"TimesFreezer": 0, "Supercharge": 0, "Shockwave": 0, "BlackHole": 0, "Rings": 0}
-#Final table that the doppelganger will follow
-var coppied_actions = {"action": "", "first_frame": 0, "speed_direction": []}
-var coppied_table = []
+var stack
+var doppelganger: CharacterBody2D
 var copy: bool = false
+var consume: bool = false
+var initialize: bool = false
 
+
+var player_direction
+var knockback_timer: Timer
 
 func _ready() -> void:
-	set_physics_process(false)
+	state_machine = get_node("../StateMachine")
 
 
-func _initiate_doppelganger() -> void:
-	set_physics_process(true)
+func _initiate_doppelganger(duration: float) -> void:
+	stack = []
+	#Create doppelganger
+	doppelganger = CharacterBody2D.new()
+	#Add sprite
+	var doppelganger_sprite = get_node("../player").duplicate()
+	doppelganger.add_child(doppelganger_sprite)
+	#Add area 2d for dash collition
+	var doppelganger_dash_area = get_node("../DashArea").duplicate()
+	doppelganger.add_child(doppelganger_dash_area)
+	
+	
+	var game_handler = player.get_parent()
+	game_handler.add_child(doppelganger)
 	copy = true
-	var cd = Timer.new()
-	cd.set_wait_time(5)
-	cd.connect("timeout", decomition_doppelgagner)
-
-func decomition_doppelgagner() -> void:
-	set_physics_process(false)
-	copy = false
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if copy and event.is_action_pressed("dash"):
-		movement_table["dash"] = 1
-		movement_table["speed"] = state_machine.states["Move"].get_impulse()
-		movement_table["direction"] = state_machine.states["Move"].get_direction()
-		
-		coppied_actions["Action"] = "Dash"
-		coppied_actions["first_frame"] = Engine.get_frames_drawn()
-		coppied_actions["speed_direction"] = movement_table
-		
-		coppied_table.append(coppied_actions)
-		
-	if event.is_action_pressed("primary_ability"):
-		pass
-	if event.is_action_pressed("secondary_ability"):
-		pass
-	if event.is_action_pressed("third_ability"):
-		pass
+	initialize = true
+	
+	#death timer
+	var _timer = Timer.new()
+	doppelganger.add_child(_timer)
+	_timer.set_wait_time(duration)
+	_timer.set_one_shot(true)
+	_timer.connect("timeout", _deactive_doppelganger)
+	_timer.start()
+	#knockback timer
+	knockback_timer = Timer.new()
+	doppelganger.add_child(knockback_timer)
+	knockback_timer.set_one_shot(true)
+	knockback_timer.connect("timeout", on_undo_knockdown)
 
 
 func _physics_process(delta: float) -> void:
 	if copy:
-		movement_table["direction"] = state_machine.states['Move'].get_direction()
-		movement_table["speed"] = player.get_velocity()
-		movement_table["dash"] = 0
+		#if used ability
+		if Input.is_action_pressed("primary_ability"):
+			stack.push_front({"Action": "Ability", "_Ability" : player_abilities.front()})
+		if Input.is_action_pressed("secondary_ability"):
+			stack.push_front({"Action": "Ability", "_Ability" : player_abilities[1]})
+		if Input.is_action_pressed("third_ability"):
+			stack.push_front({"Action": "Ability", "_Ability" : player_abilities.back()})
 		
-		coppied_actions["action"] = "Move"
-		coppied_actions["first_frame"] = Engine.get_frames_drawn()
-		coppied_actions["speed_direction"] = movement_table
+		player_direction = Input.get_vector("left", "right", "up", "down").normalized()
+	
+		if Input.is_action_pressed("dash"):
+			stack.push_front({"Action": "Dash", "direction": player_direction})
+		else:
+			stack.push_front({"Action": "Move", "direction": player_direction})
 		
-		coppied_table.append(coppied_actions)
-	else:
-		movement_table = {"left": 0, "right": 0, "up": 0, "down": 0, "Dash": 0, "Speed": 0}
-		action_table = {"TimesFreezer": 0, "Supercharge": 0, "Shockwave": 0, "BlackHole": 0, "Rings": 0}
-		coppied_actions = {"action": "", "FirstFrame": 0, "Speed": 0}
-		coppied_table = {}
+		if stack.size() > 0 and initialize:
+			consume = true
+			doppelganger.position = player.position
+			initialize = false
+		
+	if consume:
+		_consume_action(stack.pop_back())
+
+func _consume_action(action: Dictionary) -> void:
+	if is_instance_valid(doppelganger):
+		match action.Action:
+			"Move":
+				var dir = Vector2(action.direction)
+				var speed = player.speed
+				doppelganger.set_velocity(dir * speed)
+				doppelganger.move_and_slide()
+			"Dash":
+				var dir = Vector2(action.direction)
+				var speed = player.dash_speed
+				doppelganger.set_velocity(dir * speed)
+				doppelganger.move_and_slide()
+			"Knockback":
+				var dir = Vector2(action.direction)
+				doppelganger.set_velocity(dir)
+				doppelganger.move_and_slide()
+				knockback_timer.start()
+				consume = false
+			"Ability":
+				var ability = action._Ability as Ability
+				#emit_signal(ability.ability_name)
+
+
+func on_knockdown(origin:Node, disabled_time: float) -> void:
+	if is_instance_valid(doppelganger):
+		var vel = (player.global_position - origin.global_position).normalized() * 180
+		stack.push_front({"Action": "Knockback", "direction": vel})
+		knockback_timer.set_wait_time(disabled_time)
+
+
+func on_undo_knockdown() -> void:
+	consume = true
+
+
+func _deactive_doppelganger() -> void:
+	doppelganger.queue_free()
+	copy = false
+	consume = false

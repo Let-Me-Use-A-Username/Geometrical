@@ -24,7 +24,7 @@ func update(delta: float) -> void:
 func get_direction() -> Vector2:
 	return direction
 
-func get_impulse() -> float:
+func get_impulse() -> Vector2:
 	if impulse != null:
 		return impulse
 	return lerp(target_obj.speed * direction, target_obj.dash_speed * direction * target_speed_modifier, 0.8)

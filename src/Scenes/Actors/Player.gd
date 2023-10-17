@@ -50,6 +50,7 @@ func _ready() -> void:
 	self.connect('remove_health', _on_remove_health)
 	#State Signals
 	knockdown.connect(state_machine.states['Move'].on_knockdown)
+	knockdown.connect(get_node("Doppelganger").on_knockdown)
 	dash.connect(state_machine.states['Move'].on_dash)
 	#More State Signals
 	level_up.connect(get_parent().get_node("LevelUp/LevelUpMenu").on_level_up)
@@ -58,6 +59,7 @@ func _ready() -> void:
 	#Ability Signals
 	freeze_enemy.connect(get_parent()._freeze_objects)
 	shockwave.connect(get_parent()._shockwave)
+	doppelganger.connect(get_node("Doppelganger")._initiate_doppelganger)
 	#Properties
 	_append_property_list()
 	_update_property_list()
@@ -129,10 +131,9 @@ func _activate_ability(ability: Ability) -> void:
 				emit_signal("shockwave", self, ability.ability_damage)
 				_timer.start()
 		"Doppelganger":
-			emit_signal("doppelganger", ability.ability_duration)
-			_timer.start()
-			#when the ability starts, a stack captures the players movement and then repeats
-			#it later
+			if _timer.time_left == 0:
+				emit_signal("doppelganger", ability.ability_duration)
+				_timer.start()
 		"BlackHole":
 			#Summon a black hole somewhere randomly 
 			emit_signal("blackhole")
