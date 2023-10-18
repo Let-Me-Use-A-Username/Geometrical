@@ -9,6 +9,7 @@ signal knockdown(origin: Node, disabled_time: float)
 
 signal freeze_enemy(actors: String, duration: float)
 signal shockwave(origin: Node, damage: float)
+signal spaceshift(origin: Node, damage: float)
 signal doppelganger(duration: float)
 signal blackhole
 signal summon_rings(ring_damage: float)
@@ -60,6 +61,7 @@ func _ready() -> void:
 	freeze_enemy.connect(get_parent()._freeze_objects)
 	shockwave.connect(get_parent()._shockwave)
 	doppelganger.connect(get_node("Doppelganger")._initiate_doppelganger)
+	spaceshift.connect(state_machine.states['Dash'].on_spaceshift)
 	#Properties
 	_append_property_list()
 	_update_property_list()
@@ -100,12 +102,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		invurnerable = true
 		current_dash_count += 1
 	
-	if event.is_action_pressed("primary_ability"):
-		_activate_ability(_player_abilities.front())
-	if event.is_action_pressed("secondary_ability"):
-		_activate_ability(_player_abilities[1])
-	if event.is_action_pressed("third_ability"):
-		_activate_ability(_player_abilities.back())
+	if _player_abilities.size() != 0:
+		if _player_abilities.front() != null and event.is_action_pressed("primary_ability"):
+			_activate_ability(_player_abilities.front())
+		if _player_abilities.size() == 2 and event.is_action_pressed("secondary_ability"):
+			_activate_ability(_player_abilities[1])
+		if _player_abilities.back() != null and event.is_action_pressed("third_ability"):
+			_activate_ability(_player_abilities.back())
 
 
 func _activate_ability(ability: Ability) -> void:
@@ -130,6 +133,10 @@ func _activate_ability(ability: Ability) -> void:
 			if _timer.time_left == 0:
 				emit_signal("shockwave", self, ability.ability_damage)
 				_timer.start()
+		"Spaceshift":
+			if _timer.time_left == 0:
+				emit_signal("spaceshift", self, ability.ability_damage)
+				_timer.start()
 		"Doppelganger":
 			if _timer.time_left == 0:
 				emit_signal("doppelganger", ability.ability_duration)
@@ -150,6 +157,8 @@ func _on_ability_timer_timeout(ability: Ability, parameters: Variant) -> void:
 		"Supercharge":
 			dash_count = parameters
 		"Shockwave":
+			pass
+		"Spaceshift":
 			pass
 		"Doppelganger":
 			pass

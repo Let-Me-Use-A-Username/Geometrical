@@ -4,7 +4,6 @@ extends PlayerState
 @onready var player: Player = get_parent().owner as Player
 @onready var knockback_timer: Timer = get_parent().get_node('KnockbackTimer')
 var knockback_force = 180
-var touch_trajectory
 
 var direction
 var can_dash: bool = false
@@ -45,6 +44,7 @@ func on_dash() -> void:
 
 
 func on_knockdown(origin:Node, disabled_time: float) -> void:
+	var temp = (target_obj.global_position - origin.global_position).normalized() * knockback_force
 	target_obj.set_velocity((target_obj.global_position - origin.global_position).normalized() * knockback_force)
 	stop_movement = true
 	knockback_timer.set_wait_time(disabled_time)

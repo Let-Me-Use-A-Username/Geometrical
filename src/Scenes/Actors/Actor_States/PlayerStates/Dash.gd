@@ -1,43 +1,45 @@
 extends PlayerState
 
 
-signal touch_dashing(trajectory: Vector2)
+signal _spaceshift(origin: Node, damage: float)
 
 @onready var player: Player = get_parent().owner as Player
 @onready var dash_timer: Timer = get_parent().get_node('DashTransitionTimer')
 var dash_time: float = 0.15
 
-var touch_dash: bool = false
-var dash_trajectory
-
 var direction
 var impulse
+
+var spaceshift: bool = false
 
 func _ready() -> void:
 	super()
 	dash_timer.set_wait_time(dash_time)
 	dash_timer.set_one_shot(true)
+	
+	_spaceshift.connect(player.owner._spaceshift)
 
 func update(delta: float) -> void:
 	pass
 
-func get_direction() -> Vector2:
-	return direction
-
-func get_impulse() -> Vector2:
-	if impulse != null:
-		return impulse
-	return lerp(target_obj.speed * direction, target_obj.dash_speed * direction * target_speed_modifier, 0.8)
-
 
 func physics_process(delta: float) -> void:
-	direction = Input.get_vector("left", "right", "up", "down").normalized()
-		
-	impulse = lerp(target_obj.speed * direction, target_obj.dash_speed * direction * target_speed_modifier, 0.8)
+	var direction = Input.get_vector("left", "right", "up", "down").normalized()
+	var impulse
+	
+	if spaceshift:
+		impulse = lerp((target_obj.speed * 2) * direction, (target_obj.dash_speed * 2) * direction * target_speed_modifier, 0.8)
+	else:
+		impulse = lerp(target_obj.speed * direction, target_obj.dash_speed * direction * target_speed_modifier, 0.8)
 	target_obj.set_velocity(impulse)
 	
 	if dash_timer.time_left == 0:
 		state_machine._transition_to_state(self, state_machine.states.get('Idle'), {})
+
+
+func on_spaceshift(origin: Node, damage: float) -> void:
+	spaceshift = true
+	emit_signal("_spaceshift", origin, damage)
 
 
 func enter_state(_msg: = {}) -> void:
@@ -62,3 +64,4 @@ func exit_state(_msg: = {}) -> void:
 	target_obj_bounds.disabled = false
 	#enable colliding hitbox
 	target_obj_collider.disabled = false
+	spaceshift = false

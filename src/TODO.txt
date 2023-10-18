@@ -1,8 +1,14 @@
 |) Fix Doppelganger 
-	|) Fix Knockback
+	Done) Fix Knockback
+		|) Fix movement 
 	|) Fix abilities
+	|) Fix Dash
 	
 IDEA) Make shockwave a part of a different ability , Space shift
+	|) Two cameras are needed, one on the player and one on the level
+	|) When the player uses the ability the players camera should follow him and shacke the screen
+	|) Then switch back
+
 IDEA) on dash or ability cooldown display cooldown on sprite
 IDEA) Check skilltree.txt for abilities to implement
 

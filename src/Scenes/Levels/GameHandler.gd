@@ -46,6 +46,37 @@ func _on_Timer_timeout() -> void:
 	enemy_spawn_timer.set_wait_time(timer)
 
 
+func _process(delta: float) -> void:
+	if spawn:
+		enemy_spawn_timer.start()
+		spawn = !spawn
+
+#Function that handles the spawn of enemy nodes
+func spawn_enemies(enemy_array : Array) -> void:
+	randomize()
+	
+	while enemy_array.size() != 0:
+		var spawn_direction = randi_range(1, 4)
+		location.x = randf_range(1, window_size.x)
+		location.y = randf_range(1, window_size.y)
+
+		match(spawn_direction):
+			1:
+				location.x = -200
+			2:
+				location.y = -200
+			3:
+				location.y = 800
+			4:
+				location.x = 1300
+
+		var _instance = enemy_array.pop_back().instantiate()
+
+		_instance.position = location
+		_instance.setTarget(player)
+		add_child(_instance)
+
+
 func _freeze_objects(code: String, duration: float) -> void:
 	freeze_timer.set_wait_time(duration)
 	match code:
@@ -80,32 +111,16 @@ func _shockwave(origin: Node, damage: float) -> void:
 		enemy._on_remove_health(origin, damage)
 
 
-func _process(delta: float) -> void:
-	if spawn:
-		enemy_spawn_timer.start()
-		spawn = !spawn
-
-#Function that handles the spawn of enemy nodes
-func spawn_enemies(enemy_array : Array) -> void:
-	randomize()
+func _spaceshift(origin: Node, damage: float) -> void:
+	var timer = Timer.new()
+	add_child(timer)
+	timer.set_wait_time(2)
+	timer.set_one_shot(true)
+	timer.connect("timeout", on_spaceshift_timeout.bind(origin, damage))
 	
-	while enemy_array.size() != 0:
-		var spawn_direction = randi_range(1, 4)
-		location.x = randf_range(1, window_size.x)
-		location.y = randf_range(1, window_size.y)
+	#shack camera
+	var level_camera = get_node("Camera2D")
+	var player_camera = player.camera as Camera2D
 
-		match(spawn_direction):
-			1:
-				location.x = -200
-			2:
-				location.y = -200
-			3:
-				location.y = 800
-			4:
-				location.x = 1300
-
-		var _instance = enemy_array.pop_back().instantiate()
-
-		_instance.position = location
-		_instance.setTarget(player)
-		add_child(_instance)
+func on_spaceshift_timeout(origin: Node, damage: float) -> void:
+	_shockwave(origin, damage)

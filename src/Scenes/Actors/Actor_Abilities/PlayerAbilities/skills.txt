@@ -23,3 +23,4 @@ Shockwave, A, damage=200|10, Damages everything on the screen
 Doppelganger, A, duration=5|10, Summons a lookalike to help
 BlackHole, A, duration=3|10, Summon a black hole
 Rings, A, damage=50|0, Summon Rings
+Spaceshift, A, damage=200|10, Dash and shock the world

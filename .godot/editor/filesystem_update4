@@ -1,7 +1,10 @@
 res://src/Scenes/Actors/Player.tscn
 res://src/Scenes/UI/healthbar.tres
-res://src/Scenes/Actors/Player.gd
-res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Doppelganger.gd
 res://src/Scenes/Levels/level.tscn
-res://src/Scenes/Actors/Actor_States/PlayerStates/Dash.gd
+res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Doppelganger.gd
+res://src/Scenes/Actors/Actor_States/PlayerStates/Move.gd
+res://src/Scenes/Actors/Player.gd
+res://src/Scenes/Levels/GameHandler.gd
+res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/skills.txt
 res://src/TODO.txt
+res://src/Scenes/Actors/Actor_States/PlayerStates/Dash.gd
