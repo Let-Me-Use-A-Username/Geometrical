@@ -32,8 +32,8 @@ func _disable_debug_menu() -> void:
 
 
 func _disable_virtual_joystick() -> void:
-	self.visible = false
-	self.process_mode = Node.PROCESS_MODE_DISABLED
+	joystick.visible = false
+	joystick.process_mode = Node.PROCESS_MODE_DISABLED
 
 
 func _get_Input_Type() -> Variant:

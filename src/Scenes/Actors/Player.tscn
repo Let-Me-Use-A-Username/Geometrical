@@ -188,7 +188,7 @@ text = "DashTimer
 [node name="Doppelganger" type="Node" parent="."]
 script = ExtResource("18_08n6u")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="PlayerCamera" type="Camera2D" parent="."]
 position = Vector2(447, 200)
 enabled = false
 

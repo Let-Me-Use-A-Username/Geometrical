@@ -181,7 +181,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="GameCamera" type="Camera2D" parent="."]
 position = Vector2(640, 360)
 
 [connection signal="died" from="Player" to="Quit/QuitMenu" method="_on_player_died"]

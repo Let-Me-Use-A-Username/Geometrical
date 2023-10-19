@@ -15,6 +15,7 @@ var spawn: bool
 
 #Window variables
 @onready var window_size = get_window().size
+@onready var _camera = get_node("GameCamera") as Camera2D
 var location = Vector2()
 
 func _ready() -> void:
@@ -31,6 +32,7 @@ func _ready() -> void:
 	
 	freeze_timer = get_node("FreezeTimer")
 	freeze_timer.set_one_shot(true)
+	
 
 func _on_Timer_timeout() -> void:
 	total_enemy_counter += 10
@@ -117,10 +119,6 @@ func _spaceshift(origin: Node, damage: float) -> void:
 	timer.set_wait_time(2)
 	timer.set_one_shot(true)
 	timer.connect("timeout", on_spaceshift_timeout.bind(origin, damage))
-	
-	#shack camera
-	var level_camera = get_node("Camera2D")
-	var player_camera = player.camera as Camera2D
 
 func on_spaceshift_timeout(origin: Node, damage: float) -> void:
 	_shockwave(origin, damage)
