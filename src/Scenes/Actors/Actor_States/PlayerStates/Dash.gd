@@ -17,7 +17,7 @@ func _ready() -> void:
 	dash_timer.set_wait_time(dash_time)
 	dash_timer.set_one_shot(true)
 	
-	_spaceshift.connect(player.owner._spaceshift)
+	_spaceshift.connect(player.get_parent()._spaceshift)
 
 func update(delta: float) -> void:
 	pass

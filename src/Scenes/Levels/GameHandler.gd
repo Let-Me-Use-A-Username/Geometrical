@@ -91,10 +91,10 @@ func _freeze_objects(code: String, duration: float) -> void:
 				enemy.set_physics_process(false)
 				if enemy != null and enemy.has_node("StateMachine"):
 					enemy.get_node("StateMachine").set_physics_process(false)
-				player.invurnerable = true
 				freeze_timer.start()
+			player.invurnerable = true
 		_:
-			pass
+			player.invurnerable = true
 
 
 func _on_Freeze_Timeout(actors: String) -> void:
@@ -119,6 +119,8 @@ func _spaceshift(origin: Node, damage: float) -> void:
 	timer.set_wait_time(2)
 	timer.set_one_shot(true)
 	timer.connect("timeout", on_spaceshift_timeout.bind(origin, damage))
+	timer.start()
+	#_camera.set_zoom(Vector2(100, 100) * timer.time_left)
 
 func on_spaceshift_timeout(origin: Node, damage: float) -> void:
 	_shockwave(origin, damage)

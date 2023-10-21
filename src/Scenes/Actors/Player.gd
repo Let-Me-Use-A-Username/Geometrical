@@ -105,7 +105,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if _player_abilities.size() != 0:
 		if _player_abilities.front() != null and event.is_action_pressed("primary_ability"):
 			_activate_ability(_player_abilities.front())
-		if _player_abilities.size() == 2 and event.is_action_pressed("secondary_ability"):
+		if _player_abilities.size() >= 2 and event.is_action_pressed("secondary_ability"):
 			_activate_ability(_player_abilities[1])
 		if _player_abilities.back() != null and event.is_action_pressed("third_ability"):
 			_activate_ability(_player_abilities.back())
@@ -169,12 +169,13 @@ func _on_ability_timer_timeout(ability: Ability, parameters: Variant) -> void:
 
 
 func _on_remove_health(origin: Node, damage: float) -> void:
-	get_node("player").set_modulate( Color8(180, 0, 0, 255) ) 
+	get_node("player").set_modulate("e74000") 
 	_player_property_list["health"] = health - damage
 	super(origin, damage)
 
 
 func _despose_actor() -> void:
+	get_tree().paused = true
 	emit_signal("died")
 	self.queue_free()
 
@@ -190,7 +191,7 @@ func _on_dasinv_timeout() -> void:
 
 func _on_invurnerable_signal() -> void:
 	invurnerable = false
-	self.set_modulate( Color8(255, 255, 255, 255) ) 
+	get_node("player").set_modulate("ffffff") 
 
 
 func _on_collition_area_area_entered(area: Area2D) -> void:

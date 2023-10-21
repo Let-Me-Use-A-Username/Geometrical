@@ -170,7 +170,7 @@ func apply_effect(ability: Upgrade) -> void:
 			var applied_ability = Ability.new()
 			applied_ability.ability_name = ability.upgrade_name
 			applied_ability.ability_description = ability.upgrade_description
-			var effects =  ability.upgrade_effect.split("|")
+			var effects = ability.upgrade_effect.split("|")
 			applied_ability.ability_cooldown = effects[1]
 			
 			if effects[0].split("=")[0] == "duration":

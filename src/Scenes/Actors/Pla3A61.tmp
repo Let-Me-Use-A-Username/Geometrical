@@ -88,7 +88,7 @@ script = ExtResource("7_b61lc")
 script = ExtResource("8_i7pv3")
 
 [node name="Input_Handler" type="CanvasLayer" parent="."]
-process_mode = 1
+process_mode = 3
 layer = 2
 script = ExtResource("9_on76a")
 

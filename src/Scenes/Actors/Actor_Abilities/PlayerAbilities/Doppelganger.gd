@@ -66,7 +66,7 @@ func _physics_process(delta: float) -> void:
 		#if used ability
 		if player_abilities.front() != null and Input.is_action_pressed("primary_ability"):
 			stack.push_front({"Action": "Ability", "_Ability" : player_abilities.front()})
-		if player_abilities.size() == 2 and Input.is_action_pressed("secondary_ability"):
+		if player_abilities.size() >= 2 and Input.is_action_pressed("secondary_ability"):
 			stack.push_front({"Action": "Ability", "_Ability" : player_abilities[1]})
 		if player_abilities.back() != null and Input.is_action_pressed("third_ability"):
 			stack.push_front({"Action": "Ability", "_Ability" : player_abilities.back()})
@@ -76,8 +76,8 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_pressed("dash"):
 			if player.current_dash_count < player.dash_count:
 				stack.push_front({"Action": "Dash", "direction": player_direction})
-		else:
-			stack.push_front({"Action": "Move", "direction": player_direction})
+		
+		stack.push_front({"Action": "Move", "direction": player_direction})
 		
 		if stack.size() > 0 and initialize:
 			consume = true
@@ -93,9 +93,14 @@ func _consume_action(action: Dictionary) -> void:
 	else:
 		if is_instance_valid(doppelganger):
 			match action.Action:
-				"Move", "Dash":
+				"Move":
 					var dir = Vector2(action.direction)
 					var speed = player.speed
+					doppelganger.set_velocity(dir * speed)
+					doppelganger.move_and_slide()
+				"Dash":
+					var dir = Vector2(action.direction)
+					var speed = player.dash_speed
 					doppelganger.set_velocity(dir * speed)
 					doppelganger.move_and_slide()
 				"Knockback":
