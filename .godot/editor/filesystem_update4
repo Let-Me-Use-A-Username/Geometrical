@@ -1,12 +1,7 @@
 res://src/Scenes/Actors/Player.tscn
 res://src/Scenes/UI/healthbar.tres
-res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Doppelganger.gd
 res://src/Scenes/Levels/level.tscn
-res://src/Scenes/UI/level_up_menu.gd
-res://src/Scenes/External/DashButton.gd
-res://src/Scenes/Objects/Input_Handler.gd
-res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/upgrade_factory.gd
-res://src/TODO.txt
-res://src/Scenes/Actors/Player.gd
 res://src/Scenes/Levels/GameHandler.gd
+res://src/Scenes/Actors/Player.gd
+res://src/TODO.txt
 res://src/Scenes/Actors/Actor_States/PlayerStates/Dash.gd

@@ -1,4 +1,8 @@
-|) Fix sprite cooldown to work when paused
+|) Fix Spaceshift camera zoom(game handler)
+
+|) Fix freeze_time invurnerability
+	|) Fix Square not to explode on freeze
+
 
 |) Fix Doppelganger 
 	Done) Fix Knockback
@@ -98,3 +102,5 @@ Done:
 			Done) Fix ability UI to be more appealing 
 	DONE) Make player invurnerable during time freeze
 	IDEA) on dash or ability cooldown display cooldown on sprite
+	|) Fix sprite cooldown to work when paused
+	|) Implement camera shacke on spaceshift

@@ -11,6 +11,8 @@ var direction
 var impulse
 
 var spaceshift: bool = false
+var spaceshift_source: Node
+var spaceshift_damage: float
 
 func _ready() -> void:
 	super()
@@ -29,8 +31,11 @@ func physics_process(delta: float) -> void:
 	
 	if spaceshift:
 		impulse = lerp((target_obj.speed * 2) * direction, (target_obj.dash_speed * 2) * direction * target_speed_modifier, 0.8)
+		emit_signal("_spaceshift", spaceshift_source, spaceshift_damage)
+		Engine.time_scale = 0.2
 	else:
 		impulse = lerp(target_obj.speed * direction, target_obj.dash_speed * direction * target_speed_modifier, 0.8)
+	
 	target_obj.set_velocity(impulse)
 	
 	if dash_timer.time_left == 0:
@@ -39,7 +44,8 @@ func physics_process(delta: float) -> void:
 
 func on_spaceshift(origin: Node, damage: float) -> void:
 	spaceshift = true
-	emit_signal("_spaceshift", origin, damage)
+	spaceshift_source = origin
+	spaceshift_damage = damage
 
 
 func enter_state(_msg: = {}) -> void:
@@ -64,4 +70,7 @@ func exit_state(_msg: = {}) -> void:
 	target_obj_bounds.disabled = false
 	#enable colliding hitbox
 	target_obj_collider.disabled = false
-	spaceshift = false
+	
+	if spaceshift:
+		Engine.time_scale = 1
+		spaceshift = false

@@ -135,6 +135,7 @@ func _activate_ability(ability: Ability) -> void:
 				_timer.start()
 		"Spaceshift":
 			if _timer.time_left == 0:
+				current_dash_count = 0
 				emit_signal("spaceshift", self, ability.ability_damage)
 				_timer.start()
 		"Doppelganger":

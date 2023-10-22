@@ -74,7 +74,7 @@ func _on_button_created(ability: Upgrade) -> void:
 	
 	for ab in player._player_abilities:
 		if ab.ability_name == ability.upgrade_name:
-			buttons = {progress : ab}
+			buttons[progress] = ab
 
 
 func _process(delta: float) -> void:

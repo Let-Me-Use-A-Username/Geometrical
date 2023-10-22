@@ -132,6 +132,8 @@ sources/0 = SubResource("TileSetAtlasSource_ib02e")
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_hp4rd")
+enemy_wave_counter = null
+total_enemy_counter = null
 isometric = true
 
 [node name="TileMap" type="TileMap" parent="."]
