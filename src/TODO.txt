@@ -1,4 +1,5 @@
-|) Fix Spaceshift camera zoom(game handler)
+|) Fix Spaceshift camera shake with noise lite
+	|) Figure out what messesup the game spawn
 
 |) Fix freeze_time invurnerability
 	|) Fix Square not to explode on freeze

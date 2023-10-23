@@ -149,6 +149,10 @@ wait_time = 3.0
 
 [node name="FreezeTimer" type="Timer" parent="."]
 
+[node name="SpaceShiftTimer" type="Timer" parent="."]
+
+[node name="CameraResetTimer" type="Timer" parent="."]
+
 [node name="Quit" type="CanvasLayer" parent="."]
 layer = 10
 

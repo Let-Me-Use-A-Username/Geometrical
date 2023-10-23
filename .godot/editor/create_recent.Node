@@ -1,3 +1,4 @@
+Timer
 Button
 TextureProgressBar
 Camera2D
@@ -9,7 +10,6 @@ TouchScreenButton
 CanvasLayer
 Control
 Container
-Timer
 CollisionShape2D
 Area2D
 Sprite2D

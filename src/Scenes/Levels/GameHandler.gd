@@ -2,17 +2,19 @@ extends Node2D
 
 
 var player
-var player_camera
+var player_camera: Camera2D
 #Ememy variables
 var enemy_factory
 var enemy_spawn_timer: Timer
-var timer: int
+var spawn_offset: int
 @export var enemy_wave_counter: int
 @export var total_enemy_counter: int
 var spawn: bool
 
 #Ability variables
 @onready var freeze_timer: Timer
+@onready var spaceshift_timer: Timer
+@onready var camera_reset: Timer
 
 #Game variables
 @onready var _camera = get_node("GameCamera") as Camera2D
@@ -21,6 +23,16 @@ var location : Vector2
 
 @export var isometric: bool = false
 
+@export var NOISE_SHAKE_SPEED: float = 30.0
+@export var NOISE_SHAKE_STRENGTH: float = 90.0
+@export var SHAKE_DECAY_RATE: float = 3.0
+var noise_i: float = 0.0
+var shake_strength: float = 0.0
+var _fake_time: float
+
+@onready var noise = FastNoiseLite.new()
+
+
 func _ready() -> void:
 	spawn = true
 	player = $Player
@@ -28,29 +40,28 @@ func _ready() -> void:
 	
 	enemy_factory = get_node("Enemy_Factory")
 	enemy_wave_counter = 3
-	timer = 3
+	spawn_offset = 3
 	
 	enemy_spawn_timer = get_node('SpawnTimer')
-	enemy_spawn_timer.set_wait_time(timer)
+	enemy_spawn_timer.set_wait_time(spawn_offset)
 	enemy_spawn_timer.connect('timeout', _on_Timer_timeout)
 	
 	freeze_timer = get_node("FreezeTimer")
-	freeze_timer.set_one_shot(true)
+	spaceshift_timer = get_node("SpaceShiftTimer")
+	camera_reset = get_node("CameraResetTimer")
 	
-	if !isometric:
-		_camera.enabled = true
-		_camera.make_current()
+	player_camera.enabled = true
+	player_camera.position = Vector2(0, 0)
+	player_camera.make_current()
+	player_camera.drag_horizontal_enabled = true
+	player_camera.drag_vertical_enabled = true
+	player_camera.drag_horizontal_offset = 0
+	player_camera.drag_vertical_offset = 0
+	player.get_node("PlayerCamera").align()
 	
-		player_camera.enabled = false
-	else:
-		player_camera.enabled = true
-		player_camera.position = Vector2(0, 0)
-		player_camera.make_current()
-		player_camera.drag_horizontal_enabled = true
-		player_camera.drag_vertical_enabled = true
-		player_camera.drag_horizontal_offset = 0
-		player_camera.drag_vertical_offset = 0
-		player.get_node("PlayerCamera").align()
+	noise.seed = randi()
+	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
+	shake_strength = NOISE_SHAKE_STRENGTH
 	
 
 func _on_Timer_timeout() -> void:
@@ -61,21 +72,20 @@ func _on_Timer_timeout() -> void:
 	for i in range(enemy_wave_counter):
 		spawn_enemies(enemy_queue)
 	
-	timer += 1
+	spawn_offset += 1
 	enemy_wave_counter += 1
 	
-	enemy_spawn_timer.set_wait_time(timer)
+	enemy_spawn_timer.set_wait_time(spawn_offset)
 
 
 func _process(delta: float) -> void:
+	_fake_time = delta
+	shake_strength = lerp(shake_strength, 0.0, SHAKE_DECAY_RATE * delta)
+	
 	if spawn:
 		enemy_spawn_timer.start()
 		spawn = !spawn
 	
-	var _timer = get_node_or_null("SpaceShiftTimer")
-	if _timer != null:
-		var zoom = (2 * _timer.time_left) * delta + 1
-		player_camera.set_zoom(Vector2(zoom, zoom))
 
 #Function that handles the spawn of enemy nodes
 func spawn_enemies(enemy_array : Array) -> void:
@@ -95,9 +105,9 @@ func spawn_enemies(enemy_array : Array) -> void:
 			2:
 				location.y = -200
 			3:
-				location.y = 800
+				location.y = window_size.size.y + 200
 			4:
-				location.x = 1300
+				location.x = window_size.size.x + 200
 
 		var _instance = enemy_array.pop_back().instantiate()
 
@@ -143,55 +153,36 @@ func _shockwave(origin: Node, damage: float) -> void:
 
 
 func _spaceshift(origin: Node, damage: float) -> void:
-	_setup_player_camera()
-	var timer = Timer.new()
-	timer.name = "SpaceShiftTimer"
-	add_child(timer)
-	timer.set_wait_time(0.5)
-	timer.set_one_shot(true)
-	timer.connect("timeout", on_spaceshift_timeout.bind(origin, damage))
-	timer.start()
-
-func _setup_player_camera() -> void:
-	_camera.position = lerp(_camera.position, player_camera.position, _camera.position /  player_camera.position)
+	camera_reset.set_wait_time(2)
+	if !camera_reset.is_connected("timeout", _camera_reset):
+		spaceshift_timer.set_one_shot(true)
+		camera_reset.connect("timeout", _camera_reset)
+	camera_reset.start()
 	
-	player_camera.position = Vector2(0,0)
-	player_camera.position_smoothing_enabled = true
-	player_camera.position_smoothing_speed = 10.0
-	player_camera.enabled = true
-	player_camera.make_current()
-	
-	_camera.enabled = false
+	spaceshift_timer.set_wait_time(0.5)
+	if !spaceshift_timer.is_connected("timeout", on_spaceshift_timeout):
+		spaceshift_timer.set_one_shot(true)
+		spaceshift_timer.connect("timeout", on_spaceshift_timeout.bind(origin, damage))
+	spaceshift_timer.start()
 
-
+ 
 func on_spaceshift_timeout(origin: Node, damage: float) -> void:
-	if !isometric:
-		var _timer = Timer.new()
-		_timer.set_one_shot(true)
-		_timer.set_wait_time(0.5)
-		_timer.connect("timeout", camera_reset)
-		add_child(_timer)
-		_timer.start()
-	
 	_shockwave(origin, damage)
-	_shacke_camera(1)
+	_shacke_camera()
 
 
-func camera_reset() -> void:
-	_camera.enabled = true
-	_camera.align()
-	_camera.make_current()
+func _camera_reset() -> void:
+	player_camera.offset = Vector2.ZERO
+
+
+func _shacke_camera() -> void:
+	player_camera.offset = _get_noise(_fake_time, NOISE_SHAKE_SPEED, shake_strength)
+
+
+func _get_noise(delta: float, speed: float, strength: float) -> Vector2:
+	noise_i += delta * speed
 	
-	player_camera.enabled = false
-
-
-func _shacke_camera(severity: int) -> void:
-	var amount = pow(severity, 2)
-	var max_roll = 0.1
-	var max_offset = Vector2(12, 9)
-	
-	player_camera.rotation = max_roll * amount * randi_range(-1, 1)
-	player_camera.offset.x = max_offset.x * amount * randi_range(-1, 1)
-	player_camera.offset.y = max_offset.y * amount * randi_range(-1, 1)
-	
-	player_camera.set_zoom(Vector2(1, 1))
+	return Vector2(
+		noise.get_noise_2d(1, noise_i) * strength,
+		noise.get_noise_2d(100, noise_i) * strength
+	)
