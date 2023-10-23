@@ -23,13 +23,6 @@ var location : Vector2
 
 @export var isometric: bool = false
 
-@export var NOISE_SHAKE_SPEED: float = 30.0
-@export var NOISE_SHAKE_STRENGTH: float = 90.0
-@export var SHAKE_DECAY_RATE: float = 3.0
-var noise_i: float = 0.0
-var shake_strength: float = 0.0
-var _fake_time: float
-
 @onready var noise = FastNoiseLite.new()
 
 
@@ -60,8 +53,7 @@ func _ready() -> void:
 	player.get_node("PlayerCamera").align()
 	
 	noise.seed = randi()
-	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
-	shake_strength = NOISE_SHAKE_STRENGTH
+	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
 	
 
 func _on_Timer_timeout() -> void:
@@ -79,13 +71,10 @@ func _on_Timer_timeout() -> void:
 
 
 func _process(delta: float) -> void:
-	_fake_time = delta
-	shake_strength = lerp(shake_strength, 0.0, SHAKE_DECAY_RATE * delta)
-	
 	if spawn:
 		enemy_spawn_timer.start()
 		spawn = !spawn
-	
+
 
 #Function that handles the spawn of enemy nodes
 func spawn_enemies(enemy_array : Array) -> void:
@@ -176,13 +165,12 @@ func _camera_reset() -> void:
 
 
 func _shacke_camera() -> void:
-	player_camera.offset = _get_noise(_fake_time, NOISE_SHAKE_SPEED, shake_strength)
+	player_camera.offset = _get_noise(30, 90)
 
 
-func _get_noise(delta: float, speed: float, strength: float) -> Vector2:
-	noise_i += delta * speed
+func _get_noise(speed: float, strength: float) -> Vector2:
 	
 	return Vector2(
-		noise.get_noise_2d(1, noise_i) * strength,
-		noise.get_noise_2d(100, noise_i) * strength
+		noise.get_noise_2d(1, 0.0) * strength,
+		noise.get_noise_2d(100, 0.0) * strength
 	)

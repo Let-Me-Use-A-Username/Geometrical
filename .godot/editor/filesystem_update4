@@ -1,5 +1,4 @@
-res://src/Scenes/Levels/level.tscn
-res://src/Scenes/UI/healthbar.tres
-res://src/Scenes/Levels/GameHandler.gd
 res://src/Scenes/Actors/Player.tscn
-res://src/TODO.txt
+res://src/Scenes/UI/healthbar.tres
+res://src/Scenes/Levels/level.tscn
+res://src/Scenes/Levels/GameHandler.gd
