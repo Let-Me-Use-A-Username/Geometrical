@@ -132,7 +132,6 @@ sources/0 = SubResource("TileSetAtlasSource_ib02e")
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_hp4rd")
-isometric = true
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_6x7pd")

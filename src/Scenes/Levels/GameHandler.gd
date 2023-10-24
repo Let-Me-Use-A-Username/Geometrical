@@ -21,10 +21,12 @@ var spawn: bool
 var window_size : Rect2
 var location : Vector2
 
-@export var isometric: bool = false
-
+#Camera shake variables
 @onready var noise = FastNoiseLite.new()
-
+var noise_i = 0
+var max_offset = Vector2(5, 2)
+var max_roll = 0.1 
+var shake: bool = false
 
 func _ready() -> void:
 	spawn = true
@@ -53,7 +55,9 @@ func _ready() -> void:
 	player.get_node("PlayerCamera").align()
 	
 	noise.seed = randi()
-	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
+	noise.frequency = 0.01
+	noise.fractal_octaves = 5
+	noise.noise_type = FastNoiseLite.TYPE_VALUE
 	
 
 func _on_Timer_timeout() -> void:
@@ -61,8 +65,7 @@ func _on_Timer_timeout() -> void:
 	
 	var enemy_queue = enemy_factory.get_spawn_queue(total_enemy_counter, enemy_wave_counter)
 	
-	for i in range(enemy_wave_counter):
-		spawn_enemies(enemy_queue)
+	spawn_enemies(enemy_queue)
 	
 	spawn_offset += 1
 	enemy_wave_counter += 1
@@ -74,6 +77,10 @@ func _process(delta: float) -> void:
 	if spawn:
 		enemy_spawn_timer.start()
 		spawn = !spawn
+	
+	noise_i += 1
+	if shake:
+		_shacke_camera(2, 2)
 
 
 #Function that handles the spawn of enemy nodes
@@ -85,18 +92,20 @@ func spawn_enemies(enemy_array : Array) -> void:
 	
 	while enemy_array.size() != 0:
 		var spawn_direction = randi_range(1, 4)
-		location.x = randf_range(1, window_size.size.x)
-		location.y = randf_range(1, window_size.size.y)
 
 		match(spawn_direction):
 			1:
-				location.x = -200
+				location.y = randf_range(1, window_size.size.y) #positive y
+				location.x = randf_range(0, -window_size.size.x) #negative x
 			2:
-				location.y = -200
+				location.x = randf_range(1, window_size.size.x) #positive x
+				location.y = randf_range(0, -window_size.size.y) #negative y
 			3:
-				location.y = window_size.size.y + 200
+				location.y = randf_range(window_size.size.y, window_size.size.y * 2) # positive y
+				location.x = randf_range(1, window_size.size.x) # random x
 			4:
-				location.x = window_size.size.x + 200
+				location.x = randf_range(window_size.size.x, window_size.size.x * 2) # positive x
+				location.y = randf_range(1, window_size.size.y) # random y
 
 		var _instance = enemy_array.pop_back().instantiate()
 
@@ -118,10 +127,6 @@ func _freeze_objects(code: String, duration: float) -> void:
 				if enemy != null and enemy.has_node("StateMachine"):
 					enemy.get_node("StateMachine").set_physics_process(false)
 			freeze_timer.start()
-			player.invurnerable = true
-			spawn = false
-		_:
-			player.invurnerable = true
 
 
 func _on_Freeze_Timeout(actors: String) -> void:
@@ -132,8 +137,6 @@ func _on_Freeze_Timeout(actors: String) -> void:
 		if actors == "Enemies":
 			for object in get_tree().get_nodes_in_group("Projectiles"):
 				object.set_physics_process(true)
-	player.invurnerable = false
-	spawn = true
 
 
 func _shockwave(origin: Node, damage: float) -> void:
@@ -157,20 +160,17 @@ func _spaceshift(origin: Node, damage: float) -> void:
  
 func on_spaceshift_timeout(origin: Node, damage: float) -> void:
 	_shockwave(origin, damage)
-	_shacke_camera()
+	shake = true
 
 
 func _camera_reset() -> void:
+	shake = false
+	player_camera.rotation = 0
 	player_camera.offset = Vector2.ZERO
 
 
-func _shacke_camera() -> void:
-	player_camera.offset = _get_noise(30, 90)
-
-
-func _get_noise(speed: float, strength: float) -> Vector2:
-	
-	return Vector2(
-		noise.get_noise_2d(1, 0.0) * strength,
-		noise.get_noise_2d(100, 0.0) * strength
-	)
+func _shacke_camera(trauma: float, trauma_power: int) -> void:
+	var amount = pow(trauma, trauma_power)
+	player_camera.rotation = max_roll * amount * noise.get_noise_2d(noise.seed, noise_i)
+	player_camera.offset.x = max_offset.x * amount * noise.get_noise_2d(noise.seed, noise_i)
+	player_camera.offset.y = max_offset.y * amount * noise.get_noise_2d(noise.seed, noise_i)

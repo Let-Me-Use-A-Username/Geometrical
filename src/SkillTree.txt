@@ -34,9 +34,9 @@ Skill Tree Types:
 		|)Active
 			✔️Timefreeze (Freezes / changes the time flow)
 			✔️Supercharge (Removes the dash cooldown and allows the user to continuesly use it for a time)
-			Kamekameha (Self explanatory)
-			✔️Shockwave (Create an electrical shockwave in a field that kills projectiles)
-			Space shift (Dash with so much force that the area "shifts")
+			Superbeam (Kamehameha)
+			✔️Space shift (Dash with so much force that the area "shifts")
+				✔️Shockwave (Create an electrical shockwave in a field that kills projectiles)
 			Absord (For a period of time contact with enemies doesn;t damage you, and you gain the abilities of the node you consumed)
 			Refresher(Instantly refreshed your abilities)
 			

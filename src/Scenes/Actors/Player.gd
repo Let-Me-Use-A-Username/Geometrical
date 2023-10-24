@@ -10,9 +10,6 @@ signal knockdown(origin: Node, disabled_time: float)
 signal freeze_enemy(actors: String, duration: float)
 signal shockwave(origin: Node, damage: float)
 signal spaceshift(origin: Node, damage: float)
-signal doppelganger(duration: float)
-signal blackhole
-signal summon_rings(ring_damage: float)
 
 enum States {IDLE, MOVE, DASH}
 var _state = States.IDLE
@@ -60,7 +57,6 @@ func _ready() -> void:
 	#Ability Signals
 	freeze_enemy.connect(get_parent()._freeze_objects)
 	shockwave.connect(get_parent()._shockwave)
-	doppelganger.connect(get_node("Doppelganger")._initiate_doppelganger)
 	spaceshift.connect(state_machine.states['Dash'].on_spaceshift)
 	#Properties
 	_append_property_list()
@@ -89,7 +85,7 @@ func _process(delta: float) -> void:
 	_state = state_machine.active_state.name
 	if health != 100:
 		health += health_regen
-	if level_up_threshold.has(exp_counter):
+	if level_up_threshold.has(exp_counter) or level_up_threshold.back() <= exp_counter:
 		emit_signal("level_up", exp_counter)
 		level_up_threshold.pop_back()
 
@@ -107,65 +103,64 @@ func _unhandled_input(event: InputEvent) -> void:
 			_activate_ability(_player_abilities.front())
 		if _player_abilities.size() >= 2 and event.is_action_pressed("secondary_ability"):
 			_activate_ability(_player_abilities[1])
-		if _player_abilities.back() != null and event.is_action_pressed("third_ability"):
+		if _player_abilities.size() >= 3 and event.is_action_pressed("third_ability"):
 			_activate_ability(_player_abilities.back())
 
 
 func _activate_ability(ability: Ability) -> void:
-	var _timer = ability.ability_timer
+	var _timer = ability.ability_cooldown_timer
+	var _duration_timer = ability.ability_duration_timer
+	
 	if _timer not in self.get_children():
 		add_child(_timer)
+	if _duration_timer not in self.get_children():
+		add_child(_duration_timer)
 	
-	if _timer.is_connected("timeout", _on_ability_timer_timeout):
-		_timer.disconnect("timeout", _on_ability_timer_timeout)
+	if _duration_timer.is_connected("timeout", _on_ability_timer_timeout):
+		_duration_timer.disconnect("timeout", _on_ability_timer_timeout)
 		
 	match ability.ability_name:
+		#Makes player invurnerable and freezes all nodes
 		"Timefreeze":
 			if _timer.time_left == 0:
+				invurnerable = true
+				_duration_timer.connect("timeout", _on_ability_timer_timeout.bind(ability))
 				emit_signal("freeze_enemy", "Enemies", ability.ability_duration)
 				_timer.start()
+		#Unlimited dashes
 		"Supercharge":
 			if _timer.time_left == 0:
-				_timer.connect("timeout", _on_ability_timer_timeout.bind(ability, dash_count))
+				_duration_timer.connect("timeout", _on_ability_timer_timeout.bind(ability, dash_count))
 				dash_count = 100000000
-				_timer.start()
-		"Shockwave":
-			if _timer.time_left == 0:
-				emit_signal("shockwave", self, ability.ability_damage)
 				_timer.start()
 		"Spaceshift":
 			if _timer.time_left == 0:
 				current_dash_count = 0
 				emit_signal("spaceshift", self, ability.ability_damage)
 				_timer.start()
-		"Doppelganger":
-			if _timer.time_left == 0:
-				emit_signal("doppelganger", ability.ability_duration)
-				_timer.start()
-		"BlackHole":
-			#Summon a black hole somewhere randomly 
-			emit_signal("blackhole")
-		"Rings":
-			emit_signal("summon_rings", ring_damage)
+		"Superbeam":
+			pass
+		"Absorb":
+			pass
+		"Shield":
+			pass
+			
 		_:
 			print_debug("404: Upgrade not found: ", ability.upgrade_name)
-
 
 func _on_ability_timer_timeout(ability: Ability, parameters: Variant) -> void:
 	match ability.ability_name:
 		"Timefreeze":
-			pass
+			invurnerable = false
 		"Supercharge":
 			dash_count = parameters
-		"Shockwave":
-			pass
 		"Spaceshift":
 			pass
-		"Doppelganger":
+		"Superbeam":
 			pass
-		"BlackHole":
+		"Absorb":
 			pass
-		"Rings":
+		"Shield":
 			pass
 
 

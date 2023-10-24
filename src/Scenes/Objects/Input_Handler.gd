@@ -80,4 +80,4 @@ func _on_button_created(ability: Upgrade) -> void:
 func _process(delta: float) -> void:
 	for button in buttons:
 		if button is TextureProgressBar:
-			button.value = buttons[button].ability_timer.time_left
+			button.value = buttons[button].ability_cooldown_timer.time_left

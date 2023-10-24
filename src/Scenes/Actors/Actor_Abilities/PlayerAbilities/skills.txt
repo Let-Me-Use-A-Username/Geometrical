@@ -17,10 +17,9 @@ Countor, M, dash_count+1, Increase dash count by 1
 
 #Ability level 1 | First digit is the duration, second is cooldown
 
-Timefreeze, A, duration=3|10, Freeze time for 3 seconds 
+Timefreeze, A, duration=5|10, Freeze time for 3 seconds 
 Supercharge, A, duration=5|10, Removes the dash cooldown for a 5 seconds
-Shockwave, A, damage=200|10, Damages everything on the screen
-Doppelganger, A, duration=5|10, Summons a lookalike to help
-BlackHole, A, duration=3|10, Summon a black hole
-Rings, A, damage=50|0, Summon Rings
 Spaceshift, A, damage=200|10, Dash and shock the world
+Superbeam, A, damage=200|10, Beam away your enemies
+Absord, A, duration=60|60, Absord an enemies ability
+Shield, A, duration=60|60, Mitigate damage done to you
