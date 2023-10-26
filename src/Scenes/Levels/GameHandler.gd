@@ -174,3 +174,7 @@ func _shacke_camera(trauma: float, trauma_power: int) -> void:
 	player_camera.rotation = max_roll * amount * noise.get_noise_2d(noise.seed, noise_i)
 	player_camera.offset.x = max_offset.x * amount * noise.get_noise_2d(noise.seed, noise_i)
 	player_camera.offset.y = max_offset.y * amount * noise.get_noise_2d(noise.seed, noise_i)
+
+func _summon_rings(duration:float) -> void:
+	var rings = player.get_node("Rings_Controller")
+	rings.visible = true

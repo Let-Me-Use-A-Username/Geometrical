@@ -20,6 +20,6 @@ Countor, M, dash_count+1, Increase dash count by 1
 Timefreeze, A, duration=5|10, Freeze time for 3 seconds 
 Supercharge, A, duration=5|10, Removes the dash cooldown for a 5 seconds
 Spaceshift, A, damage=200|10, Dash and shock the world
-Superbeam, A, damage=200|10, Beam away your enemies
 Absord, A, duration=60|60, Absord an enemies ability
 Shield, A, duration=60|60, Mitigate damage done to you
+Rings, A, duration=60|60, Summon damaging rings besides you
