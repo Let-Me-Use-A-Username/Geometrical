@@ -22,4 +22,4 @@ Supercharge, A, duration=5|10, Removes the dash cooldown for a 5 seconds
 Spaceshift, A, damage=200|10, Dash and shock the world
 Absord, A, duration=60|60, Absord an enemies ability
 Shield, A, duration=60|60, Mitigate damage done to you
-Rings, A, duration=60|60, Summon damaging rings besides you
+Rings, A, duration=60|60, Summon rings besides you

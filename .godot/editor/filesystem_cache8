@@ -1,5 +1,5 @@
 fc8a56933c4b1c8d796fdb8f7a9f9475
-::res://::1698320625
+::res://::1698398385
 default_env.tres::Environment::-1::1696697831::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1698244490::0::1::::<><>::
 icon.svg::CompressedTexture2D::6694984656523701901::1689846568::1689846575::1::::<><>::
@@ -51,7 +51,7 @@ Timefreeze.png::CompressedTexture2D::6078337031907783219::1696931782::1696932705
 SkillTree.txt::TextFile::-1::1698143193::0::1::::<><>::
 TODO.txt::TextFile::-1::1698317322::0::1::::<><>::
 ::res://src/Scenes/::1696682467
-::res://src/Scenes/Actors/::1698319301
+::res://src/Scenes/Actors/::1698322669
 Actor.gd::GDScript::-1::1696935049::0::1::::Actor<>CharacterBody2D<>::
 Enemy.gd::GDScript::-1::1696678494::0::1::::Enemy<>CharacterBody2D<>::
 Enemy_Circle.gd::GDScript::-1::1696423569::0::1::::Enemy_Circle<>Enemy<>::
@@ -61,12 +61,12 @@ Enemy_Square.tscn::PackedScene::1116593206901145264::1698141877::0::1::::<><>::r
 Enemy_Triangle.gd::GDScript::-1::1696423900::0::1::::Enemy_Triangle<>Enemy<>::
 Enemy_Triangle.tscn::PackedScene::722964455924076030::1696680692::0::1::::<><>::res://src/Scenes/Actors/Enemy_Triangle.gd<>uid://bahdk05tgu7oq
 Player.gd::GDScript::-1::1698317582::0::1::::Player<>Actor<>::
-Player.tscn::PackedScene::7632958929721504500::1698319301::0::1::::<><>::res://src/Scenes/Actors/Player.gd<>uid://c0jqbhx8bmfp4::::res://assets/characters/Circle-0003.png<>uid://dvetaajy3ogw8::::res://assets/UI/Abilities/Summon-Rings-Sprite.png<>res://src/Scenes/Actors/Actor_States/PlayerStates/PlayerStateMachine.gd<>res://src/Scenes/Actors/Actor_States/PlayerStates/Idle.gd<>res://src/Scenes/Actors/Actor_States/PlayerStates/Move.gd<>res://src/Scenes/Actors/Actor_States/PlayerStates/Dash.gd<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/upgrade_factory.gd<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Upgrade_Handler.gd<>res://src/Scenes/Objects/Input_Handler.gd<>res://src/Scenes/External/joystick/virtual_joystick.gd<>uid://bm30au8mjfc2f::::res://src/Scenes/External/joystick/textures/joystick_base_outline.png<>uid://dt13r06u87fib::::res://src/Scenes/External/joystick/textures/joystick_tip_arrows.png<>res://src/Scenes/UI/user_interface.gd<>res://src/Scenes/External/DashButton.gd<>uid://1l6eb7778jxy::::res://src/Scenes/UI/healthbar.tres<>uid://b4ajussjqr02o::::res://assets/UI/Abilities/Dash.png<>uid://d2tfs3usodkp5::::res://assets/UI/Abilities/Dash-Pressed.png<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Doppelganger.gd
+Player.tscn::PackedScene::7632958929721504500::1698322669::0::1::::<><>::res://src/Scenes/Actors/Player.gd<>uid://c0jqbhx8bmfp4::::res://assets/characters/Circle-0003.png<>uid://dvetaajy3ogw8::::res://assets/UI/Abilities/Summon-Rings-Sprite.png<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Rings_Controller.gd<>res://src/Scenes/Actors/Actor_States/PlayerStates/PlayerStateMachine.gd<>res://src/Scenes/Actors/Actor_States/PlayerStates/Idle.gd<>uid://gyxdis6uxg7a::::res://assets/UI/Abilities/Sprite-Ability-Rings-Thunder-0001-Sheet-Sheet.png<>res://src/Scenes/Actors/Actor_States/PlayerStates/Move.gd<>res://src/Scenes/Actors/Actor_States/PlayerStates/Dash.gd<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/upgrade_factory.gd<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Upgrade_Handler.gd<>res://src/Scenes/Objects/Input_Handler.gd<>res://src/Scenes/External/joystick/virtual_joystick.gd<>uid://bm30au8mjfc2f::::res://src/Scenes/External/joystick/textures/joystick_base_outline.png<>uid://dt13r06u87fib::::res://src/Scenes/External/joystick/textures/joystick_tip_arrows.png<>res://src/Scenes/UI/user_interface.gd<>res://src/Scenes/External/DashButton.gd<>uid://1l6eb7778jxy::::res://src/Scenes/UI/healthbar.tres<>uid://b4ajussjqr02o::::res://assets/UI/Abilities/Dash.png<>uid://d2tfs3usodkp5::::res://assets/UI/Abilities/Dash-Pressed.png<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Doppelganger.gd
 ::res://src/Scenes/Actors/Actor_Abilities/::1696678360
-::res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/::1698321307
+::res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/::1698322669
 ability.gd::GDScript::-1::1698140203::0::1::::Ability<>RefCounted<>::
 Doppelganger.gd::GDScript::-1::1697889378::0::1::::<>Node<>::
-Rings_Controller.gd::GDScript::-1::1698321307::0::1::::<>Node2D<>::
+Rings_Controller.gd::GDScript::-1::1698322669::0::1::::<>Node2D<>::
 skills.txt::TextFile::-1::1698317381::0::1::::<><>::
 upgrade.gd::GDScript::-1::1695378576::0::1::::Upgrade<>RefCounted<>::
 upgrade_factory.gd::GDScript::-1::1698140538::0::1::::Upgrade_factory<>Node<>::

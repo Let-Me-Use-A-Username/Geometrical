@@ -178,3 +178,6 @@ func _shacke_camera(trauma: float, trauma_power: int) -> void:
 func _summon_rings(duration:float) -> void:
 	var rings = player.get_node("Rings_Controller")
 	rings.visible = true
+
+func _summon_shield(duration: float) -> void:
+	pass

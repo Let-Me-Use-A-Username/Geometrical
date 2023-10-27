@@ -11,6 +11,7 @@ signal freeze_enemy(actors: String, duration: float)
 signal shockwave(origin: Node, damage: float)
 signal spaceshift(origin: Node, damage: float)
 signal summon_rings(duration: float)
+signal summon_shield(duration: float)
 
 enum States {IDLE, MOVE, DASH}
 var _state = States.IDLE
@@ -60,6 +61,7 @@ func _ready() -> void:
 	shockwave.connect(get_parent()._shockwave)
 	spaceshift.connect(state_machine.states['Dash'].on_spaceshift)
 	summon_rings.connect(get_parent()._summon_rings)
+	summon_shield.connect(get_parent()._summon_shield)
 	#Properties
 	_append_property_list()
 	_update_property_list()
@@ -142,11 +144,16 @@ func _activate_ability(ability: Ability) -> void:
 				_timer.start()
 		"Rings":
 			if _timer.time_left == 0:
+				if !get_node("Rings_Controller/Rings_Area").monitoring:
+					get_node("Rings_Controller/Rings_Area").monitoring = true
 				_duration_timer.connect("timeout", _on_ability_timer_timeout.bind(ability))
 				emit_signal("summon_rings", ability.ability_duration)
 				_timer.start()
 		"Absorb":
-			pass
+			if _timer.time_left == 0:
+				_duration_timer.connect("timeout", _on_ability_timer_timeout.bind(ability))
+				emit_signal("summon_shield", ability.ability_duration)
+				_timer.start()
 		"Shield":
 			pass
 			
@@ -162,7 +169,8 @@ func _on_ability_timer_timeout(ability: Ability, parameters: Variant) -> void:
 		"Spaceshift":
 			pass
 		"Rings":
-			pass
+			get_node("Rings_Controller/Rings_Area").monitoring = false
+			get_node("Rings_Controller").visible = false
 		"Absorb":
 			pass
 		"Shield":
