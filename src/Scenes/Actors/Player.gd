@@ -11,7 +11,8 @@ signal freeze_enemy(actors: String, duration: float)
 signal shockwave(origin: Node, damage: float)
 signal spaceshift(origin: Node, damage: float)
 signal summon_rings(duration: float)
-signal summon_shield(duration: float)
+signal gunslinger(duration: float)
+signal explotion(origin: Node, damage: float)
 
 enum States {IDLE, MOVE, DASH}
 var _state = States.IDLE
@@ -61,7 +62,8 @@ func _ready() -> void:
 	shockwave.connect(get_parent()._shockwave)
 	spaceshift.connect(state_machine.states['Dash'].on_spaceshift)
 	summon_rings.connect(get_parent()._summon_rings)
-	summon_shield.connect(get_parent()._summon_shield)
+	explotion.connect(get_parent()._explotion)
+	gunslinger.connect(get_parent()._gunslinger)
 	#Properties
 	_append_property_list()
 	_update_property_list()
@@ -112,11 +114,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _activate_ability(ability: Ability) -> void:
-	var _timer = ability.ability_cooldown_timer
+	var _cooldown_timer = ability.ability_cooldown_timer
 	var _duration_timer = ability.ability_duration_timer
 	
-	if _timer not in self.get_children():
-		add_child(_timer)
+	if _cooldown_timer not in self.get_children():
+		add_child(_cooldown_timer)
 	if _duration_timer not in self.get_children():
 		add_child(_duration_timer)
 	
@@ -126,41 +128,49 @@ func _activate_ability(ability: Ability) -> void:
 	match ability.ability_name:
 		#Makes player invurnerable and freezes all nodes
 		"Timefreeze":
-			if _timer.time_left == 0:
+			if _cooldown_timer.time_left == 0:
 				invurnerable = true
 				_duration_timer.connect("timeout", _on_ability_timer_timeout.bind(ability))
 				emit_signal("freeze_enemy", "Enemies", ability.ability_duration)
-				_timer.start()
+				_cooldown_timer.start()
+				_duration_timer.start()
 		#Unlimited dashes
 		"Supercharge":
-			if _timer.time_left == 0:
+			if _cooldown_timer.time_left == 0:
 				_duration_timer.connect("timeout", _on_ability_timer_timeout.bind(ability, dash_count))
 				dash_count = 100000000
-				_timer.start()
+				_cooldown_timer.start()
+				_duration_timer.start()
 		"Spaceshift":
-			if _timer.time_left == 0:
+			if _cooldown_timer.time_left == 0:
 				current_dash_count = 0
 				emit_signal("spaceshift", self, ability.ability_damage)
-				_timer.start()
+				_cooldown_timer.start()
 		"Rings":
-			if _timer.time_left == 0:
+			if _cooldown_timer.time_left == 0:
 				if !get_node("Rings_Controller/Rings_Area").monitoring:
 					get_node("Rings_Controller/Rings_Area").monitoring = true
 				_duration_timer.connect("timeout", _on_ability_timer_timeout.bind(ability))
 				emit_signal("summon_rings", ability.ability_duration)
-				_timer.start()
-		"Absorb":
-			if _timer.time_left == 0:
+				_cooldown_timer.start()
+				_duration_timer.start()
+		"Explotion":
+			if _cooldown_timer.time_left == 0:
 				_duration_timer.connect("timeout", _on_ability_timer_timeout.bind(ability))
-				emit_signal("summon_shield", ability.ability_duration)
-				_timer.start()
-		"Shield":
-			pass
+				emit_signal("explotion", self, ability.ability_damage)
+				_cooldown_timer.start()
+		"Gunslinger":
+			if _cooldown_timer.time_left == 0:
+				_duration_timer.set_wait_time(10)
+				_duration_timer.connect("timeout", _on_ability_timer_timeout.bind(ability))
+				emit_signal("gunslinger", ability.ability_duration)
+				_cooldown_timer.start()
+				_duration_timer.start()
 			
 		_:
 			print_debug("404: Upgrade not found: ", ability.upgrade_name)
 
-func _on_ability_timer_timeout(ability: Ability, parameters: Variant) -> void:
+func _on_ability_timer_timeout(ability: Ability, parameters: Variant = null) -> void:
 	match ability.ability_name:
 		"Timefreeze":
 			invurnerable = false
@@ -171,10 +181,12 @@ func _on_ability_timer_timeout(ability: Ability, parameters: Variant) -> void:
 		"Rings":
 			get_node("Rings_Controller/Rings_Area").monitoring = false
 			get_node("Rings_Controller").visible = false
-		"Absorb":
+		"Explotion":
 			pass
-		"Shield":
-			pass
+		"Gunslinger":
+			get_node("Gunslinger_Controller").active = false
+			print_debug("Stopping gunslinger")
+			get_node("Gunslinger_Controller/Gunslinger_Area").monitoring = false
 
 
 func _on_remove_health(origin: Node, damage: float) -> void:

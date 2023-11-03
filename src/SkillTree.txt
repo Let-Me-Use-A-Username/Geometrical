@@ -41,11 +41,12 @@ Skill Tree Types:
 			Refresher(Instantly refreshed your abilities)
 			
 		|)Passive
-			Rings (Circular Objects orbiting player)
+			✔️Rings (Circular Objects orbiting player)
 			BlackHole (Spawns a black hole randomly close to you, absorbes everything close)
 			Doppelganger (Repeats what you do with a delay)
 			Shield (Reduces projectile and melee damage)
 			Gunslinger(Shoot at nearby enemies, cooldown between shots, medium damage)
+			Explotion(Explode in an area dealing massive damage)
 		
 		
 	|)Main skill upgrades

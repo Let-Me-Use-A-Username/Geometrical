@@ -8,6 +8,7 @@ signal thunder_strike
 
 func _ready() -> void:
 	self.visible = false
+	ring_area.monitorable = false
 	ring_area.collision_layer = 1
 	ring_area.collision_mask = 2
 

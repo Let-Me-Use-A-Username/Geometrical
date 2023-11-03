@@ -18,5 +18,5 @@ func _despose_actor() -> void:
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	var obj = area.owner
-	if obj.name == 'Player':
+	if (obj.is_in_group("Player") and area.name != "Gunslinger_Area") or obj.is_in_group("Player_Projectiles"):
 		_on_remove_health(obj, 100)

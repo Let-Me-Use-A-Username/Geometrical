@@ -1,21 +1,14 @@
-Plan: 
-	1)3 abilities, player chooses one
-	2) other 2 are passives 
-		2.1) passives may have some effect / synergy with abilities
-	3) player plays the rest of the game
+
+|)Fix Explotion ability
+
+NOTE) All enemies now check to see if they should take damage WITH THE EXCEPTION OF GUNSLINGER_AREA
+	Could be used for other areas2d as well
 	
-	
-|) Fix Doppelganger 
-	Done) Fix Knockback
-		|) Fix movement 
-	|) Fix abilities
-	|) Fix Dash
-	
+
 |) Idea, generate a map from a noise map. 
 	|) High and low points should be a different tile, but gameplay wise nothing changes, it is only for the graphics
 
 
-|) Implement abilities and at least first 3 levels of upgrades
 IDEA) Make collider visible during dashing
 
 |) Implement basic sound effects and background music

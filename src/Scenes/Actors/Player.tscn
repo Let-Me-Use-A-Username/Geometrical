@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dg0pyopln4yjk"]
+[gd_scene load_steps=27 format=3 uid="uid://dg0pyopln4yjk"]
 
 [ext_resource type="Script" path="res://src/Scenes/Actors/Player.gd" id="1_rqiwo"]
 [ext_resource type="Texture2D" uid="uid://c0jqbhx8bmfp4" path="res://assets/characters/Circle-0003.png" id="2_olfa5"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/PlayerStates/PlayerStateMachine.gd" id="3_n8u1j"]
 [ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/PlayerStates/Idle.gd" id="4_y6fdd"]
 [ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/PlayerStates/Move.gd" id="5_pwcfs"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Gunslinger_Controller.gd" id="5_rryr3"]
 [ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/PlayerStates/Dash.gd" id="6_dhbsk"]
 [ext_resource type="Script" path="res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/upgrade_factory.gd" id="7_b61lc"]
 [ext_resource type="Script" path="res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Upgrade_Handler.gd" id="8_i7pv3"]
@@ -23,6 +24,9 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m7ulj"]
 radius = 28.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_431qs"]
+size = Vector2(1580, 1140)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqwmu"]
 radius = 7.0
@@ -59,6 +63,17 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rings_Controller/Rings_Area"]
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_m7ulj")
+
+[node name="Gunslinger_Controller" type="Node2D" parent="."]
+script = ExtResource("5_rryr3")
+
+[node name="Gunslinger_Area" type="Area2D" parent="Gunslinger_Controller"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gunslinger_Controller/Gunslinger_Area"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_431qs")
 
 [node name="PlayerBounds" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)

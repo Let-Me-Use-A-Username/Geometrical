@@ -29,12 +29,12 @@ func _on_shoot_timeout() -> void:
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	var obj = area.owner
-	if obj.name == 'Player':
+	if (obj.is_in_group("Player") and area.name != "Gunslinger_Area") or obj.is_in_group("Player_Projectiles"):
 		_on_remove_health(obj, 100)
 
 
 func _on_shoot_range_area_entered(area: Area2D) -> void:
-	if area.owner.name == 'Player':
+	if area.owner.name == 'Player' and area.name != "Gunslinger_Area":
 		in_range = true
 		if shoot_timer.time_left == 0:
 			emit_signal("shoot", area, get_position().direction_to(area.owner.global_position))

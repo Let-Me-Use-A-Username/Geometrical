@@ -179,5 +179,11 @@ func _summon_rings(duration:float) -> void:
 	var rings = player.get_node("Rings_Controller")
 	rings.visible = true
 
-func _summon_shield(duration: float) -> void:
+
+func _explotion(origin: Node, damage: float) -> void:
 	pass
+
+
+func _gunslinger(duration: float) -> void:
+	var gun = player.get_node("Gunslinger_Controller")
+	gun.active = true
