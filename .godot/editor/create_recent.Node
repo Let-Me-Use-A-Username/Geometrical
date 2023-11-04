@@ -1,8 +1,8 @@
-ColorRect
 CollisionShape2D
-ShapeCast2D
 Area2D
 Node2D
+ColorRect
+ShapeCast2D
 Sprite2D
 AnimationPlayer
 AnimatedSprite2D

@@ -62,7 +62,7 @@ func _ready() -> void:
 	shockwave.connect(get_parent()._shockwave)
 	spaceshift.connect(state_machine.states['Dash'].on_spaceshift)
 	summon_rings.connect(get_parent()._summon_rings)
-	explotion.connect(get_parent()._explotion)
+	explotion.connect(get_node("Explotion_Controller")._explotion)
 	gunslinger.connect(get_parent()._gunslinger)
 	#Properties
 	_append_property_list()
@@ -159,9 +159,9 @@ func _activate_ability(ability: Ability) -> void:
 				_duration_timer.connect("timeout", _on_ability_timer_timeout.bind(ability))
 				emit_signal("explotion", self, ability.ability_damage)
 				_cooldown_timer.start()
+				_duration_timer.start()
 		"Gunslinger":
 			if _cooldown_timer.time_left == 0:
-				_duration_timer.set_wait_time(10)
 				_duration_timer.connect("timeout", _on_ability_timer_timeout.bind(ability))
 				emit_signal("gunslinger", ability.ability_duration)
 				_cooldown_timer.start()
@@ -182,10 +182,11 @@ func _on_ability_timer_timeout(ability: Ability, parameters: Variant = null) -> 
 			get_node("Rings_Controller/Rings_Area").monitoring = false
 			get_node("Rings_Controller").visible = false
 		"Explotion":
-			pass
+			get_node("Explotion_Controller/Explotion_Area").collision_layer = 0
+			get_node("Explotion_Controller/Explotion_Area").collision_mask = 0
+			get_node("Explotion_Controller/Explotion_Area").monitoring = false
 		"Gunslinger":
 			get_node("Gunslinger_Controller").active = false
-			print_debug("Stopping gunslinger")
 			get_node("Gunslinger_Controller/Gunslinger_Area").monitoring = false
 
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://br4e58yx03vrt"]
 
 [ext_resource type="Script" path="res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Player_Projectile.gd" id="1_7ymqw"]
-[ext_resource type="Texture2D" uid="uid://byw4cso2f81l5" path="res://assets/Objects/Triangle-Bullet-0001.png" id="2_wtvfy"]
+[ext_resource type="Texture2D" uid="uid://bmbhbtej05ea5" path="res://assets/UI/Abilities/Gunslinger-Bullet.png" id="2_38b05"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2do4m"]
 size = Vector2(12, 12)
@@ -21,7 +21,7 @@ shape = SubResource("RectangleShape2D_2do4m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.357307, 0.35805)
-texture = ExtResource("2_wtvfy")
+texture = ExtResource("2_38b05")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(1e-05, 1e-05)

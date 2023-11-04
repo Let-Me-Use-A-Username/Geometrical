@@ -178,7 +178,7 @@ func apply_effect(ability: Upgrade) -> void:
 				applied_ability.ability_damage = 0
 			else:
 				applied_ability.ability_damage = effects[0].split("=")[1]
-				applied_ability.ability_duration = 1
+				applied_ability.ability_duration = 0.3
 			
 			applied_ability.ability_cooldown_timer = Timer.new()
 			applied_ability.ability_cooldown_timer.set_wait_time(applied_ability.ability_cooldown)

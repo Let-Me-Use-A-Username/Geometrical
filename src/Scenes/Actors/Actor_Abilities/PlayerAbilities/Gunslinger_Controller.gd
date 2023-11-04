@@ -27,10 +27,11 @@ func _process(delta: float) -> void:
 
 
 func _shoot_projectile() -> void:
-	for enemy in gunslinger_area.get_overlapping_bodies():
-		if enemy != null and enemy.is_in_group("Enemies"):
-			var bullet = projectile.instantiate()
-			player.get_parent().call_deferred("add_child", bullet)
-			bullet.global_position = player.global_position
-			bullet.set_target(player.get_position().direction_to(enemy.global_position))
-			shoot_cooldown.start()	
+	if gunslinger_area.monitoring:
+		for enemy in gunslinger_area.get_overlapping_bodies():
+			if enemy != null and enemy.is_in_group("Enemies"):
+				var bullet = projectile.instantiate()
+				player.get_parent().call_deferred("add_child", bullet)
+				bullet.global_position = player.global_position
+				bullet.set_target(player.get_position().direction_to(enemy.global_position))
+				shoot_cooldown.start()	

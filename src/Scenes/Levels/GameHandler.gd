@@ -180,10 +180,6 @@ func _summon_rings(duration:float) -> void:
 	rings.visible = true
 
 
-func _explotion(origin: Node, damage: float) -> void:
-	pass
-
-
 func _gunslinger(duration: float) -> void:
 	var gun = player.get_node("Gunslinger_Controller")
 	gun.active = true
