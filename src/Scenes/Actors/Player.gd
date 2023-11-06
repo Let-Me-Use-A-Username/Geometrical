@@ -37,7 +37,7 @@ var dash_immune_timer_offset: float = 0.2
 var knockback_force = 30
 
 var exp_counter = 0
-var level_up_threshold = [100, 50, 30, 10, 5, 3, 1]
+var level_up_threshold = [300, 250, 200, 170, 140, 110, 90, 70, 50, 40, 30, 20, 10, 7, 4, 1]
 
 var _player_property_list = {}
 var _player_mainskill_property_list = {}
@@ -91,6 +91,7 @@ func _process(delta: float) -> void:
 	_state = state_machine.active_state.name
 	if health != 100:
 		health += health_regen
+		
 	if level_up_threshold.has(exp_counter) or level_up_threshold.back() <= exp_counter:
 		emit_signal("level_up", exp_counter)
 		level_up_threshold.pop_back()
@@ -179,6 +180,8 @@ func _on_ability_timer_timeout(ability: Ability, parameters: Variant = null) -> 
 		"Spaceshift":
 			pass
 		"Rings":
+			get_node("Rings_Controller/Rings_Area").collision_layer = 0
+			get_node("Rings_Controller/Rings_Area").collision_mask = 0
 			get_node("Rings_Controller/Rings_Area").monitoring = false
 			get_node("Rings_Controller").visible = false
 		"Explotion":

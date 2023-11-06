@@ -6,9 +6,9 @@ var player_camera: Camera2D
 #Ememy variables
 var enemy_factory
 var enemy_spawn_timer: Timer
-var spawn_offset: int
-@export var enemy_wave_counter: int
-@export var total_enemy_counter: int
+var spawn_timer_offset: int
+@export var wave_enemy_counter: int
+@export var total_enemy_counter: int = 0
 var spawn: bool
 
 #Ability variables
@@ -34,11 +34,11 @@ func _ready() -> void:
 	player_camera = player.get_node("PlayerCamera") as Camera2D
 	
 	enemy_factory = get_node("Enemy_Factory")
-	enemy_wave_counter = 3
-	spawn_offset = 3
+	wave_enemy_counter = 1
+	spawn_timer_offset = 1
 	
 	enemy_spawn_timer = get_node('SpawnTimer')
-	enemy_spawn_timer.set_wait_time(spawn_offset)
+	enemy_spawn_timer.set_wait_time(spawn_timer_offset)
 	enemy_spawn_timer.connect('timeout', _on_Timer_timeout)
 	
 	freeze_timer = get_node("FreezeTimer")
@@ -61,16 +61,28 @@ func _ready() -> void:
 	
 
 func _on_Timer_timeout() -> void:
-	total_enemy_counter += 10
-	
-	var enemy_queue = enemy_factory.get_spawn_queue(total_enemy_counter, enemy_wave_counter)
+	var enemy_queue = enemy_factory.get_spawn_queue(total_enemy_counter, wave_enemy_counter)
+	var coins = player.exp_counter
 	
 	spawn_enemies(enemy_queue)
 	
-	spawn_offset += 1
-	enemy_wave_counter += 1
+	spawn_timer_offset += 1
+	wave_enemy_counter = _get_wave_enemy_counter(coins)
+	total_enemy_counter += enemy_queue.size()
 	
-	enemy_spawn_timer.set_wait_time(spawn_offset)
+	enemy_spawn_timer.wait_time = spawn_timer_offset
+
+
+func _get_wave_enemy_counter(coins: int) -> int:
+	if coins < 10:
+		return spawn_timer_offset
+	elif coins < 30:
+		return spawn_timer_offset * 2
+	elif coins < 50:
+		return spawn_timer_offset * 3
+	else:
+		return spawn_timer_offset
+
 
 
 func _process(delta: float) -> void:
@@ -88,24 +100,33 @@ func spawn_enemies(enemy_array : Array) -> void:
 	randomize()
 	var camera_position = player_camera.get_screen_center_position()
 	var half = get_viewport_rect().size * 0.5
+	var whole = half * 2
+	var min_y = 0 - whole.y
+	var min_x = 0 - whole.x
 	window_size = Rect2(camera_position - half, camera_position + half)
+	var max_y = window_size.end.y + whole.y
+	var max_x = window_size.end.x + whole.x
 	
 	while enemy_array.size() != 0:
 		var spawn_direction = randi_range(1, 4)
 
 		match(spawn_direction):
+			#Left x<0, y>0
 			1:
-				location.y = randf_range(1, window_size.size.y) #positive y
-				location.x = randf_range(0, -window_size.size.x) #negative x
+				var rand_y = randf_range(0, max_y)
+				location = Vector2(min_x, rand_y)
+			#Up x>0, y<0
 			2:
-				location.x = randf_range(1, window_size.size.x) #positive x
-				location.y = randf_range(0, -window_size.size.y) #negative y
+				var rand_x = randf_range(0, max_x)
+				location = Vector2(rand_x, min_y)
+			#Right x>0, y>0
 			3:
-				location.y = randf_range(window_size.size.y, window_size.size.y * 2) # positive y
-				location.x = randf_range(1, window_size.size.x) # random x
+				var rand_y = randf_range(0, max_y)
+				location = Vector2(max_x, rand_y)
+			#Down x>0, y>0
 			4:
-				location.x = randf_range(window_size.size.x, window_size.size.x * 2) # positive x
-				location.y = randf_range(1, window_size.size.y) # random y
+				var rand_x = randf_range(0, max_x)
+				location = Vector2(rand_x, max_y)
 
 		var _instance = enemy_array.pop_back().instantiate()
 

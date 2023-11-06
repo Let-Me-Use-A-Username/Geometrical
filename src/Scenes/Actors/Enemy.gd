@@ -32,7 +32,9 @@ func getTarget() -> Node:
 
 
 func _despose_actor() -> void:
-	var obj = coin.instantiate()
-	obj.position = self.position
-	get_parent().call_deferred("add_child", obj)
+	randomize()
+	if randi_range(1, 3) == 1:
+		var obj = coin.instantiate()
+		obj.position = self.position
+		get_parent().call_deferred("add_child", obj)
 	self.queue_free()

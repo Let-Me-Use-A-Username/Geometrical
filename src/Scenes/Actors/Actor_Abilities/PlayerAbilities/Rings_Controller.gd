@@ -9,10 +9,10 @@ signal thunder_strike
 func _ready() -> void:
 	self.visible = false
 	ring_area.monitorable = false
-	ring_area.collision_layer = 1
-	ring_area.collision_mask = 2
 
 
 func _process(delta: float) -> void:
 	if self.visible:
 		ring_area.monitorable = true
+		ring_area.collision_layer = 1
+		ring_area.collision_mask = 2

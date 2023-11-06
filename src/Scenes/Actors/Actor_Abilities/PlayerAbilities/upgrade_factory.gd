@@ -73,20 +73,36 @@ func _print_upgradeTrees() -> void:
 #exports the tree (trees) to player
 func _export_tree(coins) -> Dictionary:
 	total_coins = coins
-	#_remove_used_upgrades()
-	_append_next_level_upgrades()
-	_get_available_tree()
-	return available_trees
+	
+	var fake_tree = {}
+	fake_tree = _get_available_tree()
+	return fake_tree
 
 
-#The idea is that we have a list with all of the upgrades. 
-#When the player levels up he is able to choose from 4 upgrades 
-#DEPENDING on how long he has been playing and what upgrades he already has 
-#Different choices should be available for him
-func _get_available_tree() -> void:
-	if total_coins == 50:
-		pass
-		#choose ability
+func _get_available_tree() -> Dictionary:
+	var ability_count = 0
+	for upgrade in applied_upgrades:
+		if upgrade.upgrade_type == "A":
+			ability_count += 1
+	#Because player might pick up multiple coins 
+	#we check for something bigger (10 coints extra) and we also check 
+	#if we have applied an ability to the player.
+	if total_coins < 20 and ability_count == 0:
+		return {}
+		#let player choose from weak 3 abilities
+	elif total_coins < 40 and ability_count == 1:
+		return {}
+		#let player choose from strong 3 abilities
+	elif total_coins < 60 and ability_count == 2:
+		return {}
+		#let player choose from the rest
+	else:
+		var fake_tree = {}
+		for type in available_trees:
+			if type != "Ability":
+				fake_tree[type] = available_trees[type]
+		return fake_tree
+	return {}
 
 
 func _append_next_level_upgrades() -> void:

@@ -52,10 +52,15 @@ func on_level_up(coins: int) -> void:
 	chosen_upgrades["MainSkill"] = []
 	chosen_upgrades["Ability"] = []
 	
+	#Limit which abilities the player can choose
 	available_upgrades = upgrade_factory._export_tree(coins)
+	var player_abilities = player._player_abilities.size()
 	
+	if !available_upgrades.has("Ability"):
+		skill_tree_3.visible = false
+		
 	#After player chooses 3 abilities stop the selection
-	if player._player_abilities.size() == 3:
+	if player_abilities == 3:
 		skill_tree_3.visible = false
 
 

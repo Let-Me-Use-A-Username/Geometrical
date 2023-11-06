@@ -17,9 +17,9 @@ Countor, M, dash_count+1, Increase dash count by 1
 
 #Ability level 1 | First digit is the duration, second is cooldown
 
-Timefreeze, A, duration=5|10, Freeze time for 3 seconds 
-Supercharge, A, duration=5|10, Removes the dash cooldown for a 5 seconds
 Spaceshift, A, damage=200|10, Dash and shock the world
 Gunslinger, A, duration=10|60, Shoots nearby enemies
+Supercharge, A, duration=5|10, Removes the dash cooldown for a 5 seconds
 Rings, A, duration=10|60, Summon rings besides you
+Timefreeze, A, duration=5|10, Freeze time for 3 seconds 
 Explotion, A, damage=200|10, Explode in a radius

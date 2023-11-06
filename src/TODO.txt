@@ -1,61 +1,40 @@
+|)Timer and Spawned enemies
+	NOTE) Enemies are spawned linearly to the clock time, 1=1, 2=2...
+		DONE) Enemies should spawn faster after aquiring an ability
 
-|)Timer and Spawned enemies could be better perhaps, will have to check it out later 
-	Changed in factory. Now in game hanlder
-|)Refine spawn factory settings (spawn timer, spawn enemies, conditions etc.)
-
-Time passed | Enemies spanwed
- 1			| 3
- 2			| 6
- 3			| 9
- 4			| 12
- 5			| 15
- 6			| 18
- 7			| 21
- After the 7th iteration (before that only circle enemies)
- spawn enemies 4 times the time passed
------------------------------
-8			| 32
-9			| 36
-10			| 40
-11			| 44
-12			| 48
-13			| 52
-14			| 56
-After  the 14 iteration (spawn triangle enemies 1/10)
-spawn 5 times the time passed
------------------------------
-15			| 75
-16			| 80
-17			| 85
-18			| 90
-19			| 95
-20			| 100
-21			| 105
-After the 21 iteration (spawn square enemies 1/10 , triangle 1/8)
-spawn 6 times the time passed
+|) Fix threshold detection for level up
+	Idea) player can pick any upgrade except for abilities which should be available 3 times in the game
+			|)Coins=10 First upgrade should be from Explotion, Timefreeze, Rings
+			|)Coints=30(or 50) Second upgrade should be from Supercharge, Spaceshift, Gunslinger
+			|)Coints=50(or 110) Last upgrade should be from all
+				TODO) Have a flag for each upgrade tier on the abilities
+			
 
 
+|) Make buttons appear a specific place from canvas layer layout
 |) Implement basic sound effects and background music
 |) Implement game menu and loading
-|) Add more abilities 
 |) Add bosses
 |) Add FX
-|) Fix threshold detection for level up
 |) Roll Alpha Version
 
 Ideas:
-	|) Control player with mouse for pc
+	Idea) Let the player choose how many enemies to start, and how much time to play
+		|)Change spawn parameters accordingly
 	
-	|) Implement a better health bar
+	Idea) Control player with mouse for pc
 	
-	|) Enemies that aren't instakilled could display an on hit effect 
+	Idea) Implement a better health bar
+	
+	Idea) Enemies that aren't instakilled could display an on hit effect 
 		like a sprite change
 	
-	|) higher difficulties with increasingly smarter or bigger enemies
+	Idea) higher difficulties with increasingly smarter or bigger enemies
 		-The more edges in a shape the more clever it is
 		
 	Idea)generate a map from a noise map. 
 		|) High and low points should be a different tile, but gameplay wise nothing changes, it is only for the graphics
+	
 	IDEA) Make collider visible during dashing
 
 
@@ -68,6 +47,13 @@ Sources:
 	NOTES) Changes scretch mode to viewport in window
 	NOTE) All enemies now check to see if they should take damage WITH THE EXCEPTION OF GUNSLINGER_AREA
 		Could be used for other areas2d as well
+	NOTE)How spawn works:
+		Time begins at 1, spawns 3 enemies.
+			Every time the clock fires the timer adds 1 second, and we add 1 to enemies
+			So for time=2, enemies=4, time=3, enemies=5
+				Enemies are spawned outside of the players camera, specifically 
+				they are spawned at the coordinates [-screen_size, screen_size]
+				so they can be spanwed a "monitor" away, and never clip in the camera.
 
 
 Done:
@@ -122,3 +108,7 @@ Done:
 		|) Fix Square not to explode on freeze
 	|)Fix Explotion ability
 	|)Players UI should have icons instead of text
+	|)Fix spawn locations outside of players camera
+	|)Refine spawn factory settings (spawn timer, spawn enemies, conditions etc.)
+
+	|) Add more abilities 
