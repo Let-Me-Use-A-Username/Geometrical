@@ -80,41 +80,36 @@ func _export_tree(coins) -> Dictionary:
 
 
 func _get_available_tree() -> Dictionary:
-	var ability_count = 0
-	for upgrade in applied_upgrades:
-		if upgrade.upgrade_type == "A":
-			ability_count += 1
-	#Because player might pick up multiple coins 
-	#we check for something bigger (10 coints extra) and we also check 
-	#if we have applied an ability to the player.
-	if total_coins < 20 and ability_count == 0:
-		return {}
+	var fake_tree = {}
+	fake_tree["Utility"] = available_trees["Utility"]
+	fake_tree["MainSkill"] = available_trees["MainSkill"]
+	fake_tree["Ability"] = {}
+	
+	for ability in available_trees["Ability"]:
+		if total_coins < 20:
+			if ability == "Rings" or ability == "Timefreeze" or ability == "Explotion":
+				fake_tree["Ability"][ability] = available_trees["Ability"][ability]
 		#let player choose from weak 3 abilities
-	elif total_coins < 40 and ability_count == 1:
-		return {}
-		#let player choose from strong 3 abilities
-	elif total_coins < 60 and ability_count == 2:
-		return {}
-		#let player choose from the rest
-	else:
-		var fake_tree = {}
-		for type in available_trees:
-			if type != "Ability":
-				fake_tree[type] = available_trees[type]
-		return fake_tree
-	return {}
+		elif total_coins < 40:
+			if ability == "Supercharge" or ability == "Gunslinger" or ability == "Spaceshift":
+				fake_tree["Ability"][ability] = available_trees["Ability"][ability]
+			#let player choose from strong 3 abilities
+		elif total_coins < 60:
+			return available_trees
+	
+	return fake_tree
 
 
 func _append_next_level_upgrades() -> void:
 	pass
 
 
-func _remove_used_upgrades() -> void:
+func _remove_used_upgrades(upgrades: Dictionary) -> void:
 	#_print_upgradeTrees()
-	for type in available_trees:
-		for upgrade in available_trees[type]:
-			if available_trees[type][upgrade].upgrade_active == true:
-				available_trees[type].erase(upgrade)
+	for type in upgrades:
+		for upgrade in upgrades[type]:
+			if upgrades[type][upgrade].upgrade_active == true:
+				upgrades[type].erase(upgrade)
 
 
 func _get_random_upgrades(ab_name: String) -> Array:

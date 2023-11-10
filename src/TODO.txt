@@ -1,17 +1,7 @@
-|)Timer and Spawned enemies
-	NOTE) Enemies are spawned linearly to the clock time, 1=1, 2=2...
-		DONE) Enemies should spawn faster after aquiring an ability
-
-|) Fix threshold detection for level up
-	Idea) player can pick any upgrade except for abilities which should be available 3 times in the game
-			|)Coins=10 First upgrade should be from Explotion, Timefreeze, Rings
-			|)Coints=30(or 50) Second upgrade should be from Supercharge, Spaceshift, Gunslinger
-			|)Coints=50(or 110) Last upgrade should be from all
-				TODO) Have a flag for each upgrade tier on the abilities
-			
-
-
+|) Fix upgrade factory to return abilities only when specified
 |) Make buttons appear a specific place from canvas layer layout
+
+
 |) Implement basic sound effects and background music
 |) Implement game menu and loading
 |) Add bosses
@@ -112,3 +102,12 @@ Done:
 	|)Refine spawn factory settings (spawn timer, spawn enemies, conditions etc.)
 
 	|) Add more abilities 
+	|)Timer and Spawned enemies
+		NOTE) Enemies are spawned linearly to the clock time, 1=1, 2=2...
+			DONE) Enemies should spawn faster after aquiring an ability
+
+	Done) Fix threshold detection for level up
+		Idea) player can pick any upgrade except for abilities which should be available 3 times in the game
+				|)Coins=10 First upgrade should be from Explotion, Timefreeze, Rings
+				|)Coints=30(or 50) Second upgrade should be from Supercharge, Spaceshift, Gunslinger
+				|)Coints=50(or 110) Last upgrade should be from all

@@ -69,7 +69,7 @@ func _on__pressed(ab_name: String) -> void:
 	inner_menu.visible = true
 	
 	if chosen_upgrades[ab_name].size() == 0:
-		var choices: Array = upgrade_factory._get_random_upgrades(ab_name)
+		var choices: Array = _get_random_upgrades(ab_name)
 		chosen_upgrades[ab_name] = choices
 		
 		option_1.text = choices[0].upgrade_name + "\n" + choices[0].upgrade_description 
@@ -87,6 +87,27 @@ func _on__pressed(ab_name: String) -> void:
 		option_1.connect("pressed", _on_ability_choice.bind(chosen_upgrades[ab_name][0]))
 		option_2.connect("pressed", _on_ability_choice.bind(chosen_upgrades[ab_name][1]))
 		option_3.connect("pressed", _on_ability_choice.bind(chosen_upgrades[ab_name][2]))
+
+
+func _get_random_upgrades(code: String) -> Array:
+	var returnee = []
+	var value = available_upgrades[code].values()
+	#Removing abilities that the player has chose
+	match code:
+		"Ability":
+			var repeat = 0
+			while repeat != 3:
+				var upgrade = value.pick_random()
+				returnee.append(upgrade)
+				value.erase(upgrade)
+				repeat += 1
+			return returnee
+		_:
+			for repeat in range(0, 3):
+				var upgrade = value.pick_random()
+				returnee.append(upgrade)
+				value.erase(upgrade)
+			return returnee
 
 
 func _on_ability_choice(ability: Upgrade) -> void:

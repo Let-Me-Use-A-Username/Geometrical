@@ -6,6 +6,7 @@ var _input_type
 @onready var joystick = get_node("Background/Virtual Joystick") as VirtualJoystick
 @onready var ui_debug = get_node("../UI_Debug")
 @onready var player = owner as Player
+@onready var _camera = get_node("../PlayerCamera") as Camera2D
 
 var buttons = {}
 
@@ -49,15 +50,22 @@ func _on_button_created(ability: Upgrade) -> void:
 	var dash_button = background.get_node("DashButton")
 	
 	var ability_button = TouchScreenButton.new()
-	ability_button.position.x = dash_button.position.x + 20
+	var viewport_rect = _camera.get_viewport_rect().size
+	var viewport_offset_x = 350
+	var viewport_offset_y = 200
+	
+	dash_button.position.x = viewport_rect.x - viewport_offset_x
+	dash_button.position.y = viewport_rect.y - viewport_offset_y
+	
+	ability_button.position.x = dash_button.position.x
 	
 	match player._player_abilities.size():
 		1:
-			ability_button.position.y = dash_button.position.y - 100
+			ability_button.position.y = viewport_rect.y - viewport_offset_y 
 		2:
-			ability_button.position.y = dash_button.position.y - 200
+			ability_button.position.y = viewport_rect.y - viewport_offset_y * 1/2
 		3:
-			ability_button.position.y = dash_button.position.y - 300
+			ability_button.position.y = viewport_rect.y - viewport_offset_y * 1/4
 	
 	background.add_child(ability_button)
 			
