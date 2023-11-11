@@ -10,6 +10,7 @@ signal knockdown(origin: Node, disabled_time: float)
 signal freeze_enemy(actors: String, duration: float)
 signal shockwave(origin: Node, damage: float)
 signal spaceshift(origin: Node, damage: float)
+signal supercharge(duration: float)
 signal summon_rings(duration: float)
 signal gunslinger(duration: float)
 signal explotion(origin: Node, damage: float)
@@ -64,6 +65,14 @@ func _ready() -> void:
 	summon_rings.connect(get_parent()._summon_rings)
 	explotion.connect(get_node("Explotion_Controller")._explotion)
 	gunslinger.connect(get_parent()._gunslinger)
+	
+	#Sound signals
+	knockdown.connect((get_node("Audio_Handler/AudioPlayer")._on_knockdown))
+	#Ability Sounds
+	dash.connect(get_node("Audio_Handler/AudioPlayer")._on_dash)
+	supercharge.connect(get_node("Audio_Handler/AudioPlayer")._on_Supercharge)
+	spaceshift.connect(get_node("Audio_Handler/AudioPlayer")._on_Spaceshift)
+	freeze_enemy.connect(get_node("Audio_Handler/AudioPlayer")._on_Timefreeze)
 	#Properties
 	_append_property_list()
 	_update_property_list()

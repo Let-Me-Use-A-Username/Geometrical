@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dg0pyopln4yjk"]
+[gd_scene load_steps=30 format=3 uid="uid://dg0pyopln4yjk"]
 
 [ext_resource type="Script" path="res://src/Scenes/Actors/Player.gd" id="1_rqiwo"]
 [ext_resource type="Texture2D" uid="uid://c0jqbhx8bmfp4" path="res://assets/characters/Circle-0003.png" id="2_olfa5"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://b4ajussjqr02o" path="res://assets/UI/Abilities/Dash.png" id="13_epilf"]
 [ext_resource type="Texture2D" uid="uid://d2tfs3usodkp5" path="res://assets/UI/Abilities/Dash-Pressed.png" id="14_dt6td"]
 [ext_resource type="Script" path="res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Doppelganger.gd" id="18_08n6u"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/AudioPlayer.gd" id="24_q6ula"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m7ulj"]
 radius = 28.0
@@ -242,5 +243,15 @@ script = ExtResource("18_08n6u")
 [node name="PlayerCamera" type="Camera2D" parent="."]
 position = Vector2(447, 200)
 enabled = false
+
+[node name="Audio_Handler" type="Node" parent="."]
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="Audio_Handler"]
+position = Vector2(193, 160)
+script = ExtResource("24_q6ula")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="Audio_Handler"]
+position = Vector2(193, 160)
+current = true
 
 [connection signal="area_entered" from="CollitionArea" to="." method="_on_collition_area_area_entered"]

@@ -1,11 +1,15 @@
-|) Fix upgrade factory to return abilities only when specified
-|) Make buttons appear a specific place from canvas layer layout
+|)Fix level up menu, abilities are never or always showing
 
-
-|) Implement basic sound effects and background music
-|) Implement game menu and loading
-|) Add bosses
+|) Implement basic sound effects
+	|)Depending on where it happens, audio handling could be per node (its node handles itself)
 |) Add FX
+	|)Because most FX will change the screen, for a first attempt create a node in game handler
+		that handler the fx
+|) Implement background music
+|) Implement game menu and loading
+
+|) Add bosses
+
 |) Roll Alpha Version
 
 Ideas:
@@ -30,20 +34,19 @@ Ideas:
 
 Sources:
 	Sound effects: https://mixkit.co/free-sound-effects/game/
+	more sound effects: https://elements.envato.com/sound-effects/game-sounds
+	
 	android help: https://www.youtube.com/watch?v=0NxYJgATevg
+	
 	Notes)Touch Event: https://docs.godotengine.org/en/stable/classes/class_inputeventscreentouch.html
 	Notes)Touch button: https://docs.godotengine.org/en/stable/classes/class_touchscreenbutton.html
+	
 	NOTES) Changes Input device -> mouse now emulates touch 
 	NOTES) Changes scretch mode to viewport in window
 	NOTE) All enemies now check to see if they should take damage WITH THE EXCEPTION OF GUNSLINGER_AREA
 		Could be used for other areas2d as well
-	NOTE)How spawn works:
-		Time begins at 1, spawns 3 enemies.
-			Every time the clock fires the timer adds 1 second, and we add 1 to enemies
-			So for time=2, enemies=4, time=3, enemies=5
-				Enemies are spawned outside of the players camera, specifically 
-				they are spawned at the coordinates [-screen_size, screen_size]
-				so they can be spanwed a "monitor" away, and never clip in the camera.
+	NOTE) Implement better ui placement with nodes, not hardcoded values
+				
 
 
 Done:
@@ -111,3 +114,4 @@ Done:
 				|)Coins=10 First upgrade should be from Explotion, Timefreeze, Rings
 				|)Coints=30(or 50) Second upgrade should be from Supercharge, Spaceshift, Gunslinger
 				|)Coints=50(or 110) Last upgrade should be from all
+	DONE) Fix upgrade factory to return abilities only when specified

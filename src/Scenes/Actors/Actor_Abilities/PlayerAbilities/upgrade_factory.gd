@@ -12,8 +12,6 @@ var applied_upgrades: Array
 
 @onready var player = owner as Player
 
-var total_coins = 0
-
 #read abilities from a txt file 
 func _init() -> void:
 	var file = FileAccess.open("res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/skills.txt", FileAccess.READ)
@@ -72,31 +70,42 @@ func _print_upgradeTrees() -> void:
 
 #exports the tree (trees) to player
 func _export_tree(coins) -> Dictionary:
-	total_coins = coins
 	
 	var fake_tree = {}
-	fake_tree = _get_available_tree()
+	fake_tree = _get_available_tree(coins)
 	return fake_tree
 
 
-func _get_available_tree() -> Dictionary:
+func _get_available_tree(total_coins: int) -> Dictionary:
 	var fake_tree = {}
 	fake_tree["Utility"] = available_trees["Utility"]
 	fake_tree["MainSkill"] = available_trees["MainSkill"]
 	fake_tree["Ability"] = {}
 	
-	for ability in available_trees["Ability"]:
-		if total_coins < 20:
-			if ability == "Rings" or ability == "Timefreeze" or ability == "Explotion":
-				fake_tree["Ability"][ability] = available_trees["Ability"][ability]
-		#let player choose from weak 3 abilities
-		elif total_coins < 40:
-			if ability == "Supercharge" or ability == "Gunslinger" or ability == "Spaceshift":
-				fake_tree["Ability"][ability] = available_trees["Ability"][ability]
-			#let player choose from strong 3 abilities
-		elif total_coins < 60:
-			return available_trees
+	var _size = 0
 	
+	for upgrade in applied_upgrades:
+		if upgrade.upgrade_type == "A":
+			_size += 1
+	
+	match _size:
+		0:
+			if total_coins > 7:
+				for ability in available_trees["Ability"]:
+					if ability == "Rings" or ability == "Timefreeze" or ability == "Explotion":
+						fake_tree["Ability"][ability] = available_trees["Ability"][ability]
+		1:
+			if total_coins > 25:
+				for ability in available_trees["Ability"]:
+					if ability == "Supercharge" or ability == "Gunslinger" or ability == "Spaceshift":
+						fake_tree["Ability"][ability] = available_trees["Ability"][ability]
+		2:
+			if total_coins > 45:
+				for ability in available_trees["Ability"]:
+					var upgrade = available_trees["Ability"][ability]
+					if !upgrade in applied_upgrades:
+						fake_tree["Ability"][ability] = upgrade
+						
 	return fake_tree
 
 

@@ -8,9 +8,19 @@ var _input_type
 @onready var player = owner as Player
 @onready var _camera = get_node("../PlayerCamera") as Camera2D
 
+@export var ui_position_offset: Vector2 = Vector2(230, 200)
+@export var ui_scale_offset: Vector2 = Vector2(1.762, 1.698)
+var fake_ui_scale: Vector2 = Vector2(1.45, 1.45)
+
 var buttons = {}
 
 func _ready() -> void:
+	var dash_button = get_node("Background/DashButton")
+	var viewport_rect = _camera.get_viewport_rect().size
+	
+	dash_button.position = viewport_rect - Vector2(ui_position_offset.x, ui_position_offset.y)
+	dash_button.scale = ui_scale_offset
+	
 	match OS.get_name():
 		"Android":
 			print_debug("Mobile Phone detected...\n")
@@ -51,21 +61,19 @@ func _on_button_created(ability: Upgrade) -> void:
 	
 	var ability_button = TouchScreenButton.new()
 	var viewport_rect = _camera.get_viewport_rect().size
-	var viewport_offset_x = 350
-	var viewport_offset_y = 200
+	var viewport_offset_x = 250
+	var viewport_offset_y = 100
 	
-	dash_button.position.x = viewport_rect.x - viewport_offset_x
-	dash_button.position.y = viewport_rect.y - viewport_offset_y
-	
-	ability_button.position.x = dash_button.position.x
+	#6.1 is to center it with the dash_button
+	ability_button.position.x = dash_button.position.x + 6.1
 	
 	match player._player_abilities.size():
 		1:
-			ability_button.position.y = viewport_rect.y - viewport_offset_y 
+			ability_button.position.y = dash_button.position.y - viewport_offset_y * 1.5
 		2:
-			ability_button.position.y = viewport_rect.y - viewport_offset_y * 1/2
+			ability_button.position.y = dash_button.position.y - viewport_offset_y * 3
 		3:
-			ability_button.position.y = viewport_rect.y - viewport_offset_y * 1/4
+			ability_button.position.y = dash_button.position.y - viewport_offset_y * 4.5
 	
 	background.add_child(ability_button)
 			
@@ -79,6 +87,7 @@ func _on_button_created(ability: Upgrade) -> void:
 	progress.min_value = 0
 	progress.max_value = int(ability.upgrade_effect.split("|")[1])
 	progress.step = 0.2
+	progress.scale = fake_ui_scale
 	
 	for ab in player._player_abilities:
 		if ab.ability_name == ability.upgrade_name:

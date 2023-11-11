@@ -56,12 +56,11 @@ func on_level_up(coins: int) -> void:
 	available_upgrades = upgrade_factory._export_tree(coins)
 	var player_abilities = player._player_abilities.size()
 	
-	if !available_upgrades.has("Ability"):
+	#After player chooses 3 abilities stop the selection
+	if available_upgrades["Ability"].values().size() == 0 or player_abilities == 3:
 		skill_tree_3.visible = false
 		
-	#After player chooses 3 abilities stop the selection
-	if player_abilities == 3:
-		skill_tree_3.visible = false
+	#FIX!!! cant choose abilities
 
 
 func _on__pressed(ab_name: String) -> void:
@@ -93,6 +92,7 @@ func _get_random_upgrades(code: String) -> Array:
 	var returnee = []
 	var value = available_upgrades[code].values()
 	#Removing abilities that the player has chose
+		
 	match code:
 		"Ability":
 			var repeat = 0

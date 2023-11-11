@@ -18,8 +18,8 @@ func _ready() -> void:
 	
 	label = Label.new()
 	add_child(label)
-	label.position.y -= 20
-	label.position.x += 15
+	label.position.y -= 24
+	label.position.x += 16
 
 func _process(delta: float) -> void:
 	if label != null:
