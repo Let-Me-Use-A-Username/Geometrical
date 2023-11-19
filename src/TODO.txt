@@ -1,4 +1,3 @@
-|)Fix level up menu, abilities are never or always showing
 
 |) Implement basic sound effects
 	|)Depending on where it happens, audio handling could be per node (its node handles itself)
@@ -115,3 +114,4 @@ Done:
 				|)Coints=30(or 50) Second upgrade should be from Supercharge, Spaceshift, Gunslinger
 				|)Coints=50(or 110) Last upgrade should be from all
 	DONE) Fix upgrade factory to return abilities only when specified
+	DONE)Fix level up menu, abilities are never or always showing

@@ -57,9 +57,11 @@ func on_level_up(coins: int) -> void:
 	var player_abilities = player._player_abilities.size()
 	
 	#After player chooses 3 abilities stop the selection
-	if available_upgrades["Ability"].values().size() == 0 or player_abilities == 3:
+	if available_upgrades["Ability"].values().size() >= 3:
+		skill_tree_3.visible = true
+	else:
 		skill_tree_3.visible = false
-		
+	
 	#FIX!!! cant choose abilities
 
 
@@ -101,6 +103,7 @@ func _get_random_upgrades(code: String) -> Array:
 				returnee.append(upgrade)
 				value.erase(upgrade)
 				repeat += 1
+			print("Returned random abilities (from ui) ", returnee)
 			return returnee
 		_:
 			for repeat in range(0, 3):
