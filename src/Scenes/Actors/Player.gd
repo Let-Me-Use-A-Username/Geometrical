@@ -2,10 +2,13 @@ class_name Player extends Actor
 
 signal died
 signal level_up(coins: int)
+signal paused
+signal supercharge_sound_revert
 signal dash
 
 signal remove_health(origin: Node, damage: float)
 signal knockdown(origin: Node, disabled_time: float)
+signal coin_pickup
 
 signal freeze_enemy(actors: String, duration: float)
 signal shockwave(origin: Node, damage: float)
@@ -56,6 +59,7 @@ func _ready() -> void:
 	dash.connect(state_machine.states['Move'].on_dash)
 	#More State Signals
 	level_up.connect(get_parent().get_node("LevelUp/LevelUpMenu").on_level_up)
+	paused.connect(get_parent().get_node("Pause/PauseMenu")._on_pause)
 	if !died.is_connected(get_parent().get_node("Quit/QuitMenu")._on_player_died):
 		died.connect(get_parent().get_node("Quit/QuitMenu")._on_player_died)
 	#Ability Signals
@@ -66,13 +70,20 @@ func _ready() -> void:
 	explotion.connect(get_node("Explotion_Controller")._explotion)
 	gunslinger.connect(get_parent()._gunslinger)
 	
+	#State signal sounds
+	level_up.connect(get_node("Audio_Handler/AudioPlayer")._on_level_up)
+	died.connect(get_node("Audio_Handler/AudioPlayer")._on_player_died)
+	coin_pickup.connect(get_node("Audio_Handler/AudioPlayer")._on_coin_pickup)
+	supercharge_sound_revert.connect(get_node("Audio_Handler/AudioPlayer")._on_Supercharge_exit)
 	#Sound signals
 	knockdown.connect((get_node("Audio_Handler/AudioPlayer")._on_knockdown))
 	#Ability Sounds
 	dash.connect(get_node("Audio_Handler/AudioPlayer")._on_dash)
 	supercharge.connect(get_node("Audio_Handler/AudioPlayer")._on_Supercharge)
-	spaceshift.connect(get_node("Audio_Handler/AudioPlayer")._on_Spaceshift)
 	freeze_enemy.connect(get_node("Audio_Handler/AudioPlayer")._on_Timefreeze)
+	summon_rings.connect(get_node("Audio_Handler/AudioPlayer")._on_Rings)
+	gunslinger.connect(get_node("Audio_Handler/AudioPlayer")._on_Gunslinger)
+	explotion.connect(get_node("Audio_Handler/AudioPlayer")._on_Explotion)
 	#Properties
 	_append_property_list()
 	_update_property_list()
@@ -114,6 +125,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		invurnerable = true
 		current_dash_count += 1
 	
+	if event.is_action_pressed("pause"):
+		emit_signal("paused")
+	
 	if _player_abilities.size() != 0:
 		if _player_abilities.front() != null and event.is_action_pressed("primary_ability"):
 			_activate_ability(_player_abilities.front())
@@ -148,6 +162,7 @@ func _activate_ability(ability: Ability) -> void:
 		"Supercharge":
 			if _cooldown_timer.time_left == 0:
 				_duration_timer.connect("timeout", _on_ability_timer_timeout.bind(ability, dash_count))
+				emit_signal("supercharge", ability.ability_duration)
 				dash_count = 100000000
 				_cooldown_timer.start()
 				_duration_timer.start()
@@ -186,6 +201,7 @@ func _on_ability_timer_timeout(ability: Ability, parameters: Variant = null) -> 
 			invurnerable = false
 		"Supercharge":
 			dash_count = parameters
+			emit_signal("supercharge_sound_revert")
 		"Spaceshift":
 			pass
 		"Rings":
@@ -232,6 +248,7 @@ func _on_collition_area_area_entered(area: Area2D) -> void:
 	var enemy = area.owner
 	if enemy.is_in_group("Coins"):
 		exp_counter += 1
+		emit_signal("coin_pickup")
 	else:
 		if (enemy.is_in_group("Enemies") or enemy.is_in_group("Projectiles")) and !invurnerable and dash_immune_timer.time_left == 0:
 			emit_signal("remove_health", enemy, enemy.get("damage"))

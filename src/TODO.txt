@@ -1,11 +1,14 @@
+FIX) Spaceshift doesnt slow down engine when impulse is high enought
+FIX) Spaceshift sound doesn;t match dash (sound is triggered in Dash state)
 
-|) Implement basic sound effects
-	|)Depending on where it happens, audio handling could be per node (its node handles itself)
-|) Add FX
-	|)Because most FX will change the screen, for a first attempt create a node in game handler
-		that handler the fx
-|) Implement background music
-|) Implement game menu and loading
+IDEA) Make the whole game art and sound 8-bit (retro) with the sounds in F:/Assets/ and self made art
+	|) Implement basic sound effects
+		|)Depending on where it happens, audio handling could be per node (its node handles itself)
+	|) Add FX
+		|)Because most FX will change the screen, for a first attempt create a node in game handler
+			that handler the fx
+	|) Implement background music
+	|) Implement game menu and loading
 
 |) Add bosses
 
@@ -31,7 +34,7 @@ Ideas:
 	IDEA) Make collider visible during dashing
 
 
-Sources:
+Sources and Notes:
 	Sound effects: https://mixkit.co/free-sound-effects/game/
 	more sound effects: https://elements.envato.com/sound-effects/game-sounds
 	
@@ -115,3 +118,5 @@ Done:
 				|)Coints=50(or 110) Last upgrade should be from all
 	DONE) Fix upgrade factory to return abilities only when specified
 	DONE)Fix level up menu, abilities are never or always showing
+	DONE) Fix ability selection coin levels (make them a bit higher)
+	Done) Fix pause mechanic (can pause when level up)

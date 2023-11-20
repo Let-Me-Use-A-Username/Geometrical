@@ -1,6 +1,8 @@
 extends Node2D
 
 
+signal _bullet_sound
+
 @onready var projectile = preload("res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Player_Projectile.tscn")
 @onready var gunslinger_area = get_node("Gunslinger_Area") as Area2D
 @onready var player = get_parent()
@@ -14,6 +16,7 @@ func _ready() -> void:
 	shoot_cooldown.set_wait_time(1.5)
 	shoot_cooldown.connect("timeout", _shoot_projectile)
 	add_child(shoot_cooldown)
+	_bullet_sound.connect(get_node("../Audio_Handler/AudioPlayer")._gunslinger_bullet)
 	
 
 func _process(delta: float) -> void:
@@ -34,4 +37,5 @@ func _shoot_projectile() -> void:
 				player.get_parent().call_deferred("add_child", bullet)
 				bullet.global_position = player.global_position
 				bullet.set_target(player.get_position().direction_to(enemy.global_position))
-				shoot_cooldown.start()	
+				shoot_cooldown.start()
+				emit_signal("_bullet_sound")

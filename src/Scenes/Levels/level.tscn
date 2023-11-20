@@ -164,6 +164,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Pause" type="CanvasLayer" parent="."]
+process_mode = 3
 layer = 9
 
 [node name="PauseMenu" parent="Pause" instance=ExtResource("5_dw5en")]

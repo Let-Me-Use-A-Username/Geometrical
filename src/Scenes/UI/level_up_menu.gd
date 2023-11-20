@@ -1,7 +1,6 @@
 extends Control
 
 
-signal upgraded(ability: Upgrade)
 signal ability_added(ability: Upgrade)
 
 @onready var skill_tree_1 = get_node("Menu/HBoxContainer/Utility")
@@ -62,7 +61,6 @@ func on_level_up(coins: int) -> void:
 	else:
 		skill_tree_3.visible = false
 	
-	#FIX!!! cant choose abilities
 
 
 func _on__pressed(ab_name: String) -> void:
@@ -103,7 +101,6 @@ func _get_random_upgrades(code: String) -> Array:
 				returnee.append(upgrade)
 				value.erase(upgrade)
 				repeat += 1
-			print("Returned random abilities (from ui) ", returnee)
 			return returnee
 		_:
 			for repeat in range(0, 3):

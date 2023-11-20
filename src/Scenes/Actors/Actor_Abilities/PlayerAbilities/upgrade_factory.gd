@@ -87,22 +87,21 @@ func _get_available_tree(total_coins: int) -> Dictionary:
 	for upgrade in applied_upgrades:
 		if upgrade.upgrade_type == "A":
 			_size += 1
-			
-	print("Coins in Possession: ", total_coins)
 	
 	match _size:
+		#normal values are 15, 40, 70
 		0:
-			if total_coins > 7:
+			if total_coins > 1:
 				for ability in available_trees["Ability"]:
 					if ability == "Rings" or ability == "Timefreeze" or ability == "Explotion":
 						fake_tree["Ability"][ability] = available_trees["Ability"][ability]
 		1:
-			if total_coins > 25:
+			if total_coins > 5:
 				for ability in available_trees["Ability"]:
 					if ability == "Supercharge" or ability == "Gunslinger" or ability == "Spaceshift":
 						fake_tree["Ability"][ability] = available_trees["Ability"][ability]
 		2:
-			if total_coins > 45:
+			if total_coins > 10:
 				for ability in available_trees["Ability"]:
 					print("Ability name ", ability)
 					var upgrade = available_trees["Ability"][ability]
@@ -110,7 +109,6 @@ func _get_available_tree(total_coins: int) -> Dictionary:
 						print("Not applied ")
 						fake_tree["Ability"][ability] = upgrade
 						
-	print("fake tree ", fake_tree)
 	return fake_tree
 
 

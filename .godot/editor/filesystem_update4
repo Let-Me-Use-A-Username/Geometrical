@@ -1,6 +1,12 @@
 res://src/Scenes/Actors/Player.tscn
 res://src/Scenes/UI/healthbar.tres
-res://src/Scenes/Levels/level.tscn
-res://src/Scenes/UI/level_up_menu.gd
 res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/upgrade_factory.gd
 res://src/TODO.txt
+res://src/Scenes/Objects/AudioPlayer.gd
+res://src/Scenes/Actors/Player.gd
+res://src/Scenes/Levels/level.tscn
+res://src/Scenes/UI/level_up_menu.gd
+res://src/Scenes/UI/pause_menu.gd
+res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Gunslinger_Controller.gd
+res://src/Scenes/Actors/Actor_States/PlayerStates/Dash.gd
+res://src/Scenes/Levels/GameHandler.gd

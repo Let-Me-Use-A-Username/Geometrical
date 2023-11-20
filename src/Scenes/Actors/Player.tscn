@@ -245,6 +245,7 @@ position = Vector2(447, 200)
 enabled = false
 
 [node name="Audio_Handler" type="Node" parent="."]
+process_mode = 3
 
 [node name="AudioPlayer" type="AudioStreamPlayer2D" parent="Audio_Handler"]
 position = Vector2(193, 160)
