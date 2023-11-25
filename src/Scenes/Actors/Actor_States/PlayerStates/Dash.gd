@@ -36,7 +36,6 @@ func physics_process(delta: float) -> void:
 	if spaceshift:
 		impulse = lerp((target_obj.speed * 2) * direction, (target_obj.dash_speed * 2) * direction * target_speed_modifier, 0.8)
 		emit_signal("_spaceshift", spaceshift_source, spaceshift_damage)
-		emit_signal("_spaceshift_sound")
 		Engine.time_scale = 0.1
 	else:
 		impulse = lerp(target_obj.speed * direction, target_obj.dash_speed * direction * target_speed_modifier, 0.8)
@@ -52,6 +51,7 @@ func on_spaceshift(origin: Node, damage: float) -> void:
 	spaceshift_source = origin
 	spaceshift_damage = damage
 	dash_timer.set_wait_time(dash_time * 1.5)
+	emit_signal("_spaceshift_sound")
 
 
 func enter_state(_msg: = {}) -> void:

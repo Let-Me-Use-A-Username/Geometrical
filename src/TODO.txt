@@ -1,5 +1,6 @@
 FIX) Spaceshift doesnt slow down engine when impulse is high enought
-FIX) Spaceshift sound doesn;t match dash (sound is triggered in Dash state)
+Done) Spaceshift sound doesn;t match dash (sound is triggered in Dash state)
+	|)Fix the delay in the audio player
 
 IDEA) Make the whole game art and sound 8-bit (retro) with the sounds in F:/Assets/ and self made art
 	|) Implement basic sound effects

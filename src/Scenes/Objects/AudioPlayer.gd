@@ -1,7 +1,7 @@
 extends AudioStreamPlayer2D
 
 
-@onready var _player = get_parent() as Player
+@onready var _player = get_parent().get_parent() as Player
 #Sounds
 @onready var Knockdown = preload("res://assets/Sound/FX/Collition.wav")
 @onready var Level_Up = preload("res://assets/Sound/FX/Level_Up.wav")
@@ -81,12 +81,14 @@ func _on_Timefreeze(actors: String, duration: float) -> void:
 
 func _on_Supercharge(duration: float) -> void:
 	_supercharge_active = true
+	_spaceshift_active = false
 
 func _on_Supercharge_exit() -> void:
 	_supercharge_active = false
 
 func _on_Spaceshift() -> void:
 	_spaceshift_active = true
+	_supercharge_active = false
 
 func _on_Spaceshift_exit() -> void:
 	_spaceshift_active = false
@@ -106,5 +108,18 @@ func _on_Explotion(origin: Node, damage: float) -> void:
 
 
 func _play_sound(sound_name: AudioStream) -> void:
+	if sound_name == Spaceshift:
+		play()
+		_add_pause(0.9)
+		
 	self.stream = sound_name
+	play()
+
+
+func _add_pause(time: float):
+	await get_tree().create_timer(time, false, false, true).timeout
+	stop()
+	#FIXME! When the player resumes, it starts from the beggining. So i should save the point and continue
+	#from there
+	await get_tree().create_timer(time/2, false, false, true).timeout
 	play()
