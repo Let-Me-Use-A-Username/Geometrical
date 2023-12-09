@@ -143,15 +143,6 @@ position = Vector2(663, 381)
 
 [node name="Enemy_Factory" parent="." instance=ExtResource("8_na3k6")]
 
-[node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 3.0
-
-[node name="FreezeTimer" type="Timer" parent="."]
-
-[node name="SpaceShiftTimer" type="Timer" parent="."]
-
-[node name="CameraResetTimer" type="Timer" parent="."]
-
 [node name="Quit" type="CanvasLayer" parent="."]
 layer = 10
 
@@ -188,5 +179,16 @@ grow_vertical = 2
 
 [node name="GameCamera" type="Camera2D" parent="."]
 position = Vector2(640, 360)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="FreezeTimer" type="Timer" parent="."]
+
+[node name="SpaceShiftTimer" type="Timer" parent="."]
+
+[node name="CameraResetTimer" type="Timer" parent="."]
 
 [connection signal="died" from="Player" to="Quit/QuitMenu" method="_on_player_died"]

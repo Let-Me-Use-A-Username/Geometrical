@@ -1,6 +1,8 @@
 extends PlayerState
 
 
+signal move_sound
+
 @onready var player: Player = get_parent().owner as Player
 @onready var knockback_timer: Timer = get_parent().get_node('KnockbackTimer')
 var knockback_force = 180
@@ -13,6 +15,8 @@ func _ready() -> void:
 	super()
 	knockback_timer.set_one_shot(true)
 	knockback_timer.connect('timeout', on_undo_knockback)
+	
+	move_sound.connect(player.get_node("Audio_Handler/AudioPlayer")._on_move)
 
 func update(delta: float) -> void:
 	pass
@@ -23,6 +27,7 @@ func get_direction() -> Vector2:
 func physics_process(delta: float) -> void:
 	direction = Input.get_vector("left", "right", "up", "down").normalized()
 	if !stop_movement: 
+		emit_signal("move_sound")
 		target_obj.set_velocity(target_obj.speed * direction)
 	
 	if target_obj.get_velocity() == Vector2.ZERO:

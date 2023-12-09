@@ -10,6 +10,9 @@ var in_range = false
 
 func _ready() -> void:
 	self.add_to_group("Enemies")
+	death.connect(get_parent()._audio)
+	death_sound.resource_name = "Enemy_Death"
+	
 	speed = Vector2(90, 90)
 	health = 100
 	damage = 20

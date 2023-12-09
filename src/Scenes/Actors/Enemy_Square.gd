@@ -9,6 +9,9 @@ var explotion_damage: float = 60
 
 func _ready() -> void:
 	self.add_to_group("Enemies")
+	death.connect(get_parent()._audio)
+	death_sound.resource_name = "Enemy_Death"
+	
 	speed = Vector2(75, 75)
 	health = 100
 	damage = 20

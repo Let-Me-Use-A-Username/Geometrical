@@ -1,6 +1,12 @@
 res://src/Scenes/Actors/Player.tscn
 res://src/Scenes/UI/healthbar.tres
 res://src/Scenes/Levels/level.tscn
-res://src/Scenes/Actors/Actor_States/PlayerStates/Dash.gd
+res://src/Scenes/Actors/Enemy.gd
+res://src/Scenes/Levels/GameHandler.gd
+res://src/Scenes/Actors/Enemy_Circle.gd
 res://src/Scenes/Objects/AudioPlayer.gd
 res://src/TODO.txt
+res://src/Scenes/Objects/Audio_Handler.gd
+res://src/Scenes/Autoload/Audio_Handler.gd
+res://src/Scenes/Actors/Enemy_Triangle.gd
+res://src/Scenes/Actors/Enemy_Square.gd

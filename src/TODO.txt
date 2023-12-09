@@ -1,19 +1,19 @@
-FIX) Spaceshift doesnt slow down engine when impulse is high enought
-Done) Spaceshift sound doesn;t match dash (sound is triggered in Dash state)
-	|)Fix the delay in the audio player
 
-IDEA) Make the whole game art and sound 8-bit (retro) with the sounds in F:/Assets/ and self made art
+TODO) Make the whole game art and sound 8-bit (retro) with the sounds in F:/Assets/ and self made art
 	|) Implement basic sound effects
-		|)Depending on where it happens, audio handling could be per node (its node handles itself)
+		|)Player move
+		Done)Enemy death
+			|)AUDIO HANDLER IS GLOBAL(AUTOLOAD) think if all audio should be from it
+				|)If yes, make Audio_Handler(player) an interface to call the actual audio handler
+				
 	|) Add FX
 		|)Because most FX will change the screen, for a first attempt create a node in game handler
 			that handler the fx
 	|) Implement background music
 	|) Implement game menu and loading
+	|) Add bosses
+	|) Roll Alpha Version
 
-|) Add bosses
-
-|) Roll Alpha Version
 
 Ideas:
 	Idea) Let the player choose how many enemies to start, and how much time to play
@@ -38,18 +38,16 @@ Ideas:
 Sources and Notes:
 	Sound effects: https://mixkit.co/free-sound-effects/game/
 	more sound effects: https://elements.envato.com/sound-effects/game-sounds
-	
 	android help: https://www.youtube.com/watch?v=0NxYJgATevg
-	
 	Notes)Touch Event: https://docs.godotengine.org/en/stable/classes/class_inputeventscreentouch.html
 	Notes)Touch button: https://docs.godotengine.org/en/stable/classes/class_touchscreenbutton.html
 	
 	NOTES) Changes Input device -> mouse now emulates touch 
 	NOTES) Changes scretch mode to viewport in window
-	NOTE) All enemies now check to see if they should take damage WITH THE EXCEPTION OF GUNSLINGER_AREA
-		Could be used for other areas2d as well
+	NOTE) All enemies now check to see if they should take damage WITH THE EXCEPTION OF GUNSLINGER_AREA, Could be used for other areas2d as well
 	NOTE) Implement better ui placement with nodes, not hardcoded values
-				
+	
+	NOTE) Spaceshift sounds is delayed from the start, not inbetween
 
 
 Done:
@@ -121,3 +119,6 @@ Done:
 	DONE)Fix level up menu, abilities are never or always showing
 	DONE) Fix ability selection coin levels (make them a bit higher)
 	Done) Fix pause mechanic (can pause when level up)
+	FIX) Spaceshift doesnt slow down engine when impulse is high enought
+		Done) Spaceshift sound doesn;t match dash (sound is triggered in Dash state)
+			Done)Fix the delay in the audio player

@@ -3,6 +3,7 @@ extends Node2D
 
 var player
 var player_camera: Camera2D
+
 #Ememy variables
 var enemy_factory
 var enemy_spawn_timer: Timer
@@ -27,6 +28,9 @@ var noise_i = 0
 var max_offset = Vector2(5, 2)
 var max_roll = 0.1 
 var shake: bool = false
+
+#Sounds
+@onready var audio_player = get_node("AudioStreamPlayer2D") as AudioStreamPlayer2D
 
 func _ready() -> void:
 	spawn = true
@@ -204,3 +208,10 @@ func _summon_rings(duration:float) -> void:
 func _gunslinger(duration: float) -> void:
 	var gun = player.get_node("Gunslinger_Controller")
 	gun.active = true
+
+
+func _audio(audio_name: Resource):
+	if AudioHandler:
+		match audio_name.resource_name:
+			"Enemy_Death":
+				AudioHandler.play(1, self, audio_name, 0, 0.5)

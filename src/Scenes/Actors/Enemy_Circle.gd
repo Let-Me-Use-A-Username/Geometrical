@@ -2,6 +2,9 @@ class_name Enemy_Circle extends Enemy
 
 func _ready() -> void:
 	self.add_to_group("Enemies")
+	death.connect(get_parent()._audio)
+	death_sound.resource_name = "Enemy_Death"
+	
 	speed = Vector2(150, 150)
 	health = 100
 	damage = 20

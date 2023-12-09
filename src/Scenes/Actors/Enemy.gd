@@ -1,7 +1,11 @@
 class_name Enemy extends CharacterBody2D
 
 
+#signals
+signal death(sound_name: Resource)
+#Objects
 @onready var coin = preload("res://src/Scenes/Objects/coin.tscn")
+@onready var death_sound = preload("res://assets/Sound/FX/Enemy_Death.wav")
 
 var health: float
 var health_regen: float
@@ -32,6 +36,7 @@ func getTarget() -> Node:
 
 
 func _despose_actor() -> void:
+	emit_signal("death", death_sound)
 	randomize()
 	if randi_range(1, 3) == 1:
 		var obj = coin.instantiate()

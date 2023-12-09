@@ -3,6 +3,7 @@ extends AudioStreamPlayer2D
 
 @onready var _player = get_parent().get_parent() as Player
 #Sounds
+@onready var Move = preload("res://assets/Sound/FX/Move.wav")
 @onready var Knockdown = preload("res://assets/Sound/FX/Collition.wav")
 @onready var Level_Up = preload("res://assets/Sound/FX/Level_Up.wav")
 @onready var Died = preload("res://assets/Sound/FX/Died.wav")
@@ -28,6 +29,7 @@ var _spaceshift_active = false
 
 
 func _ready() -> void:
+	sounds["Move"] = Move
 	sounds["Knockdown"] = Knockdown
 	sounds["Level_Up"] = Level_Up
 	sounds["Died"] = Died
@@ -49,6 +51,10 @@ func _ready() -> void:
 		sound.loop_mode = 0
 
 #State sounds
+func _on_move():
+	#_play_sound(Move)
+	pass
+
 func _on_knockdown(origin: Node, disabled_time: float) -> void:
 	_play_sound(Knockdown)
 
@@ -108,18 +114,15 @@ func _on_Explotion(origin: Node, damage: float) -> void:
 
 
 func _play_sound(sound_name: AudioStream) -> void:
-	if sound_name == Spaceshift:
-		play()
-		_add_pause(0.9)
-		
 	self.stream = sound_name
+	
+	if sound_name == Spaceshift:
+		_add_pause(0.5)
+		return
+		
 	play()
 
 
+#Starts the timer from the time it is specified
 func _add_pause(time: float):
-	await get_tree().create_timer(time, false, false, true).timeout
-	stop()
-	#FIXME! When the player resumes, it starts from the beggining. So i should save the point and continue
-	#from there
-	await get_tree().create_timer(time/2, false, false, true).timeout
-	play()
+	play(time)
