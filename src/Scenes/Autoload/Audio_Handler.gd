@@ -5,9 +5,9 @@ enum Type {
 	POSITIONAL_2D,
 }
 
+var audio_stream_player: Node
 
 func play(type: int, parent: Node, stream: AudioStream, volume_db: float = 0.0, pitch_scale: float = 1.0) -> void:
-	var audio_stream_player: Node
 	match type:
 		Type.NON_POSITIONAL:
 			audio_stream_player = AudioStreamPlayer.new()
@@ -20,8 +20,9 @@ func play(type: int, parent: Node, stream: AudioStream, volume_db: float = 0.0, 
 	audio_stream_player.volume_db = volume_db
 	audio_stream_player.pitch_scale = pitch_scale
 	audio_stream_player.play()
-	#audio_stream_player.connect("finished", _remove)
+	audio_stream_player.connect("finished", _remove)
 
 
 func _remove() -> void:
-	queue_free()
+	if audio_stream_player:
+		audio_stream_player.queue_free()

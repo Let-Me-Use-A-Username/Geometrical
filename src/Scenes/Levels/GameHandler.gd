@@ -211,7 +211,11 @@ func _gunslinger(duration: float) -> void:
 
 
 func _audio(audio_name: Resource):
-	if AudioHandler:
+	var audiohandler = get_node("/root/AudioHandler")
+	if audiohandler:
 		match audio_name.resource_name:
 			"Enemy_Death":
-				AudioHandler.play(1, self, audio_name, 0, 0.5)
+				audiohandler.play(1, self, audio_name, 0, 0.5)
+			_:
+				audiohandler.play(0, player, audio_name)
+				

@@ -1,7 +1,9 @@
-extends AudioStreamPlayer2D
+extends Node
 
+signal play_sound(sound_name: AudioStream)
 
-@onready var _player = get_parent().get_parent() as Player
+@onready var _player = get_parent() as Player
+@onready var game_handler = _player.get_parent()
 #Sounds
 @onready var Move = preload("res://assets/Sound/FX/Move.wav")
 @onready var Knockdown = preload("res://assets/Sound/FX/Collition.wav")
@@ -14,7 +16,7 @@ extends AudioStreamPlayer2D
 #Ability Sounds
 @onready var Dash = preload("res://assets/Sound/FX/Dash_1.wav")
 @onready var Supercharge_dash = preload("res://assets/Sound/FX/Supercharge_Per_Dash.wav")
-@onready var Spaceshift = preload("res://assets/Sound/FX/Spaceshift.wav")
+@onready var Spaceshift = preload("res://assets/Sound/FX/Spaceshift_v2.wav")
 @onready var Timefreeze = preload("res://assets/Sound/FX/Timefreeze.wav")
 @onready var Rings = preload("res://assets/Sound/FX/Rings.wav")
 @onready var Explotion = preload("res://assets/Sound/FX/Explotion.wav")
@@ -49,11 +51,9 @@ func _ready() -> void:
 	
 	for sound in sounds.values():
 		sound.loop_mode = 0
+	
+	play_sound.connect(game_handler._audio)
 
-#State sounds
-func _on_move():
-	#_play_sound(Move)
-	pass
 
 func _on_knockdown(origin: Node, disabled_time: float) -> void:
 	_play_sound(Knockdown)
@@ -114,15 +114,5 @@ func _on_Explotion(origin: Node, damage: float) -> void:
 
 
 func _play_sound(sound_name: AudioStream) -> void:
-	self.stream = sound_name
-	
-	if sound_name == Spaceshift:
-		_add_pause(0.5)
-		return
-		
-	play()
-
-
-#Starts the timer from the time it is specified
-func _add_pause(time: float):
-	play(time)
+	if game_handler != null:
+		emit_signal("play_sound", sound_name)

@@ -6,7 +6,7 @@ signal paused_out
 func _ready() -> void:
 	var parent = get_parent().owner
 	var player = parent.get_node("Player")
-	var audio_player = player.get_node("Audio_Handler/AudioPlayer")
+	var audio_player = player.get_node("Audio_Handler")
 	paused_in.connect(audio_player._on_paused)
 	paused_out.connect(audio_player._on_exit_paused)
 

@@ -22,8 +22,8 @@ func _ready() -> void:
 	dash_timer.set_one_shot(true)
 	
 	_spaceshift.connect(player.get_parent()._spaceshift)
-	_spaceshift_sound.connect(player.get_node("Audio_Handler/AudioPlayer")._on_Spaceshift)
-	spaceshift_sound_revert.connect(player.get_node("Audio_Handler/AudioPlayer")._on_Spaceshift_exit)
+	_spaceshift_sound.connect(player.get_node("Audio_Handler")._on_Spaceshift)
+	spaceshift_sound_revert.connect(player.get_node("Audio_Handler")._on_Spaceshift_exit)
 
 func update(delta: float) -> void:
 	pass

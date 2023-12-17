@@ -55,7 +55,6 @@ func _ready() -> void:
 	self.connect('remove_health', _on_remove_health)
 	#State Signals
 	knockdown.connect(state_machine.states['Move'].on_knockdown)
-	knockdown.connect(get_node("Doppelganger").on_knockdown)
 	dash.connect(state_machine.states['Move'].on_dash)
 	#More State Signals
 	level_up.connect(get_parent().get_node("LevelUp/LevelUpMenu").on_level_up)
@@ -71,19 +70,19 @@ func _ready() -> void:
 	gunslinger.connect(get_parent()._gunslinger)
 	
 	#State signal sounds
-	level_up.connect(get_node("Audio_Handler/AudioPlayer")._on_level_up)
-	died.connect(get_node("Audio_Handler/AudioPlayer")._on_player_died)
-	coin_pickup.connect(get_node("Audio_Handler/AudioPlayer")._on_coin_pickup)
-	supercharge_sound_revert.connect(get_node("Audio_Handler/AudioPlayer")._on_Supercharge_exit)
+	level_up.connect(get_node("Audio_Handler")._on_level_up)
+	died.connect(get_node("Audio_Handler")._on_player_died)
+	coin_pickup.connect(get_node("Audio_Handler")._on_coin_pickup)
+	supercharge_sound_revert.connect(get_node("Audio_Handler")._on_Supercharge_exit)
 	#Sound signals
-	knockdown.connect((get_node("Audio_Handler/AudioPlayer")._on_knockdown))
+	knockdown.connect((get_node("Audio_Handler")._on_knockdown))
 	#Ability Sounds
-	dash.connect(get_node("Audio_Handler/AudioPlayer")._on_dash)
-	supercharge.connect(get_node("Audio_Handler/AudioPlayer")._on_Supercharge)
-	freeze_enemy.connect(get_node("Audio_Handler/AudioPlayer")._on_Timefreeze)
-	summon_rings.connect(get_node("Audio_Handler/AudioPlayer")._on_Rings)
-	gunslinger.connect(get_node("Audio_Handler/AudioPlayer")._on_Gunslinger)
-	explotion.connect(get_node("Audio_Handler/AudioPlayer")._on_Explotion)
+	dash.connect(get_node("Audio_Handler")._on_dash)
+	supercharge.connect(get_node("Audio_Handler")._on_Supercharge)
+	freeze_enemy.connect(get_node("Audio_Handler")._on_Timefreeze)
+	summon_rings.connect(get_node("Audio_Handler")._on_Rings)
+	gunslinger.connect(get_node("Audio_Handler")._on_Gunslinger)
+	explotion.connect(get_node("Audio_Handler")._on_Explotion)
 	#Properties
 	_append_property_list()
 	_update_property_list()
@@ -120,6 +119,7 @@ func _process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed('dash') and current_dash_count < dash_count:
 		emit_signal('dash')
+		ParticleHandler._play_particle_effect(self, load("res://assets/Particle_Effects/trace_02.png"), 1, 4)
 		dash_timer.start()
 		dash_immune_timer.start()
 		invurnerable = true

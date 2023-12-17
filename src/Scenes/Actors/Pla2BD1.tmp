@@ -1,0 +1,276 @@
+[gd_scene load_steps=32 format=3 uid="uid://dg0pyopln4yjk"]
+
+[ext_resource type="Script" path="res://src/Scenes/Actors/Player.gd" id="1_rqiwo"]
+[ext_resource type="Texture2D" uid="uid://c0jqbhx8bmfp4" path="res://assets/characters/Circle-0003.png" id="2_olfa5"]
+[ext_resource type="Texture2D" uid="uid://dvetaajy3ogw8" path="res://assets/UI/Abilities/Summon-Rings-Sprite.png" id="3_3d0iq"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Rings_Controller.gd" id="3_3rhxn"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/PlayerStates/PlayerStateMachine.gd" id="3_n8u1j"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/PlayerStates/Idle.gd" id="4_y6fdd"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/PlayerStates/Move.gd" id="5_pwcfs"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Gunslinger_Controller.gd" id="5_rryr3"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Explotion_Controller.gd" id="6_5ql3c"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_States/PlayerStates/Dash.gd" id="6_dhbsk"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/upgrade_factory.gd" id="7_b61lc"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Upgrade_Handler.gd" id="8_i7pv3"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/Input_Handler.gd" id="9_on76a"]
+[ext_resource type="Script" path="res://src/Scenes/External/joystick/virtual_joystick.gd" id="9_xhkwm"]
+[ext_resource type="Texture2D" uid="uid://bm30au8mjfc2f" path="res://src/Scenes/External/joystick/textures/joystick_base_outline.png" id="10_u7rug"]
+[ext_resource type="Texture2D" uid="uid://dt13r06u87fib" path="res://src/Scenes/External/joystick/textures/joystick_tip_arrows.png" id="11_y5c6k"]
+[ext_resource type="Script" path="res://src/Scenes/UI/user_interface.gd" id="12_i6x3g"]
+[ext_resource type="Script" path="res://src/Scenes/External/DashButton.gd" id="13_4xh28"]
+[ext_resource type="Theme" uid="uid://1l6eb7778jxy" path="res://src/Scenes/UI/healthbar.tres" id="13_7nlje"]
+[ext_resource type="Texture2D" uid="uid://b4ajussjqr02o" path="res://assets/UI/Abilities/Dash.png" id="13_epilf"]
+[ext_resource type="Texture2D" uid="uid://d2tfs3usodkp5" path="res://assets/UI/Abilities/Dash-Pressed.png" id="14_dt6td"]
+[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Doppelganger.gd" id="18_08n6u"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/AudioPlayer.gd" id="24_q6ula"]
+[ext_resource type="Texture2D" uid="uid://cexewbq1euiay" path="res://assets/Particle_Effects/circle_03.png" id="24_qseqx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m7ulj"]
+radius = 28.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_431qs"]
+size = Vector2(1580, 1140)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vr4io"]
+radius = 153.003
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rqwmu"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_las5g"]
+radius = 10.0499
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5k7s5"]
+radius = 28.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_82xyi"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.01
+scale_max = 0.04
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(193, 160)
+collision_mask = 10
+floor_constant_speed = true
+script = ExtResource("1_rqiwo")
+
+[node name="player" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(0.233848, 0.227606)
+texture = ExtResource("2_olfa5")
+
+[node name="Rings_Controller" type="Node2D" parent="."]
+script = ExtResource("3_3rhxn")
+
+[node name="Rings" type="Sprite2D" parent="Rings_Controller"]
+position = Vector2(0, -8)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("3_3d0iq")
+
+[node name="Rings_Area" type="Area2D" parent="Rings_Controller"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rings_Controller/Rings_Area"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_m7ulj")
+
+[node name="Gunslinger_Controller" type="Node2D" parent="."]
+script = ExtResource("5_rryr3")
+
+[node name="Gunslinger_Area" type="Area2D" parent="Gunslinger_Controller"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gunslinger_Controller/Gunslinger_Area"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_431qs")
+
+[node name="Explotion_Controller" type="Node2D" parent="."]
+script = ExtResource("6_5ql3c")
+
+[node name="Explotion_Area" type="Area2D" parent="Explotion_Controller"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Explotion_Controller/Explotion_Area"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_vr4io")
+
+[node name="PlayerBounds" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_rqwmu")
+
+[node name="Invurnerable" type="Timer" parent="."]
+
+[node name="DashTimer" type="Timer" parent="."]
+
+[node name="DashImmuneTimer" type="Timer" parent="."]
+
+[node name="CollitionArea" type="Area2D" parent="."]
+collision_mask = 6
+
+[node name="CollisionShape" type="CollisionShape2D" parent="CollitionArea"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_las5g")
+
+[node name="DashArea" type="Area2D" parent="."]
+collision_mask = 2
+linear_damp = 1000.0
+
+[node name="DashShape" type="CollisionShape2D" parent="DashArea"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_5k7s5")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_n8u1j")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_y6fdd")
+
+[node name="Move" type="Node" parent="StateMachine"]
+script = ExtResource("5_pwcfs")
+
+[node name="Dash" type="Node" parent="StateMachine"]
+script = ExtResource("6_dhbsk")
+
+[node name="DashTransitionTimer" type="Timer" parent="StateMachine"]
+
+[node name="KnockbackTimer" type="Timer" parent="StateMachine"]
+
+[node name="Upgrade_Factory" type="Node" parent="."]
+script = ExtResource("7_b61lc")
+
+[node name="Upgrade_Handler" type="Node" parent="."]
+script = ExtResource("8_i7pv3")
+
+[node name="Input_Handler" type="CanvasLayer" parent="."]
+process_mode = 1
+layer = 2
+script = ExtResource("9_on76a")
+
+[node name="Background" type="Control" parent="Input_Handler"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Virtual Joystick" type="Control" parent="Input_Handler/Background"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -315.0
+offset_right = 316.0
+offset_bottom = -15.0
+grow_vertical = 0
+script = ExtResource("9_xhkwm")
+visibility_mode = 1
+action_left = "left"
+action_right = "right"
+action_up = "up"
+action_down = "down"
+
+[node name="Base" type="TextureRect" parent="Input_Handler/Background/Virtual Joystick"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(100, 100)
+mouse_force_pass_scroll_events = false
+texture = ExtResource("10_u7rug")
+stretch_mode = 5
+
+[node name="Tip" type="TextureRect" parent="Input_Handler/Background/Virtual Joystick/Base"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(50, 50)
+texture = ExtResource("11_y5c6k")
+stretch_mode = 5
+
+[node name="DashButton" type="TouchScreenButton" parent="Input_Handler/Background"]
+position = Vector2(1067, 506)
+scale = Vector2(1.76239, 1.69765)
+texture_normal = ExtResource("13_epilf")
+texture_pressed = ExtResource("14_dt6td")
+script = ExtResource("13_4xh28")
+
+[node name="UI_Debug" type="CanvasLayer" parent="."]
+
+[node name="User_Interface" type="Control" parent="UI_Debug"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_i6x3g")
+
+[node name="HealthBar" type="ProgressBar" parent="UI_Debug/User_Interface"]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 33.0
+theme = ExtResource("13_7nlje")
+value = 10.4
+
+[node name="Info" type="Label" parent="UI_Debug/User_Interface"]
+layout_mode = 2
+offset_top = 32.0
+offset_right = 500.0
+offset_bottom = 58.0
+text = "DashTimer
+"
+
+[node name="Doppelganger" type="Node" parent="."]
+script = ExtResource("18_08n6u")
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+position = Vector2(447, 200)
+enabled = false
+
+[node name="Audio_Handler" type="Node" parent="."]
+process_mode = 3
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="Audio_Handler"]
+position = Vector2(193, 160)
+script = ExtResource("24_q6ula")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="Audio_Handler"]
+position = Vector2(193, 160)
+current = true
+
+[node name="Particle_Handler" type="Node2D" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Particle_Handler"]
+position = Vector2(0, -8)
+sub_emitter = NodePath(".")
+process_material = SubResource("ParticleProcessMaterial_82xyi")
+texture = ExtResource("24_qseqx")
+
+[connection signal="area_entered" from="CollitionArea" to="." method="_on_collition_area_area_entered"]

@@ -1,14 +1,15 @@
 
 TODO) Make the whole game art and sound 8-bit (retro) with the sounds in F:/Assets/ and self made art
-	|) Implement basic sound effects
-		|)Player move
-		Done)Enemy death
-			|)AUDIO HANDLER IS GLOBAL(AUTOLOAD) think if all audio should be from it
-				|)If yes, make Audio_Handler(player) an interface to call the actual audio handler
+	DONE) Implement basic sound effects
+	NOTE)AUDIO HANDLER IS GLOBAL(AUTOLOAD)
+		|)Problem with autoload audio handlers never being freed. Either move the audio handler to game_handler
+		or find a solution
 				
 	|) Add FX
-		|)Because most FX will change the screen, for a first attempt create a node in game handler
-			that handler the fx
+		|)Particle Effects
+			|)Create global entity that will handle non permament and NON POSITIONAL
+			 particle effects (permanents are hard coded)
+		
 	|) Implement background music
 	|) Implement game menu and loading
 	|) Add bosses

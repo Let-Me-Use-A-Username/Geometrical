@@ -20,6 +20,7 @@ run/emulate_touch_from_mouse=true
 [autoload]
 
 AudioHandler="*res://src/Scenes/Autoload/Audio_Handler.gd"
+ParticleHandler="*res://src/Scenes/Autoload/Particle_Handler.gd"
 
 [display]
 

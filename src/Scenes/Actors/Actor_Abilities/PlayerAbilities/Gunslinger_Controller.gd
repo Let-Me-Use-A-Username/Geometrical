@@ -16,7 +16,7 @@ func _ready() -> void:
 	shoot_cooldown.set_wait_time(1.5)
 	shoot_cooldown.connect("timeout", _shoot_projectile)
 	add_child(shoot_cooldown)
-	_bullet_sound.connect(get_node("../Audio_Handler/AudioPlayer")._gunslinger_bullet)
+	_bullet_sound.connect(get_node("../Audio_Handler")._gunslinger_bullet)
 	
 
 func _process(delta: float) -> void:

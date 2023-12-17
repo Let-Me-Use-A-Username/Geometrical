@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dg0pyopln4yjk"]
+[gd_scene load_steps=31 format=3 uid="uid://dg0pyopln4yjk"]
 
 [ext_resource type="Script" path="res://src/Scenes/Actors/Player.gd" id="1_rqiwo"]
 [ext_resource type="Texture2D" uid="uid://c0jqbhx8bmfp4" path="res://assets/characters/Circle-0003.png" id="2_olfa5"]
@@ -21,8 +21,8 @@
 [ext_resource type="Theme" uid="uid://1l6eb7778jxy" path="res://src/Scenes/UI/healthbar.tres" id="13_7nlje"]
 [ext_resource type="Texture2D" uid="uid://b4ajussjqr02o" path="res://assets/UI/Abilities/Dash.png" id="13_epilf"]
 [ext_resource type="Texture2D" uid="uid://d2tfs3usodkp5" path="res://assets/UI/Abilities/Dash-Pressed.png" id="14_dt6td"]
-[ext_resource type="Script" path="res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Doppelganger.gd" id="18_08n6u"]
-[ext_resource type="Script" path="res://src/Scenes/Objects/AudioPlayer.gd" id="24_q6ula"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/Audio_Interface.gd" id="23_46uvt"]
+[ext_resource type="Texture2D" uid="uid://cexewbq1euiay" path="res://assets/Particle_Effects/circle_03.png" id="24_qseqx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m7ulj"]
 radius = 28.0
@@ -41,6 +41,15 @@ radius = 10.0499
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5k7s5"]
 radius = 28.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_82xyi"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.01
+scale_max = 0.04
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(193, 160)
@@ -237,22 +246,24 @@ offset_bottom = 58.0
 text = "DashTimer
 "
 
-[node name="Doppelganger" type="Node" parent="."]
-script = ExtResource("18_08n6u")
-
 [node name="PlayerCamera" type="Camera2D" parent="."]
 position = Vector2(447, 200)
 enabled = false
 
 [node name="Audio_Handler" type="Node" parent="."]
 process_mode = 3
-
-[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="Audio_Handler"]
-position = Vector2(193, 160)
-script = ExtResource("24_q6ula")
+script = ExtResource("23_46uvt")
 
 [node name="AudioListener2D" type="AudioListener2D" parent="Audio_Handler"]
 position = Vector2(193, 160)
 current = true
+
+[node name="Particle_Handler" type="Node2D" parent="."]
+
+[node name="Movement_Handler" type="GPUParticles2D" parent="Particle_Handler"]
+position = Vector2(0, -8)
+sub_emitter = NodePath(".")
+process_material = SubResource("ParticleProcessMaterial_82xyi")
+texture = ExtResource("24_qseqx")
 
 [connection signal="area_entered" from="CollitionArea" to="." method="_on_collition_area_area_entered"]
