@@ -4,6 +4,7 @@ signal play_sound(sound_name: AudioStream)
 
 @onready var _player = get_parent() as Player
 @onready var game_handler = _player.get_parent()
+
 #Sounds
 @onready var Move = preload("res://assets/Sound/FX/Move.wav")
 @onready var Knockdown = preload("res://assets/Sound/FX/Collition.wav")

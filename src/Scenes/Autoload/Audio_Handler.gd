@@ -1,3 +1,5 @@
+#Singleton that initializes a node of type audio stream player and deletes instances after 
+#audio is played
 extends Node
 
 enum Type {
@@ -5,7 +7,12 @@ enum Type {
 	POSITIONAL_2D,
 }
 
-var audio_stream_player: Node
+@onready var audio_stream_player: Node
+
+
+func _ready() -> void:
+	self.process_mode = 3
+
 
 func play(type: int, parent: Node, stream: AudioStream, volume_db: float = 0.0, pitch_scale: float = 1.0) -> void:
 	match type:
@@ -13,6 +20,9 @@ func play(type: int, parent: Node, stream: AudioStream, volume_db: float = 0.0, 
 			audio_stream_player = AudioStreamPlayer.new()
 		Type.POSITIONAL_2D:
 			audio_stream_player = AudioStreamPlayer2D.new()
+	
+	audio_stream_player.add_to_group("audio")
+	audio_stream_player.process_mode = 3
 
 	parent.add_child(audio_stream_player)
 	audio_stream_player.bus = "Effects"
@@ -24,5 +34,4 @@ func play(type: int, parent: Node, stream: AudioStream, volume_db: float = 0.0, 
 
 
 func _remove() -> void:
-	if audio_stream_player:
-		audio_stream_player.queue_free()
+	GarbageCollector.clear_group("audio")

@@ -119,7 +119,7 @@ func _process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed('dash') and current_dash_count < dash_count:
 		emit_signal('dash')
-		ParticleHandler._play_particle_effect(self, load("res://assets/Particle_Effects/trace_02.png"), 1, 4)
+		#ParticleHandler._play_particle_effect(self, load("res://assets/Particle_Effects/trace_02.png"), 1, 4)
 		dash_timer.start()
 		dash_immune_timer.start()
 		invurnerable = true

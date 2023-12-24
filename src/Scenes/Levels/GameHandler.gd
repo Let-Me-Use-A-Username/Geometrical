@@ -29,8 +29,6 @@ var max_offset = Vector2(5, 2)
 var max_roll = 0.1 
 var shake: bool = false
 
-#Sounds
-@onready var audio_player = get_node("AudioStreamPlayer2D") as AudioStreamPlayer2D
 
 func _ready() -> void:
 	spawn = true
@@ -211,11 +209,17 @@ func _gunslinger(duration: float) -> void:
 
 
 func _audio(audio_name: Resource):
-	var audiohandler = get_node("/root/AudioHandler")
-	if audiohandler:
+	#
+	#check todo
+	#
+	if AudioHandler:
 		match audio_name.resource_name:
 			"Enemy_Death":
-				audiohandler.play(1, self, audio_name, 0, 0.5)
+				AudioHandler.play(1, self, audio_name, 0, 0.5)
+			"Gunslinger":
+				AudioHandler.play(0, self, audio_name, 0, 1)
+			"Gunslinger_bullet":
+				AudioHandler.play(0, self, audio_name, -10, 0)
 			_:
-				audiohandler.play(0, player, audio_name)
+				AudioHandler.play(0, self, audio_name)
 				
