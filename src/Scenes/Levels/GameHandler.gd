@@ -29,6 +29,10 @@ var max_offset = Vector2(5, 2)
 var max_roll = 0.1 
 var shake: bool = false
 
+#Audio
+var audio_amplifier: Timer
+var audio_emitted_times = 1
+
 
 func _ready() -> void:
 	spawn = true
@@ -46,6 +50,10 @@ func _ready() -> void:
 	freeze_timer = get_node("FreezeTimer")
 	spaceshift_timer = get_node("SpaceShiftTimer")
 	camera_reset = get_node("CameraResetTimer")
+	
+	audio_amplifier = get_node("Audio_Amplifier")
+	audio_amplifier.set_wait_time(1)
+	audio_amplifier.one_shot = true
 	
 	player_camera.enabled = true
 	player_camera.position = Vector2(0, 0)
@@ -209,17 +217,31 @@ func _gunslinger(duration: float) -> void:
 
 
 func _audio(audio_name: Resource):
-	#
-	#check todo
-	#
+	#start clock
+	#check if play is called while clock running 
+	#play sound for every clal
 	if AudioHandler:
 		match audio_name.resource_name:
 			"Enemy_Death":
-				AudioHandler.play(1, self, audio_name, 0, 0.5)
+				if audio_amplifier.time_left == 0:
+					audio_amplifier.start()
+					audio_emitted_times = 1
+				
+				if audio_amplifier.time_left != 0:
+					audio_emitted_times += 1
+				
+				if audio_emitted_times <= 5:
+					AudioHandler.play(1, self, audio_name, -10 + audio_emitted_times * 2, 0.2 * audio_emitted_times)
+				elif audio_emitted_times <= 15:
+					AudioHandler.play(1, self, audio_name, -15 + audio_emitted_times * 2, 0.05 * audio_emitted_times)
+				else:
+					AudioHandler.play(1, self, audio_name, -15, 0.02 * audio_emitted_times)
 			"Gunslinger":
-				AudioHandler.play(0, self, audio_name, 0, 1)
+				AudioHandler.play(0, self, audio_name, -10, 0.5)
 			"Gunslinger_bullet":
-				AudioHandler.play(0, self, audio_name, -10, 0)
+				AudioHandler.play(0, self, audio_name, 0, 0.1)
+			"Level_Up":
+				AudioHandler.play(0, self, audio_name, 0, 0.2)
 			_:
 				AudioHandler.play(0, self, audio_name)
 				

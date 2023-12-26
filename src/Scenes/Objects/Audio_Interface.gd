@@ -17,7 +17,7 @@ signal play_sound(sound_name: AudioStream)
 #Ability Sounds
 @onready var Dash = preload("res://assets/Sound/FX/Dash_1.wav")
 @onready var Supercharge_dash = preload("res://assets/Sound/FX/Supercharge_Per_Dash.wav")
-@onready var Spaceshift = preload("res://assets/Sound/FX/Spaceshift_v2.wav")
+@onready var Spaceshift = preload("res://assets/Sound/FX/Spaceshift.wav")
 @onready var Timefreeze = preload("res://assets/Sound/FX/Timefreeze.wav")
 @onready var Rings = preload("res://assets/Sound/FX/Rings.wav")
 @onready var Explotion = preload("res://assets/Sound/FX/Explotion.wav")

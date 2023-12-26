@@ -31,6 +31,7 @@ func _process(delta: float) -> void:
 
 func _shoot_projectile() -> void:
 	if gunslinger_area.monitoring:
+		emit_signal("_bullet_sound")
 		for enemy in gunslinger_area.get_overlapping_bodies():
 			if enemy != null and enemy.is_in_group("Enemies"):
 				var bullet = projectile.instantiate()
@@ -38,4 +39,3 @@ func _shoot_projectile() -> void:
 				bullet.global_position = player.global_position
 				bullet.set_target(player.get_position().direction_to(enemy.global_position))
 				shoot_cooldown.start()
-				emit_signal("_bullet_sound")

@@ -1,14 +1,4 @@
 
-TODO) Make the whole game art and sound 8-bit (retro) with the sounds in F:/Assets/ and self made art
-	DONE) Implement basic sound effects
-	NOTE)AUDIO HANDLER IS GLOBAL(AUTOLOAD)
-		DONE)Problem with autoload audio handlers never being freed.
-			NOTE)Gloabal entity garbage collector
-		|)Fix enemy death amplification when many enemies are killed
-			|)Idea, count the the times audio has been called in the last seconds(with timer) e.g. 10
-			every time the audio is called to play the same sound we decrease the volume (and maybe the pitch)
-			
-				
 	|) Add FX
 		|)Particle Effects
 			|)Create global entity that will handle non permament and NON POSITIONAL
@@ -19,6 +9,8 @@ TODO) Make the whole game art and sound 8-bit (retro) with the sounds in F:/Asse
 	|) Add bosses
 	|) Roll Alpha Version
 
+IDEA) Create a zone(like the gray one) outside of that zone is the void. No sound, and damage over time 
+(that can be sustainable for some kind of play)
 
 Ideas:
 	Idea) Let the player choose how many enemies to start, and how much time to play
@@ -40,6 +32,7 @@ Ideas:
 	IDEA) Make collider visible during dashing
 
 
+
 Sources and Notes:
 	Sound effects: https://mixkit.co/free-sound-effects/game/
 	more sound effects: https://elements.envato.com/sound-effects/game-sounds
@@ -51,8 +44,6 @@ Sources and Notes:
 	NOTES) Changes scretch mode to viewport in window
 	NOTE) All enemies now check to see if they should take damage WITH THE EXCEPTION OF GUNSLINGER_AREA, Could be used for other areas2d as well
 	NOTE) Implement better ui placement with nodes, not hardcoded values
-	
-	NOTE) Spaceshift sounds is delayed from the start, not inbetween
 
 
 Done:
@@ -127,3 +118,9 @@ Done:
 	FIX) Spaceshift doesnt slow down engine when impulse is high enought
 		Done) Spaceshift sound doesn;t match dash (sound is triggered in Dash state)
 			Done)Fix the delay in the audio player
+	TODO) Make the whole game art and sound 8-bit (retro) with the sounds in F:/Assets/ and self made art
+	DONE) Implement basic sound effects
+	NOTE)AUDIO HANDLER IS GLOBAL(AUTOLOAD)
+		DONE)Problem with autoload audio handlers never being freed.
+			NOTE)Gloabal entity garbage collector
+		Done)Fix enemy death amplification when many enemies are killed

@@ -189,4 +189,6 @@ wait_time = 3.0
 
 [node name="CameraResetTimer" type="Timer" parent="."]
 
+[node name="Audio_Amplifier" type="Timer" parent="."]
+
 [connection signal="died" from="Player" to="Quit/QuitMenu" method="_on_player_died"]

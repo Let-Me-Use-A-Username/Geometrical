@@ -266,4 +266,8 @@ sub_emitter = NodePath(".")
 process_material = SubResource("ParticleProcessMaterial_82xyi")
 texture = ExtResource("24_qseqx")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = -80.0
+pitch_scale = 0.01
+
 [connection signal="area_entered" from="CollitionArea" to="." method="_on_collition_area_area_entered"]
