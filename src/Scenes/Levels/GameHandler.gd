@@ -217,9 +217,6 @@ func _gunslinger(duration: float) -> void:
 
 
 func _audio(audio_name: Resource):
-	#start clock
-	#check if play is called while clock running 
-	#play sound for every clal
 	if AudioHandler:
 		match audio_name.resource_name:
 			"Enemy_Death":
@@ -245,3 +242,12 @@ func _audio(audio_name: Resource):
 			_:
 				AudioHandler.play(0, self, audio_name)
 				
+
+func _effect(origin: Node, effect: String) -> void:
+	if ParticleHandler:
+		match effect:
+			"Death":
+				ParticleHandler._play_entity_efect(self, origin, true, "ff0303",load("res://assets/Particle_Effects/fire_01.png"), 0.1, 0.05)
+			_:
+				print("No effect")
+				pass

@@ -12,6 +12,8 @@ func _ready() -> void:
 	death.connect(get_parent()._audio)
 	death_sound.resource_name = "Enemy_Death"
 	
+	_play_effect.connect(get_parent()._effect)
+	
 	speed = Vector2(75, 75)
 	health = 100
 	damage = 20
@@ -26,6 +28,11 @@ func _physics_process(delta: float) -> void:
 		self.modulate.a = 0.5 if Engine.get_frames_drawn() % 2 == 0 else 1.0
 	else:
 		self.modulate.a = 1.0
+
+
+func _despose_actor():
+	emit_signal("_play_effect", self, "Death")
+	super()
 
 
 func on_explotion_timeout() -> void:

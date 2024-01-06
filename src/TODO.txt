@@ -9,8 +9,7 @@
 	|) Add bosses
 	|) Roll Alpha Version
 
-IDEA) Create a zone(like the gray one) outside of that zone is the void. No sound, and damage over time 
-(that can be sustainable for some kind of play)
+
 
 Ideas:
 	Idea) Let the player choose how many enemies to start, and how much time to play
@@ -29,8 +28,11 @@ Ideas:
 	Idea)generate a map from a noise map. 
 		|) High and low points should be a different tile, but gameplay wise nothing changes, it is only for the graphics
 	
-	IDEA) Make collider visible during dashing
-
+	IDEA) Create a zone(like the gray one) outside of that zone is the void. No sound, and damage over time 
+	(that can be sustainable for some kind of play)
+	
+	IDEA) Create points in the area where if you dash on to it you are redirected in an other direction 
+	(like a pin ball on an arcade)
 
 
 Sources and Notes:
@@ -44,6 +46,7 @@ Sources and Notes:
 	NOTES) Changes scretch mode to viewport in window
 	NOTE) All enemies now check to see if they should take damage WITH THE EXCEPTION OF GUNSLINGER_AREA, Could be used for other areas2d as well
 	NOTE) Implement better ui placement with nodes, not hardcoded values
+	NOTE) Some sounds dont sound right, level up and spaceshift are 2 of them
 
 
 Done:

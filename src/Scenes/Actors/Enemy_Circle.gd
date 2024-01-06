@@ -3,6 +3,7 @@ class_name Enemy_Circle extends Enemy
 func _ready() -> void:
 	self.add_to_group("Enemies")
 	death.connect(get_parent()._audio)
+	_play_effect.connect(get_parent()._effect)
 	death_sound.resource_name = "Enemy_Death"
 	
 	speed = Vector2(150, 150)
@@ -16,6 +17,7 @@ func _physics_process(delta: float) -> void:
 		var collision = move_and_collide(get_velocity())
 
 func _despose_actor() -> void:
+	emit_signal("_play_effect", self, "Death")
 	super()
 
 

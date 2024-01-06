@@ -1,10 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://bew64g3a40j5f"]
+[gd_scene load_steps=6 format=3 uid="uid://bew64g3a40j5f"]
 
 [ext_resource type="Script" path="res://src/Scenes/Objects/coin.gd" id="1_d02va"]
 [ext_resource type="Texture2D" uid="uid://c34jtthu0n7w" path="res://assets/Objects/coin-0001.png" id="1_ogdu5"]
+[ext_resource type="Texture2D" uid="uid://du6808vui5qe3" path="res://assets/Particle_Effects/star_04.png" id="3_e8kko"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4kywp"]
 radius = 16.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cwqts"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 10.0
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.1
+scale_max = 0.5
+color = Color(1, 1, 0.305882, 0.360784)
 
 [node name="Coin" type="Node2D" groups=["Coins"]]
 script = ExtResource("1_d02va")
@@ -19,5 +31,10 @@ collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_4kywp")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+sub_emitter = NodePath(".")
+process_material = SubResource("ParticleProcessMaterial_cwqts")
+texture = ExtResource("3_e8kko")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

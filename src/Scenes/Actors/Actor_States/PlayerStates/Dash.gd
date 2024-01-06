@@ -7,6 +7,7 @@ signal spaceshift_sound_revert
 
 @onready var player: Player = get_parent().owner as Player
 @onready var dash_timer: Timer = get_parent().get_node('DashTransitionTimer')
+@onready var dash_emitter = get_parent().get_node("Dash_Handler")
 var dash_time: float = 0.15
 
 var direction
@@ -41,9 +42,11 @@ func physics_process(delta: float) -> void:
 		impulse = lerp(target_obj.speed * direction, target_obj.dash_speed * direction * target_speed_modifier, 0.8)
 	
 	target_obj.set_velocity(impulse)
+	dash_emitter.emitting = true
 	
 	if dash_timer.time_left == 0:
 		state_machine._transition_to_state(self, state_machine.states.get('Idle'), {})
+		dash_emitter.emitting = false
 
 
 func on_spaceshift(origin: Node, damage: float) -> void:

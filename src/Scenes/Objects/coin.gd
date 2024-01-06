@@ -1,6 +1,6 @@
 extends Node2D
 
-
+var game_handler: Node
 var exp_value = 1
 
 func _ready() -> void:

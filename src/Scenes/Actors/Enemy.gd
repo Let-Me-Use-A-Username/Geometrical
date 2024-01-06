@@ -3,6 +3,7 @@ class_name Enemy extends CharacterBody2D
 
 #signals
 signal death(sound_name: Resource)
+signal _play_effect(origin: Node, effect: String)
 #Objects
 @onready var coin = preload("res://src/Scenes/Objects/coin.tscn")
 @onready var death_sound = preload("res://assets/Sound/FX/Enemy_Death.wav")
@@ -24,7 +25,6 @@ func _physics_process(delta: float) -> void:
 func _on_remove_health(origin: Node, damage: float) -> void:
 	health -= damage
 	if health <= 0: _despose_actor()
-
 
 func setTarget(node: Node) -> void:
 	if node != null: 
