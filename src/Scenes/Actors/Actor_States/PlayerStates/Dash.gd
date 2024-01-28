@@ -7,7 +7,7 @@ signal spaceshift_sound_revert
 
 @onready var player: Player = get_parent().owner as Player
 @onready var dash_timer: Timer = get_parent().get_node('DashTransitionTimer')
-@onready var dash_emitter = get_parent().get_node("Dash_Handler")
+@onready var dash_emitter = get_parent().get_parent().get_node("Particle_Handler/Dash_Handler")
 var dash_time: float = 0.15
 
 var direction

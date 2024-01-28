@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dg0pyopln4yjk"]
+[gd_scene load_steps=35 format=3 uid="uid://dg0pyopln4yjk"]
 
 [ext_resource type="Script" path="res://src/Scenes/Actors/Player.gd" id="1_rqiwo"]
 [ext_resource type="Texture2D" uid="uid://c0jqbhx8bmfp4" path="res://assets/characters/Circle-0003.png" id="2_olfa5"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://d2tfs3usodkp5" path="res://assets/UI/Abilities/Dash-Pressed.png" id="14_dt6td"]
 [ext_resource type="Script" path="res://src/Scenes/Objects/Audio_Interface.gd" id="23_46uvt"]
 [ext_resource type="Texture2D" uid="uid://cexewbq1euiay" path="res://assets/Particle_Effects/circle_03.png" id="24_qseqx"]
+[ext_resource type="Script" path="res://src/Scenes/Objects/ReverseDirection.gd" id="26_iyrjt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m7ulj"]
 radius = 28.0
@@ -45,13 +46,14 @@ radius = 10.0499
 radius = 28.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_06u6r"]
+particle_flag_align_y = true
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 scale_min = 0.1
 scale_max = 0.5
-color = Color(1, 0.0313726, 0.627451, 1)
+color = Color(1, 0.0313726, 0.627451, 0.470588)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_82xyi"]
 lifetime_randomness = 1.0
@@ -152,12 +154,6 @@ script = ExtResource("6_dhbsk")
 [node name="DashTransitionTimer" type="Timer" parent="StateMachine"]
 
 [node name="KnockbackTimer" type="Timer" parent="StateMachine"]
-
-[node name="Dash_Handler" type="GPUParticles2D" parent="StateMachine"]
-sub_emitter = NodePath(".")
-process_material = SubResource("ParticleProcessMaterial_06u6r")
-texture = ExtResource("11_oae2p")
-script = ExtResource("12_sto4q")
 
 [node name="Upgrade_Factory" type="Node" parent="."]
 script = ExtResource("7_b61lc")
@@ -277,10 +273,20 @@ current = true
 
 [node name="Particle_Handler" type="Node2D" parent="."]
 
+[node name="Dash_Handler" type="GPUParticles2D" parent="Particle_Handler"]
+position = Vector2(0, -8)
+sub_emitter = NodePath(".")
+process_material = SubResource("ParticleProcessMaterial_06u6r")
+texture = ExtResource("11_oae2p")
+script = ExtResource("12_sto4q")
+
 [node name="Movement_Handler" type="GPUParticles2D" parent="Particle_Handler"]
 position = Vector2(0, -8)
 sub_emitter = NodePath(".")
 process_material = SubResource("ParticleProcessMaterial_82xyi")
 texture = ExtResource("24_qseqx")
+
+[node name="ReverseDirection" type="RayCast2D" parent="Particle_Handler"]
+script = ExtResource("26_iyrjt")
 
 [connection signal="area_entered" from="CollitionArea" to="." method="_on_collition_area_area_entered"]

@@ -1,5 +1,5 @@
 fc8a56933c4b1c8d796fdb8f7a9f9475
-::res://::1704545050
+::res://::1706440313
 default_env.tres::Environment::-1::1696694231::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1698479368::0::1::::<><>::
 icon.svg::CompressedTexture2D::6694984656523701901::1689842968::1689842975::1::::<><>::
@@ -15,7 +15,7 @@ Triangle-0003.png::CompressedTexture2D::2401072697188868556::1691868974::1691868
 ::res://assets/Objects/::1693041346
 coin-0001.png::CompressedTexture2D::199958156965820082::1693041340::1693041346::1::::<><>::
 Triangle-Bullet-0001.png::CompressedTexture2D::4118134574255560628::1692087222::1692087613::1::::<><>::
-::res://assets/Particle_Effects/::1704546188
+::res://assets/Particle_Effects/::1704549272
 circle_01.png::CompressedTexture2D::2671401487432344631::1702807542::1702809475::1::::<><>::
 circle_02.png::CompressedTexture2D::311647487740556481::1702807542::1702809475::1::::<><>::
 circle_03.png::CompressedTexture2D::5101359664146362584::1702807542::1702809475::1::::<><>::
@@ -106,7 +106,7 @@ Timefreeze.png::CompressedTexture2D::6078337031907783219::1696928182::1696929105
 SkillTree.txt::TextFile::-1::1699007981::0::1::::<><>::
 TODO.txt::TextFile::-1::1704540310::0::1::::<><>::
 ::res://src/Scenes/::1702125131
-::res://src/Scenes/Actors/::1704549246
+::res://src/Scenes/Actors/::1704549546
 Actor.gd::GDScript::-1::1696931449::0::1::::Actor<>CharacterBody2D<>::
 Enemy.gd::GDScript::-1::1704547280::0::1::::Enemy<>CharacterBody2D<>::
 Enemy_Circle.gd::GDScript::-1::1704546404::0::1::::Enemy_Circle<>Enemy<>::
@@ -116,7 +116,7 @@ Enemy_Square.tscn::PackedScene::1116593206901145264::1699014069::0::1::::<><>::r
 Enemy_Triangle.gd::GDScript::-1::1704546476::0::1::::Enemy_Triangle<>Enemy<>::
 Enemy_Triangle.tscn::PackedScene::722964455924076030::1699012689::0::1::::<><>::res://src/Scenes/Actors/Enemy_Triangle.gd<>uid://bahdk05tgu7oq
 Player.gd::GDScript::-1::1704547679::0::1::::Player<>Actor<>::
-Player.tscn::PackedScene::7632958929721504500::1704549246::0::1::::<><>::res://src/Scenes/Actors/Player.gd<>uid://c0jqbhx8bmfp4::::res://assets/characters/Circle-0003.png<>uid://dvetaajy3ogw8::::res://assets/UI/Abilities/Summon-Rings-Sprite.png<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Rings_Controller.gd<>res://src/Scenes/Actors/Actor_States/PlayerStates/PlayerStateMachine.gd<>res://src/Scenes/Actors/Actor_States/PlayerStates/Idle.gd<>res://src/Scenes/Actors/Actor_States/PlayerStates/Move.gd<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Gunslinger_Controller.gd<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Explotion_Controller.gd<>res://src/Scenes/Actors/Actor_States/PlayerStates/Dash.gd<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/upgrade_factory.gd<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Upgrade_Handler.gd<>res://src/Scenes/Objects/Input_Handler.gd<>res://src/Scenes/External/joystick/virtual_joystick.gd<>uid://bm30au8mjfc2f::::res://src/Scenes/External/joystick/textures/joystick_base_outline.png<>uid://v05er60i0r2l::::res://assets/Particle_Effects/trace_05.png<>uid://gyhgyqndf1kg::::res://assets/characters/Circle-0003-black.png<>uid://dt13r06u87fib::::res://src/Scenes/External/joystick/textures/joystick_tip_arrows.png<>res://src/Scenes/UI/user_interface.gd<>res://src/Scenes/Objects/Dash_Emitter_Handler.gd<>res://src/Scenes/External/DashButton.gd<>uid://1l6eb7778jxy::::res://src/Scenes/UI/healthbar.tres<>uid://b4ajussjqr02o::::res://assets/UI/Abilities/Dash.png<>uid://d2tfs3usodkp5::::res://assets/UI/Abilities/Dash-Pressed.png<>res://src/Scenes/Objects/Audio_Interface.gd<>uid://cexewbq1euiay::::res://assets/Particle_Effects/circle_03.png
+Player.tscn::PackedScene::7632958929721504500::1704549546::0::1::::<><>::res://src/Scenes/Actors/Player.gd<>uid://c0jqbhx8bmfp4::::res://assets/characters/Circle-0003.png<>uid://dvetaajy3ogw8::::res://assets/UI/Abilities/Summon-Rings-Sprite.png<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Rings_Controller.gd<>res://src/Scenes/Actors/Actor_States/PlayerStates/PlayerStateMachine.gd<>res://src/Scenes/Actors/Actor_States/PlayerStates/Idle.gd<>res://src/Scenes/Actors/Actor_States/PlayerStates/Move.gd<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Gunslinger_Controller.gd<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Explotion_Controller.gd<>res://src/Scenes/Actors/Actor_States/PlayerStates/Dash.gd<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/upgrade_factory.gd<>res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/Upgrade_Handler.gd<>res://src/Scenes/Objects/Input_Handler.gd<>res://src/Scenes/External/joystick/virtual_joystick.gd<>uid://bm30au8mjfc2f::::res://src/Scenes/External/joystick/textures/joystick_base_outline.png<>uid://v05er60i0r2l::::res://assets/Particle_Effects/trace_05.png<>uid://dt13r06u87fib::::res://src/Scenes/External/joystick/textures/joystick_tip_arrows.png<>res://src/Scenes/UI/user_interface.gd<>res://src/Scenes/Objects/Dash_Emitter_Handler.gd<>res://src/Scenes/External/DashButton.gd<>uid://1l6eb7778jxy::::res://src/Scenes/UI/healthbar.tres<>uid://b4ajussjqr02o::::res://assets/UI/Abilities/Dash.png<>uid://d2tfs3usodkp5::::res://assets/UI/Abilities/Dash-Pressed.png<>res://src/Scenes/Objects/Audio_Interface.gd<>uid://cexewbq1euiay::::res://assets/Particle_Effects/circle_03.png
 ::res://src/Scenes/Actors/Actor_Abilities/::1696674760
 ::res://src/Scenes/Actors/Actor_Abilities/PlayerAbilities/::1703591746
 ability.gd::GDScript::-1::1698136603::0::1::::Ability<>RefCounted<>::
@@ -133,8 +133,8 @@ Upgrade_Handler.gd::GDScript::-1::1696930829::0::1::::Upgrade_Handler<>Node<>::
 Triangle_projectile.gd::GDScript::-1::1699019410::0::1::::<>CharacterBody2D<>::
 Triangle_projectile.tscn::PackedScene::2609480059291011551::1696674760::0::1::::<><>::res://src/Scenes/Actors/Actor_Abilities/TriangleAbilities/Triangle_projectile.gd<>uid://byw4cso2f81l5
 ::res://src/Scenes/Actors/Actor_States/::1696674710
-::res://src/Scenes/Actors/Actor_States/PlayerStates/::1704548171
-Dash.gd::GDScript::-1::1704548171::0::1::::<>PlayerState<>::
+::res://src/Scenes/Actors/Actor_States/PlayerStates/::1704549541
+Dash.gd::GDScript::-1::1704549541::0::1::::<>PlayerState<>::
 Idle.gd::GDScript::-1::1692172014::0::1::::<>PlayerState<>::
 Move.gd::GDScript::-1::1702813370::0::1::::<>PlayerState<>::
 PlayerState.gd::GDScript::-1::1692171946::0::1::::PlayerState<>State<>::
@@ -160,17 +160,17 @@ virtual_joystick.tscn::PackedScene::8038149555967335895::1696694277::0::1::::<><
 joystick_base_outline.png::CompressedTexture2D::3288008411285325467::1696694232::1696694277::1::::<><>::
 joystick_tip.png::CompressedTexture2D::3132432681801126628::1696694232::1696694277::1::::<><>::
 joystick_tip_arrows.png::CompressedTexture2D::8548255698028078709::1696694232::1696694277::1::::<><>::
-::res://src/Scenes/Levels/::1704549246
+::res://src/Scenes/Levels/::1704549546
 GameHandler.gd::GDScript::-1::1704547672::0::1::::<>Node2D<>::
-level.tscn::PackedScene::7843570102174943767::1704549246::0::1::::<><>::uid://gd318d321cj4::::res://assets/start-assets/tileset.png<>uid://b012unt77tolv::::res://assets/characters/Tileset-0001.png<>res://src/Scenes/Levels/GameHandler.gd<>uid://dg0pyopln4yjk::::res://src/Scenes/Actors/Player.tscn<>uid://cwnxje036q6te::::res://src/Scenes/UI/pause_menu.tscn<>uid://bvv4ac78ehbgv::::res://src/Scenes/UI/quit_menu.tscn<>uid://oyga3m0gt1e8::::res://src/Scenes/Objects/Enemy_factory.tscn<>uid://bn77akk20dp33::::res://src/Scenes/UI/level_up_menu.tscn
-::res://src/Scenes/Objects/::1704549052
+level.tscn::PackedScene::7843570102174943767::1704549546::0::1::::<><>::uid://gd318d321cj4::::res://assets/start-assets/tileset.png<>uid://b012unt77tolv::::res://assets/characters/Tileset-0001.png<>res://src/Scenes/Levels/GameHandler.gd<>uid://dg0pyopln4yjk::::res://src/Scenes/Actors/Player.tscn<>uid://cwnxje036q6te::::res://src/Scenes/UI/pause_menu.tscn<>uid://bvv4ac78ehbgv::::res://src/Scenes/UI/quit_menu.tscn<>uid://oyga3m0gt1e8::::res://src/Scenes/Objects/Enemy_factory.tscn<>uid://bn77akk20dp33::::res://src/Scenes/UI/level_up_menu.tscn
+::res://src/Scenes/Objects/::1704549545
 Audio_Interface.gd::GDScript::-1::1703591406::0::1::::<>Node<>::
 coin.gd::GDScript::-1::1704547259::0::1::::<>Node2D<>::
 coin.tscn::PackedScene::2714526742067920317::1704547627::0::1::::<><>::res://src/Scenes/Objects/coin.gd<>uid://c34jtthu0n7w::::res://assets/Objects/coin-0001.png<>uid://du6808vui5qe3::::res://assets/Particle_Effects/star_04.png
+Dash_Emitter_Handler.gd::GDScript::-1::1704549545::0::1::::<>GPUParticles2D<>::
 Enemy_factory.gd::GDScript::-1::1699268541::0::1::::<>Node<>::
 Enemy_factory.tscn::PackedScene::1032554669322624425::1699269194::0::1::::<><>::res://src/Scenes/Objects/Enemy_factory.gd
 Input_Handler.gd::GDScript::-1::1699697705::0::1::::Input_Handler<>Node<>::
-Dash_Emitter_Handler.gd::GDScript::-1::1704549052::0::1::::<>GPUParticles2D<>::
 ::res://src/Scenes/States_and_Machines/::1696674821
 State.gd::GDScript::-1::1692176536::0::1::::State<>Node<>::
 StateMachine.gd::GDScript::-1::1692343014::0::1::::State_Machine<>Node<>::
